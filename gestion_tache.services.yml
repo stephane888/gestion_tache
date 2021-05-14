@@ -1,0 +1,16 @@
+services:
+  gestion_tache.api:
+    class: Drupal\gestion_tache\Services\GestionProject\GestionProject
+    arguments: ['@gestion_tache.search','@gestion_tache.load','@gestion_tache.breackcrumb']
+    
+  gestion_tache.search:
+    class: Drupal\gestion_tache\Services\GestionProject\Ressources\Search
+    arguments: ['@database','@request_stack']
+    
+  gestion_tache.load:
+    class: Drupal\gestion_tache\Services\GestionProject\Ressources\Load
+    arguments: ['@database','@request_stack']
+    
+  gestion_tache.breackcrumb:
+    class: Drupal\gestion_tache\Services\GestionProject\Ressources\BreackCrumb
+    arguments: ['@database','@request_stack','@gestion_tache.load']

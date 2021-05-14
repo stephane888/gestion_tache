@@ -1,0 +1,4 @@
+administer gestion_tache configuration:
+  title: 'Administer gestion_tache configuration'
+  description: 'Optional description.'
+  restrict access: true

@@ -1,0 +1,68 @@
+gestion_tache.search:
+  path: "/gestion-project/search"
+  methods: [POST]
+  defaults:
+    _title: 'Recherche'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Search'
+  requirements:
+    _permission: 'access content'
+
+    
+gestion_tache.Load_project:   
+  path: "/gestion-project/project/{id}"
+  methods: [GET]
+  defaults:
+    _title: 'Recherche'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProject'
+  requirements:
+    _permission: 'access content'
+
+    
+gestion_tache.Load_project_with_childrens:   
+  path: "/gestion-project/project-with-childs/{id}"
+  methods: [GET,POST]
+  defaults:
+    _title: 'Recherche'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProjectWithChildrens'
+  requirements:
+    _permission: 'access content'
+
+
+# L'utilisateur doit etre administrateur.
+gestion_tache.save:   
+  path: "/gestion-project/save-update"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Save'
+  requirements:
+    _permission: 'access content'
+
+
+# L'utilisateur doit etre administrateur.  
+# La selection est contenu la body.  
+gestion_tache.select:   
+  path: "/gestion-project/select"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Select'
+  requirements:
+    _permission: 'access content'
+
+
+# Les données à selectionner sont definit par le paramettre.   
+# Les parametres sont dans le body.  
+gestion_tache.custom_select:   
+  path: "/gestion-project/select/{query_param}"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::CustomSelect'
+  requirements:
+    _permission: 'access content'
+    
+    
+    
+    
+    
