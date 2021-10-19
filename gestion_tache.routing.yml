@@ -13,7 +13,7 @@ gestion_tache.search:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Search'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__reserve_content'
 
     
 gestion_tache.Load_project:   
@@ -23,7 +23,7 @@ gestion_tache.Load_project:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProject'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__reserve_content'
 
     
 gestion_tache.Load_project_with_childrens:   
@@ -33,7 +33,7 @@ gestion_tache.Load_project_with_childrens:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProjectWithChildrens'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__reserve_content'
 
 
 # L'utilisateur doit etre administrateur.
@@ -44,7 +44,7 @@ gestion_tache.save:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Save'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__reserve_content'
 
 
 # L'utilisateur doit etre administrateur.  
@@ -56,7 +56,7 @@ gestion_tache.select:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Select'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__reserve_content'
 
 
 # Les données à selectionner sont definit par le paramettre.   
@@ -68,7 +68,7 @@ gestion_tache.custom_select:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::CustomSelect'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__reserve_content'
     
     
     

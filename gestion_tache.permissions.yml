@@ -1,4 +1,20 @@
 administer gestion_tache configuration:
   title: 'Administer gestion_tache configuration'
   description: 'Optional description.'
-  restrict access: true
+  restrict access: TRUE
+
+
+gestion_tache__protect_content:
+  title: 'Gerer les contenus sensible'
+  description: 'Les contenus protegés sont accessible uniquement par les super-administrateurs'
+  restrict access: TRUE
+
+gestion_tache__reserve_content:
+  title: 'Les contenus reservés sont accessible par des emploiés sur, ce sont les informations sur les configurations de serveurs'
+  description: 'Optional description.'
+  restrict access: TRUE
+
+gestion_tache__emploie_content:
+  title: 'Ses contenus sont accessibles pas tous les emploies'
+  description: 'Optional description.'
+  restrict access: TRUE

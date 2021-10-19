@@ -34,7 +34,8 @@ vuejs:
     url: https://github.com/vuejs/vue/blob/dev/LICENSE
     gpl-compatible: true
   js:
-    https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js: {type: external, minified: true}
+    #https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js: {type: external, minified: true}
+    js/vue.min.js: {}
 
 #
 app_gestion_tache:
