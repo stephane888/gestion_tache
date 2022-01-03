@@ -1,6 +1,7 @@
 {
     "name": "stephane888/gestion_tache",
     "type": "drupal-module-custom",
+    "description": "outil de gestion des taches sous drupal 8/9",
     "license": "MIT",
     "authors": [
         {
@@ -9,5 +10,8 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+    	"stephane888/query_ajax": "^1.0",
+    	"stephane888/filesmanager": "^1.0"
+    }
 }
