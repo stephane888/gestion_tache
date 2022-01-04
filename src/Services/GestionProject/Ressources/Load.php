@@ -146,8 +146,8 @@ class Load {
             $inserts[$k]['fields']['lastupdateuid'] = $this->user->id();
           }
           else {
-            $value['fields']['lastupdateuid'] = $this->user->id();
-            $value['fields']['uid'] = $this->user->id();
+            $inserts[$k]['fields']['lastupdateuid'] = $this->user->id();
+            $inserts[$k]['fields']['uid'] = $this->user->id();
           }
         }
         else {
