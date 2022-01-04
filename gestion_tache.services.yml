@@ -5,11 +5,11 @@ services:
     
   gestion_tache.search:
     class: Drupal\gestion_tache\Services\GestionProject\Ressources\Search
-    arguments: ['@database','@request_stack']
+    arguments: ['@database','@request_stack','@current_user']
     
   gestion_tache.load:
     class: Drupal\gestion_tache\Services\GestionProject\Ressources\Load
-    arguments: ['@database','@request_stack']
+    arguments: ['@database','@request_stack','@current_user']
     
   gestion_tache.breackcrumb:
     class: Drupal\gestion_tache\Services\GestionProject\Ressources\BreackCrumb

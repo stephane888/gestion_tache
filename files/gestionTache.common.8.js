@@ -1,41 +1,23 @@
 ((typeof self !== 'undefined' ? self : this)["webpackJsonpgestionTache"] = (typeof self !== 'undefined' ? self : this)["webpackJsonpgestionTache"] || []).push([[8],{
 
-/***/ "1267":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "5724":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Search_vue_vue_type_style_index_1_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("1267");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Search_vue_vue_type_style_index_1_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Search_vue_vue_type_style_index_1_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "618c":
+/***/ "1864":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"051d4be2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/project/CardComponent.vue?vue&type=template&id=7cbbb7da&
-var CardComponentvue_type_template_id_7cbbb7da_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"card-block card-render-entity"},[_c('CCard',[_c('CCardHeader',{staticClass:"shadow-sm",class:[
-        'card-progress  card-color card-border card-border--' + _vm.dataLoad.type,
-        _vm.background ]},[_c('CLink',{staticClass:"text-dark text-decoration-none link-card",attrs:{"to":'/projets/' + _vm.dataLoad.idcontents}},[_vm._v(_vm._s(_vm.dataLoad.titre)+" ")]),_c('div',{staticClass:"px-2 date-created"},[_c('small',[_vm._v(_vm._s(_vm.createdAt))])]),(_vm.progress.val && _vm.progress.max)?_c('CProgress',{staticClass:"progress-xs card-prog",staticStyle:{"height":"10px"},attrs:{"animated":_vm.dataLoad.status === '1' ? false : true,"showPercentage":"","striped":_vm.dataLoad.status === '1' ? false : true,"max":_vm.progress.max,"value":_vm.progress.val,"color":_vm.color(_vm.progress.val, _vm.progress.max)}}):_vm._e(),_c('div',{staticClass:"card-header-actions"},[_c('CLink',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Afficher/Cacher la description'),expression:"'Afficher/Cacher la description'"}],staticClass:"btn-close m-2",attrs:{"href":"#"},on:{"click":function($event){_vm.descToggle = !_vm.descToggle}}},[_c('CIcon',{attrs:{"name":("cil-chevron-circle-" + (_vm.descToggle ? 'down' : 'up') + "-alt")}})],1),_c('CLink',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Edité le contenu'),expression:"'Edité le contenu'"}],staticClass:"btn-close m-2",attrs:{"href":"#"},on:{"click":_vm.modalEditOn}},[_c('CIcon',{attrs:{"name":"cil-pencil"}})],1),_c('CLink',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Modifier le parent'),expression:"'Modifier le parent'"}],staticClass:"btn-close m-2",attrs:{"href":"#"},on:{"click":_vm.changeParent}},[_c('CIcon',{attrs:{"name":"cil-cursor-move"}})],1),_c('CLink',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Créer un sous contenu'),expression:"'Créer un sous contenu'"}],staticClass:"btn-close m-1",attrs:{"href":"#"},on:{"click":_vm.HideTypeProject}},[_c('CIcon',{attrs:{"name":"cil-plus"}})],1),_c('CLink',{staticClass:"m-2 btn-setting",attrs:{"href":"#"},on:{"click":_vm.modalRessourceOn}},[_c('CIcon',{attrs:{"name":"cil-settings"}})],1),_c('CLink',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Afficher/Cacher les sous projects'),expression:"'Afficher/Cacher les sous projects'"}],staticClass:"m-1 btn-minimize",on:{"click":_vm.Collapsed}},[_c('CIcon',{attrs:{"name":("cil-chevron-" + (_vm.dataLoad.open ? 'bottom' : 'top'))}})],1),_c('CLink',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Supprimer ce contenu'),expression:"'Supprimer ce contenu'"}],staticClass:"m-2 btn-close text-danger",attrs:{"href":"#"},on:{"click":_vm.DeleteModalOn}},[_c('CIcon',{attrs:{"color":"danger","name":"cil-x-circle"}})],1)],1)],1),_c('CCollapse',{attrs:{"show":_vm.dataLoad.open,"duration":400}},[_c('CCardBody',[_c('CCollapse',{attrs:{"show":_vm.descToggle,"duration":400}},[_c('div',{domProps:{"innerHTML":_vm._s(_vm.textDisplay)}})]),_vm._t("default")],2)],1)],1),_c('CModal',{attrs:{"title":"Confirmer la suppression","color":"danger","show":_vm.deleteModal},on:{"update:show":function($event){_vm.deleteModal=$event}}},[_vm._v(" êtes vous sûre de vouloir supprimer ce contenu? "),_c('br'),_c('small',{staticClass:"mt-2 text-center"},[_vm._v("Cette action est irréversible.")]),_c('template',{slot:"footer"},[_c('div',{staticClass:"d-flex justify-content-end mr-3"},[_c('CButton',{staticClass:"mx-1",attrs:{"color":"light"},on:{"click":function($event){_vm.deleteModal = false}}},[_vm._v("Cancel")]),_c('CButton',{staticClass:"mx-1",attrs:{"color":"danger","desabled":""},on:{"click":_vm.DeleteContent}},[_vm._v("Supprimer")])],1)])],2),_c('CModal',{attrs:{"title":"Modification de la hiérarchie","color":"dark","show":_vm.hierarchiModal},on:{"update:show":function($event){_vm.hierarchiModal=$event}}},[_c('CRow',[_c('CCol',{staticClass:"mr-0 pr-0",attrs:{"col":"8","sm":"5"}},[_c('CInput',{attrs:{"label":"Ordre:","type":"number","horizontal":""},model:{value:(_vm.newIdParrent.ordre),callback:function ($$v) {_vm.$set(_vm.newIdParrent, "ordre", $$v)},expression:"newIdParrent.ordre"}})],1),_c('CCol',{attrs:{"md":"10"}},[_c('SSearch',{on:{"parent-selected":_vm.parentSelected}}),_c('small',[_vm._v("Choisir le nouveau parent")]),_vm._v(" "),_c('br'),_c('small',[_vm._v("Parent Actuel: "),_c('strong',[_vm._v(_vm._s(_vm.dataLoad.idcontentsparent))])])],1)],1),_c('template',{slot:"footer"},[_c('div',{staticClass:"d-flex justify-content-end mr-3"},[_c('CButton',{staticClass:"mx-1",attrs:{"color":"light"},on:{"click":function($event){_vm.hierarchiModal = false}}},[_vm._v("Cancel")]),_c('CButton',{staticClass:"mx-1",attrs:{"color":"dark","desabled":""},on:{"click":_vm.ChangeHierarchie}},[_vm._v("Enregistrer "),(_vm.spinner)?_c('CSpinner',{staticStyle:{"width":"1rem","height":"1rem"},attrs:{"size":"sm","tag":"small","color":"primary"}}):_vm._e()],1)],1)])],2)],1)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"780923cc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/facture/NewFacture.vue?vue&type=template&id=1bf42f60&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('CRow',[_c('CCol',[_c('CCard',[_c('CCardHeader',[_c('strong',[_vm._v("Édition facture N°: "+_vm._s(this.id))]),_c('div',{staticClass:"card-header-actions"},[_c('CButton',{directives:[{name:"c-tooltip",rawName:"v-c-tooltip",value:('Nouveau service'),expression:"'Nouveau service'"}],staticClass:"p-0 pl-1 pr-1 mr-3",attrs:{"color":"info"},on:{"click":function($event){_vm.colapse = !_vm.colapse}}},[_c('CIcon',{attrs:{"name":("cil-chevron-" + (_vm.colapse ? 'bottom' : 'top'))}})],1)],1)]),(_vm.colapse)?_c('div',[_c('CCardBody',[(!_vm.isLoading)?_c('div',{staticClass:"d-flex flex-wrap"},[_c('CCol',{attrs:{"sm":"6","md":"5"}},[_c('CInput',{attrs:{"placeholder":"libellé du service","wasValidated":_vm.wasValidated,"validFeedback":"ok","invalidFeedback":"requis","isValid":_vm.inputValidation,"label":" titre:"},model:{value:(_vm.invoiceData.titre),callback:function ($$v) {_vm.$set(_vm.invoiceData, "titre", $$v)},expression:"invoiceData.titre"}})],1),_c('CCol',{attrs:{"sm":"4","md":"3"}},[_c('CInput',{attrs:{"placeholder":"100.00","append":"$","label":" Coût","wasValidated":_vm.priceValidated,"validFeedback":"ok","invalidFeedback":"requis","isValid":_vm.priceValidation},model:{value:(_vm.invoiceData.cout),callback:function ($$v) {_vm.$set(_vm.invoiceData, "cout", $$v)},expression:"invoiceData.cout"}})],1),_c('CCol',{attrs:{"sm":"8","md":"6"}},[_c('CTextarea',{attrs:{"label":" description:","placeholder":"ajouter une description"},model:{value:(_vm.invoiceData.description),callback:function ($$v) {_vm.$set(_vm.invoiceData, "description", $$v)},expression:"invoiceData.description"}})],1)],1):_vm._e(),(_vm.isLoading)?_c('CRow',{attrs:{"alignHorizontal":"center"}},[_c('CCol',{staticClass:"p-3",attrs:{"sm":"3"}},[_c('CSpinner',{staticStyle:{"width":"4rem","height":"4rem"},attrs:{"color":"info","grow":""}})],1)],1):_vm._e()],1),_c('CCardFooter',[_c('CButton',{attrs:{"type":"submit","size":"sm","color":"primary"}},[_c('CIcon',{attrs:{"name":"cilCloudDownload"}}),_vm._v(" Exporter")],1),_c('CButton',{staticClass:"mx-3",attrs:{"type":"reset","size":"sm","color":_vm.checkForSave ? 'success' : 'light'},on:{"click":_vm.PostFactureList}},[_c('CIcon',{attrs:{"name":"cil-check-circle"}}),_vm._v(" Ajouter "),(_vm.spinnerSave)?_c('CSpinner',{staticStyle:{"width":"1rem","height":"1rem"},attrs:{"size":"sm","tag":"small","color":"danger"}}):_vm._e()],1),_c('CButton',{staticClass:"mx-3",attrs:{"size":"sm","color":"dark"},on:{"click":function($event){_vm.hideFact = !_vm.hideFact}}},[_c('CIcon',{attrs:{"name":"cil-low-vision"}}),_vm._v(" Aperçue")],1)],1)],1):_vm._e()],1)],1)],1),_c('vue-html2pdf',{ref:"html2Pdf",attrs:{"show-layout":false,"float-layout":true,"enable-download":true,"preview-modal":true,"paginate-elements-by-height":1400,"filename":"hee hee","pdf-quality":2,"manual-pagination":false,"pdf-format":"a4","pdf-orientation":"landscape","pdf-content-width":"800px"},on:{"progress":function($event){return _vm.onProgress($event)},"hasStartedGeneration":function($event){return _vm.hasStartedGeneration()},"hasGenerated":function($event){return _vm.hasGenerated($event)}}},[_c('section',{attrs:{"slot":"pdf-content"},slot:"pdf-content"},[_vm._v(" hello "),(_vm.hideFact)?_c('CRow',{attrs:{"alignHorizontal":"center"}},[_c('CCol',{attrs:{"col":"10"}},[_c('CCard',{staticClass:"facture shadow"},[_c('div',{staticClass:"facture__header"},[_c('CRow',{staticClass:"first-header text-center p-5 m-0",attrs:{"alignVertical":"center"}},[_c('CCol',[_c('img',{staticClass:"pr-2 mt-2",attrs:{"src":__webpack_require__("f840"),"height":"40","width":"150"}})]),_c('CCol',{staticClass:"display-inv"},[_vm._v(" FACTURE N°: "),_c('strong',[_vm._v(_vm._s(_vm.factureData.numero))])])],1),_c('CRow',{staticClass:"second-header m-0 text-center",attrs:{"alignVertical":"center"}},[_c('CCol',{staticClass:"bg-info pt-2"},[_c('p',[_vm._v(" Invoice # "),_c('strong',[_vm._v(_vm._s(_vm.factureData.numero))])])]),_c('CCol',{staticClass:"pt-2"},[_c('p',[_c('Strong',{staticClass:"px-2"},[_vm._v("Date:")]),_vm._v(" 01/02/2020")],1)])],1)],1),_c('CRow',{staticClass:"my-3",attrs:{"tag":"div"}},[_c('CCol',{staticClass:"facture__id p-3 d-flex ml-4 justify-content-start"},[_c('h5',[_vm._v("Invoice of :")]),_c('div',{staticClass:"ml-2"},[_c('h5',{staticClass:"text-uppercase"},[_vm._v(" "+_vm._s(_vm.societeInfoste.nom)+" ")]),_c('h6',[_vm._v(_vm._s(_vm.societeInfoste.adresse))]),_c('h6',[_vm._v("Tel: "+_vm._s(_vm.societeInfoste.phone))]),_c('h6',[_vm._v("site web: "+_vm._s(_vm.societeInfoste.siteweb))]),_c('h6',[_vm._v("Email: "+_vm._s(_vm.societeInfoste.email))]),_c('h6',[_vm._v("Émit par: "+_vm._s(_vm.infoSte.nom)+" "+_vm._s(_vm.infoSte.prenom))])])]),_c('CCol',{staticClass:"\n                  facture__id\n                  p-3\n                  d-flex\n                  mr-5\n                  pr-3\n                  justify-content-center\n                "},[_c('h5',[_vm._v("Invoice to :")]),_c('div',{staticClass:"ml-2"},[_c('h5',{staticClass:"text-uppercase"},[_vm._v(" "+_vm._s(_vm.societeInfoClient.nom)+" ")]),_c('h6',[_vm._v(_vm._s(_vm.clientInfo.nom)+" "+_vm._s(_vm.clientInfo.prenom))]),_c('h6',[_vm._v(_vm._s(_vm.societeInfoClient.adresse))]),_c('h6',[_vm._v("site web: "+_vm._s(_vm.societeInfoClient.siteweb))]),_c('h6',[_vm._v("Tel: "+_vm._s(_vm.societeInfoClient.phone))]),_c('h6',[_vm._v("Email: "+_vm._s(_vm.societeInfoClient.email))])])])],1),_c('CRow',{staticClass:"mb-2",attrs:{"alignHorizontal":"center","alignVertical":"center"}},[_c('CCol',{staticClass:"d-flex aligns-item-center ml-4",attrs:{"md":"11"}},[_vm._v(" OBJECT: "),_c('strong',{staticClass:"ml-3 m-0"},[_vm._v(" "+_vm._s(_vm.factureData.objet)+" ")])])],1),_c('CModal',{attrs:{"closeOnBackdrop":false,"color":"dark","show":_vm.editRow,"footer":false,"size":"lg"},on:{"update:show":function($event){_vm.editRow=$event}}},[_c('CRow',[_c('CCol',{attrs:{"sm":"7","lg":"5"}},[_c('CInput',{attrs:{"placeholder":"libellé du service","wasValidated":_vm.wasValidated,"validFeedback":"ok","invalidFeedback":"requis","isValid":_vm.inputValidation,"label":" titre:"},model:{value:(_vm.invoiceData.titre),callback:function ($$v) {_vm.$set(_vm.invoiceData, "titre", $$v)},expression:"invoiceData.titre"}})],1),_c('CCol',{attrs:{"sm":"6","lg":"3"}},[_c('CInput',{attrs:{"placeholder":"100.00","append":"$","label":" Coût","wasValidated":_vm.priceValidated,"isValid":_vm.priceValidation},model:{value:(_vm.invoiceData.cout),callback:function ($$v) {_vm.$set(_vm.invoiceData, "cout", $$v)},expression:"invoiceData.cout"}})],1)],1),_c('CRow',[_c('CCol',{attrs:{"sm":"8","lg":"6"}},[_c('CTextarea',{attrs:{"label":" description:","placeholder":"ajouter une description"},model:{value:(_vm.invoiceData.description),callback:function ($$v) {_vm.$set(_vm.invoiceData, "description", $$v)},expression:"invoiceData.description"}})],1)],1),_c('template',{slot:"footer"},[_c('div',{staticClass:"d-flex justify-content-end mr-3"},[_c('CButton',{staticClass:"mx-1",attrs:{"color":"light"},on:{"click":function($event){_vm.editRow = false}}},[_vm._v(" Cancel ")]),_c('CButton',{staticClass:"mx-1",attrs:{"color":_vm.checkForSave ? 'info' : 'light'},on:{"click":_vm.EditeFactureList}},[_vm._v(" Save "),(_vm.spinnerSave)?_c('CSpinner',{staticStyle:{"width":"1rem","height":"1rem"},attrs:{"size":"sm","tag":"small","color":"warning"}}):_vm._e()],1),_c('CButton',{staticClass:"mx-1",attrs:{"color":"danger","size":"sm","variant":"ghost"},on:{"click":_vm.deleteFacturelist}},[_vm._v(" Supprimer "),(_vm.spinner)?_c('CSpinner',{staticStyle:{"width":"1rem","height":"1rem"},attrs:{"size":"sm","tag":"small","color":"primary"}}):_vm._e()],1)],1)])],2),_c('CRow',{staticClass:"mb-2",attrs:{"alignHorizontal":"center"}},[_c('CCol',{attrs:{"md":"11"}},[_c('CDataTable',{attrs:{"striped":"","outlined":"","hover":"","loading":_vm.isLoading,"responsive":false,"items":_vm.factTable,"fields":_vm.facFields,"head-color":"light","clickableRows":true,"no-sorting":""},on:{"row-clicked":_vm.ligneClique},scopedSlots:_vm._u([{key:"total",fn:function(ref){
+var item = ref.item;
+return _c('td',{},[_c('Strong',[_vm._v(_vm._s(item.cout))])],1)}}],null,false,1043895145)},[_c('td',{attrs:{"slot":"Qte"},slot:"Qte"},[_c('Strong',[_vm._v(_vm._s(1))])],1)])],1)],1),_c('CRow',{staticClass:"mt-2",attrs:{"alignHorizontal":"center"}},[_c('CCol',{staticClass:"d-flex",attrs:{"col":"11"}},[_c('CCol',{attrs:{"col":"6"}},[_c('div',[_c('h5',[_vm._v("Payment Info:")]),_c('p',{staticClass:"m-0"},[_vm._v(" Account #: "),_c('strong',{staticClass:"ml-2"},[_vm._v(" 551 254 251 015")])]),_c('p',{staticClass:"m-0"},[_vm._v(" ACT Name: "),_c('strong',{staticClass:"ml-2"},[_vm._v(" Lorem Ipsum")])]),_c('p',{staticClass:"m-0"},[_vm._v(" Bank details:"),_c('strong',{staticClass:"ml-2"},[_vm._v(" Add Your bank Details ")])])])]),_c('CCol',{staticClass:"ml-5",attrs:{"col":"6"}},[_c('div',{staticClass:"\n                      d-flex\n                      justify-content-around\n                      bg-info\n                      mt-2\n                      text-white\n                      p-2\n                      mr-4\n                    "},[_c('h5',[_vm._v("Total:")]),_c('span',{staticClass:"ml-5 h5"},[_vm._v(_vm._s(_vm.TotalFacture)+" $")])])])],1)],1),_c('CRow',{staticClass:"mt-5 mb-4",attrs:{"alignHorizontal":"center"}},[_c('CCol',{staticClass:"d-flex mb-3",attrs:{"col":"11"}},[_c('CCol',{attrs:{"col":"6"}},[_c('h5',[_vm._v("Terms & conditions")]),_c('h6',{staticClass:"p-0 m-0"},[_vm._v(" Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate architecto cum aliquam aut ut? ")])]),_c('CCol',{staticClass:"pt-4 mt-5 text-center",attrs:{"col":"6"}},[_c('p',{staticClass:"m-0 p-0"},[_vm._v("______________________________")]),_c('h6',{staticClass:"mt-1"},[_vm._v("Authorised sign")])])],1)],1),_c('CRow',[_c('CCol',{attrs:{"col":"12"}},[_c('CCol',{staticClass:"bg-light p-0"},[_c('div',{staticClass:"\n                      d-flex\n                      justify-content-around\n                      bg-info\n                      mt-2\n                      text-white\n                      p-2\n                      col-6\n                    "},[_c('h5',[_vm._v("Thanks for your Business")])])])],1)],1)],1)],1)],1):_vm._e()],1)]),_c('div',[_c('CButton',{staticClass:"mx-3",attrs:{"size":"sm","color":"dark"},on:{"click":_vm.generateReport}},[_c('CIcon',{attrs:{"name":"cil-low-vision"}}),_vm._v(" Export to PDF ")],1)],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/views/App/project/CardComponent.vue?vue&type=template&id=7cbbb7da&
+// CONCATENATED MODULE: ./src/views/App/facture/NewFacture.vue?vue&type=template&id=1bf42f60&
 
-// EXTERNAL MODULE: ./src/views/App/search/Search.vue + 4 modules
-var Search = __webpack_require__("c71b");
+// EXTERNAL MODULE: ./src/views/App/config/SelectDb.js
+var SelectDb = __webpack_require__("f0ae");
 
 // EXTERNAL MODULE: ./src/views/App/project/Utilities.js
 var Utilities = __webpack_require__("d111");
@@ -43,401 +25,791 @@ var Utilities = __webpack_require__("d111");
 // EXTERNAL MODULE: ./src/views/App/config/config.js
 var config = __webpack_require__("b8a6");
 
-// EXTERNAL MODULE: ./node_modules/highlight.js/lib/index.js
-var lib = __webpack_require__("1487");
-var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/facture/NewFacture.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-// EXTERNAL MODULE: ./node_modules/moment/moment.js
-var moment = __webpack_require__("c1df");
-var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/project/CardComponent.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+ //import VueHtml2pdf from "vue-html2pdf";
 
-
-
-
-
-/* harmony default export */ var CardComponentvue_type_script_lang_js_ = ({
-  name: "CardComponent",
+/* harmony default export */ var NewFacturevue_type_script_lang_js_ = ({
+  name: "SHome",
   props: {
-    dataLoad: {
-      type: Object,
-      required: true,
-      default: function _default() {
-        return {};
-      }
-    },
-    isCollapsed: {
-      type: Object,
-      default: function _default() {
-        return {
-          status: false
-        };
-      }
+    id: {
+      type: String,
+      default: "2"
     }
   },
   components: {
-    SSearch: Search["a" /* default */]
+    VueHtml2pdf: function VueHtml2pdf() {} //on doit trouver un autre module pour gerer les factures.
+
   },
   data: function data() {
     return {
-      btnStateEdit: {
-        state: false
+      editRow: false,
+      factTable: [],
+      facFields: [{
+        key: "Qte",
+        label: "Quantité"
+      }, {
+        label: "Désignation ",
+        key: "titre"
+      }, {
+        key: "cout",
+        label: "Prix unitaire HT",
+        _style: ""
+      }, {
+        label: "Prix total HT",
+        key: "total"
+      }],
+      factureData: {
+        objet: "",
+        description: "",
+        cout: "",
+        idcontents: "",
+        numero: ""
       },
-      modalEdit: false,
-      deleteModal: false,
-      hierarchiModal: false,
-      ressourceToAdd: "",
-      chooseType: "text",
-      descToggle: true,
-      currentTime: "",
-      show: true,
-      max: "",
+      invoiceData: {
+        idinvoicelist: "",
+        idcontents: "",
+        idinvoice: "",
+        cout: "",
+        description: "",
+        titre: ""
+      },
+      clientInfo: {
+        typeIsOk: false,
+        nom: "",
+        prenom: "",
+        fonction: "",
+        siteweb: "",
+        email: "",
+        adresse: "",
+        phone: "",
+        uid: "0",
+        idsociete: ""
+      },
+      infoSte: {
+        typeIsOk: false,
+        nom: "",
+        prenom: "",
+        fonction: "",
+        siteweb: "",
+        email: "",
+        adresse: "",
+        phone: "",
+        uid: "0",
+        idsociete: ""
+      },
+      infoProjet: {
+        created_at: "",
+        idcontents: "",
+        titre: "",
+        type: "",
+        uid: "",
+        update_at: ""
+      },
+      societeInfoste: {
+        idsociete: "",
+        nom: "",
+        siteweb: "",
+        phone: "",
+        email: "",
+        adresse: ""
+      },
+      societeInfoClient: {
+        idsociete: "",
+        nom: "",
+        siteweb: "",
+        phone: "",
+        email: "",
+        adresse: ""
+      },
+      request: {},
+      update: true,
+      hideFact: true,
+      isLoading: false,
       spinner: false,
-      selected: "projet",
-      addingModal: false,
-      modalRessource: false,
-      newIdParrent: {
-        id: "",
-        ordre: ""
-      },
-      //isCollapsed: true,
-      editorData: "<p>me al rasp sale</p>",
-      editorConfig: {
-        extraPlugins: "codesnippet",
-        codeSnippet_theme: "monokai_sublime"
-      },
-      options: [{
-        value: "projet",
-        label: "Projet"
-      }, {
-        value: "tache",
-        label: "Tâche"
-      }, {
-        value: "memos",
-        label: "Mémos"
-      }]
+      spinnerSave: false,
+      wasValidated: false,
+      //idvalidated: false,
+      btnState: false,
+      colapse: false,
+      priceValidated: false
     };
   },
   mounted: function mounted() {
-    this.timing();
+    this.LoadData();
+    this.LoadFactureList();
+  },
+  watch: {
+    invoiceData: {
+      deep: true,
+      handler: function handler() {
+        this.invoiceData.idinvoice = this.id;
+
+        if (this.infoProjet.idcontents) {
+          this.invoiceData.idcontents = this.infoProjet.idcontents;
+        }
+      }
+    }
   },
   computed: {
-    background: function background() {
-      var back = "card-back";
-      var sts = this.dataLoad.status;
-      return back + "--" + sts;
+    checkForSave: function checkForSave() {
+      if (this.wasValidated && this.priceValidated) {
+        this.setBtnState(true);
+        return true;
+      } else {
+        this.setBtnState(false);
+        return false;
+      }
     },
-    progress: function progress() {
-      var el = {};
-      var date_fin_proposer = moment_default.a.unix(this.dataLoad.date_fin_proposer);
-      var date_depart_proposer = moment_default.a.unix(this.dataLoad.date_depart_proposer);
-      var exact = moment_default.a.unix(this.currentTime);
+    TotalFacture: function TotalFacture() {
+      var result = 0;
 
-      if (this.dataLoad.date_fin_reel > 0) {
-        exact = moment_default.a.unix(this.dataLoad.date_fin_reel);
+      if (this.factTable.length) {
+        for (var i in this.factTable) {
+          if (this.factTable[i].cout > 0) {
+            var el = parseInt(this.factTable[i].cout, 10);
+            result += el;
+          }
+        }
       }
 
-      var val = exact.diff(date_depart_proposer, "minutes");
-      var max = date_fin_proposer.diff(date_depart_proposer, "minutes");
-      el.max = max;
-      el.val = val;
-      return el;
-    },
-    // Affichage du texte formatter
-    textDisplay: function textDisplay() {
-      var newDiv = document.createElement("div");
-      newDiv.innerHTML = this.dataLoad.text ? this.dataLoad.text : "";
-      newDiv.querySelectorAll("pre code").forEach(function (block) {
-        lib_default.a.highlightBlock(block);
-      });
-      return newDiv.outerHTML;
-    },
-    createdAt: function createdAt() {
-      return moment_default()(this.dataLoad.created_at, "YYYY-MM-DD HH:mm").format("DD/MM/YYYY HH:mm");
+      return result;
     }
   },
   methods: {
-    timing: function timing() {
+    generateReport: function generateReport() {
+      this.$refs.html2Pdf.generatePdf();
+    },
+    priceValidation: function priceValidation(val) {
+      if (val != undefined) if (val.length < 1) {
+        this.priceValidated = false;
+        return false;
+      } else {
+        this.priceValidated = true;
+        return true;
+      }
+    },
+    setBtnState: function setBtnState(val) {
+      this.btnState = val;
+    },
+
+    /*
+    idValidation(val) {
+      if (val != undefined)
+        if (val.length < 1) {
+          this.idvalidated = false;
+          return false;
+        } else {
+          this.idvalidated = true;
+          return true;
+        }
+    },
+    /**/
+    inputValidation: function inputValidation(val) {
+      if (val == undefined) {
+        return false;
+      }
+
+      if (val != undefined) if (val.length >= 3) {
+        this.wasValidated = true;
+        return true;
+      } else {
+        this.wasValidated = false;
+        return false;
+      }
+    },
+    EditeFactureList: function EditeFactureList() {
+      this.PostFactureList(this.update);
+      this.editRow = false;
+    },
+    ligneClique: function ligneClique(item) {
+      this.invoiceData = item;
+      this.editRow = true;
+    },
+    LoadData: function LoadData() {
       var _this = this;
 
-      if (this.dataLoad.status == 2) {
-        this.currentTime = moment_default()().unix();
-        setInterval(function () {
-          _this.currentTime = moment_default()().unix();
-        }, 5000);
-      } else {
-        this.currentTime = moment_default()().unix();
-      }
-    },
-    color: function color(valueCurent, maxValue) {
-      var value = 0;
-      var $color;
+      var oap = [{
+        column: "numero",
+        operator: "=",
+        value: this.id
+      }];
+      SelectDb["a" /* default */].selectInvoice(oap).then(function (response) {
+        _this.factureData = response[0];
 
-      if (maxValue > 0 && valueCurent > 0) {
-        value = valueCurent * 100 / maxValue;
-      }
+        _this.LoadClient(response[0].idclients);
 
-      if (value <= 25) {
-        $color = "success";
-      } else if (value > 25 && value <= 50) {
-        $color = "info";
-      } else if (value > 50 && value <= 85) {
-        $color = "secondary";
-      } else if (value > 85 && value <= 100) {
-        $color = "warning";
-      } else {
-        $color = "danger";
-      }
+        _this.LoadSte(response[0].proprietaire);
 
-      return $color;
-    },
-    parentSelected: function parentSelected(data) {
-      //console.log("cccc :", data.idcontents);
-      this.newIdParrent.id = data.idcontents;
-    },
-    ChangeHierarchie: function ChangeHierarchie() {
-      var _this2 = this;
-
-      this.spinner = true; //console.log("object", this.dataLoad.idcontents);
-
-      Utilities["a" /* default */].formatHierarchie(this.dataLoad, this.newIdParrent).then(function (reponse) {
-        //console.log(" change Hierarchie : ", reponse);
-        config["a" /* default */].post("/gestion-project/save-update", reponse).then(function (reponse) {
-          if (reponse.status) {
-            console.log("data after edit :", reponse);
-
-            _this2.$emit("edition-ok", reponse);
-          }
-
-          _this2.spinner = false;
-          _this2.hierarchiModal = false;
-        }).catch(function (error) {
-          console.log("error", error);
-        });
+        _this.LoadProjet(response[0].idcontents);
       });
     },
-    changeParent: function changeParent() {
-      console.log("changeparent", this.dataLoad);
-      this.$emit("change-parent", this.dataLoad);
-      this.newIdParrent.ordre = this.dataLoad.ordre;
-      this.hierarchiModal = true;
+    LoadClient: function LoadClient(val) {
+      var _this2 = this;
+
+      var oap = [{
+        column: "idclient",
+        operator: "=",
+        value: val
+      }];
+      SelectDb["a" /* default */].selectClients(oap).then(function (response) {
+        _this2.clientInfo = response[0];
+
+        if (response.length) {
+          _this2.LoadSocieteClient(response[0].idsociete);
+        }
+      });
     },
-    DeleteModalOn: function DeleteModalOn() {
-      this.deleteModal = true;
-    },
-    //Supression d’un contenu
-    DeleteContent: function DeleteContent() {
+    LoadSte: function LoadSte(val) {
       var _this3 = this;
 
-      Utilities["a" /* default */].formatDeleteData(this.dataLoad, "delete").then(function (reponse) {
-        console.log(" deleteProject : ", reponse);
+      var oap = [{
+        column: "idclient",
+        operator: "=",
+        value: val
+      }];
+      SelectDb["a" /* default */].selectClients(oap).then(function (response) {
+        _this3.infoSte = response[0];
+
+        if (response.length) {
+          _this3.LoadSocieteInfo(response[0].idsociete);
+        }
+      });
+    },
+    LoadSocieteInfo: function LoadSocieteInfo(val) {
+      var _this4 = this;
+
+      var oap = [{
+        column: "idsociete",
+        operator: "=",
+        value: val
+      }];
+      SelectDb["a" /* default */].selectSte(oap).then(function (response) {
+        _this4.societeInfoste = response[0];
+      });
+    },
+    LoadSocieteClient: function LoadSocieteClient(val) {
+      var _this5 = this;
+
+      var oap = [{
+        column: "idsociete",
+        operator: "=",
+        value: val
+      }];
+      SelectDb["a" /* default */].selectSte(oap).then(function (response) {
+        _this5.societeInfoClient = response[0];
+      });
+    },
+    LoadProjet: function LoadProjet(val) {
+      var _this6 = this;
+
+      if (val) {
+        var oap = [{
+          column: "idcontents",
+          operator: "=",
+          value: val
+        }];
+        SelectDb["a" /* default */].selectProject(oap).then(function (response) {
+          _this6.infoProjet = response[0];
+        });
+      }
+    },
+    PostFactureList: function PostFactureList(val) {
+      var _this7 = this;
+
+      if (this.btnState) {
+        this.isloading = true;
+        Utilities["a" /* default */].formatAddInvoiceList(this.invoiceData, val).then(function (reponse) {
+          console.log("gestion_project_invoice_list : ", reponse);
+          config["a" /* default */].post("/gestion-project/save-update", reponse).then(function (reponse) {
+            if (reponse.status) {
+              _this7.request = reponse.data[0];
+
+              _this7.LoadFactureList();
+
+              _this7.invoiceData = {
+                idinvoicelist: "",
+                idcontents: "",
+                idinvoice: "",
+                cout: "",
+                titre: "",
+                description: ""
+              };
+            }
+
+            _this7.isloading = false;
+          }).catch(function (error) {
+            console.log("error", error);
+            this.isLoading = false;
+            this.alertOk = true;
+            this.alertText = "Erreur de sauvegarde";
+            this.AlertColor = "danger";
+            this.showInput = true;
+          });
+        });
+      }
+    },
+    LoadFactureList: function LoadFactureList() {
+      var _this8 = this;
+
+      var oap = [{
+        column: "idinvoice",
+        operator: "=",
+        value: this.id
+      }];
+      SelectDb["a" /* default */].selectFatureList(oap).then(function (response) {
+        _this8.factTable = response;
+      });
+    },
+    deleteFacturelist: function deleteFacturelist() {
+      var _this9 = this;
+
+      this.spinner = true;
+      this.isloading = true;
+      Utilities["a" /* default */].formatDeleteInvoiceList(this.invoiceData).then(function (reponse) {
         config["a" /* default */].post("/gestion-project/save-update", reponse).then(function (reponse) {
           if (reponse.status) {
-            console.log("data after delete :", reponse);
+            _this9.request = reponse.data[0];
 
-            _this3.$emit("suppression-ok");
+            _this9.LoadFactureList();
+          } else {
+            console.log("error delete Facturelist", reponse.status);
           }
 
-          _this3.isLoading = false;
+          _this9.isloading = false;
+          _this9.spinner = false;
+          _this9.editRow = false;
         }).catch(function (error) {
           console.log("error", error);
         });
       });
-    },
-    //Gestion de l’acordéon
-    Collapsed: function Collapsed() {
-      if (this.dataLoad.open) {
-        this.dataLoad.open = false;
-      } else {
-        this.dataLoad.open = true;
-      }
-    },
-    //
-    HideTypeProject: function HideTypeProject() {
-      this.$emit("Hide-type-project", this.dataLoad);
-    },
-    modalEditOn: function modalEditOn() {
-      //console.log("edit : ", this.dataLoad.titre);
-      this.$emit("modal-edit-on", this.dataLoad);
-    },
-    modalRessourceOn: function modalRessourceOn() {
-      this.$emit("modal-ressource-on");
-    },
-    modalEditOnText: function modalEditOnText(item) {
-      console.log("Test edit : ", item.titre);
-      this.$emit("ev-modal-edit-on", item);
     }
   }
 });
-// CONCATENATED MODULE: ./src/views/App/project/CardComponent.vue?vue&type=script&lang=js&
- /* harmony default export */ var project_CardComponentvue_type_script_lang_js_ = (CardComponentvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/views/App/project/CardComponent.vue?vue&type=style&index=0&lang=scss&
-var CardComponentvue_type_style_index_0_lang_scss_ = __webpack_require__("6b1d");
+// CONCATENATED MODULE: ./src/views/App/facture/NewFacture.vue?vue&type=script&lang=js&
+ /* harmony default export */ var facture_NewFacturevue_type_script_lang_js_ = (NewFacturevue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/views/App/facture/NewFacture.vue?vue&type=style&index=0&lang=scss&
+var NewFacturevue_type_style_index_0_lang_scss_ = __webpack_require__("b965");
 
 // EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__("2877");
 
-// CONCATENATED MODULE: ./src/views/App/project/CardComponent.vue
+// CONCATENATED MODULE: ./src/views/App/facture/NewFacture.vue
 
 
 
@@ -447,426 +819,7 @@ var componentNormalizer = __webpack_require__("2877");
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
-  project_CardComponentvue_type_script_lang_js_,
-  CardComponentvue_type_template_id_7cbbb7da_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var CardComponent = (component.exports);
-// EXTERNAL MODULE: ./src/views/App/project/ProjectOptionsType.js
-var ProjectOptionsType = __webpack_require__("f9cf");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/project/CardJsx.vue?vue&type=script&lang=js&
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-/* harmony default export */ var CardJsxvue_type_script_lang_js_ = ({
-  name: "CardsJSX",
-  props: {
-    dataLoad: {
-      type: Array,
-      required: true
-    }
-  },
-  data: function data() {
-    return {
-      btnStateEdit: {
-        state: false
-      },
-      modalEdit: false,
-      ressourceToAdd: "",
-      chooseType: "text",
-      descToggle: false,
-      show: true,
-      selected: "projet",
-      addingModal: false,
-      modalRessource: false,
-      editorData: "<p>me al rasp sale</p>",
-      editorConfig: {
-        extraPlugins: "codesnippet",
-        codeSnippet_theme: "monokai_sublime"
-      },
-      options: [{
-        value: "projet",
-        label: "Projet"
-      }, {
-        value: "tache",
-        label: "Tâche"
-      }, {
-        value: "memos",
-        label: "Mémos"
-      }]
-    };
-  },
-  render: function render(createElement) {
-    var _this = this;
-
-    var elt = createElement;
-
-    var loopDatas = function loopDatas(projects) {
-      var open = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var result = []; // var premierTours = 0;
-
-      projects.forEach(function (project) {
-        var cards = [];
-        project.open = open;
-
-        if (Array.isArray(project.cards)) {
-          var _iterator = _createForOfIteratorHelper(_this.options),
-              _step;
-
-          try {
-            var _loop = function _loop() {
-              var item = _step.value;
-              test = project.cards.filter(function (projet) {
-                return projet.type == item.value;
-              });
-              newT = test.filter(function (project) {
-                return project.status == "0";
-              });
-              term = test.filter(function (project) {
-                return project.status == "1";
-              });
-              encour = test.filter(function (project) {
-                return project.status == "2";
-              });
-              annule = test.filter(function (project) {
-                return project.status == "3";
-              });
-              newtest = newT.concat(encour).concat(term).concat(annule);
-              bottomBadge = loopDatas(newtest, false);
-              badge = elt("cBadge", {
-                class: ["badge-type-ressource", "badge--" + item.value],
-                style: {
-                  padding: "4px 7px",
-                  "max-width": "100px"
-                },
-                attrs: {
-                  tag: "div"
-                }
-              }, [elt("strong", {
-                style: {
-                  "font-weigth": "bold",
-                  color: "#fff67a ",
-                  "margin-right": "2px",
-                  "font-size": "1.2em"
-                }
-              }, test.length), "  " + " " + item.label]);
-
-              if (test.length) {
-                cards.push(badge);
-                cards.push(bottomBadge);
-              } //console.log("options", newT);
-
-            };
-
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var test;
-              var newT;
-              var term;
-              var encour;
-              var annule;
-              var newtest;
-              var bottomBadge;
-              var badge;
-
-              _loop();
-            }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-        } //console.log("donnée cards", dataLoad);
-
-
-        result.push(elt(CardComponent, {
-          props: {
-            dataLoad: project
-          },
-          on: {
-            "modal-edit-on": function modalEditOn(item) {
-              //console.log("edit-on", item);
-              _this.$emit("modal-edit-on", item);
-            },
-            "Hide-type-project": function HideTypeProject(item) {
-              _this.$emit("Hide-type-project", item);
-            },
-            "suppression-ok": function suppressionOk() {
-              _this.$emit("suppression-ok");
-            },
-            "change-parent": function changeParent(item) {
-              //console.log("changeparent", item);
-              _this.$emit("change-parent", item);
-            },
-            "edition-ok": function editionOk() {
-              _this.$emit("edition-ok");
-            }
-          }
-        }, cards));
-      });
-      return result;
-    };
-
-    return elt("div", loopDatas(this.dataLoad, true));
-  },
-  mounted: function mounted() {
-    this.loadOptions();
-  },
-  methods: {
-    loadOptions: function loadOptions() {
-      var _this2 = this;
-
-      ProjectOptionsType["a" /* default */].loadType().then(function (reponse) {
-        _this2.options = reponse;
-      });
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/views/App/project/CardJsx.vue?vue&type=script&lang=js&
- /* harmony default export */ var project_CardJsxvue_type_script_lang_js_ = (CardJsxvue_type_script_lang_js_); 
-// CONCATENATED MODULE: ./src/views/App/project/CardJsx.vue
-var CardJsx_render, CardJsx_staticRenderFns
-
-
-
-
-/* normalize component */
-
-var CardJsx_component = Object(componentNormalizer["a" /* default */])(
-  project_CardJsxvue_type_script_lang_js_,
-  CardJsx_render,
-  CardJsx_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* harmony default export */ var CardJsx = __webpack_exports__["default"] = (CardJsx_component.exports);
-
-/***/ }),
-
-/***/ "6b1d":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("b8d3");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
-
-
-/***/ }),
-
-/***/ "b8d3":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "c71b":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"051d4be2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/search/Search.vue?vue&type=template&id=48f9fbee&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.styled ? 'searchForm' : ''},[_c('multiselect',{attrs:{"options":_vm.project,"placeholder":"Tapez une recherche","hide-selected":true,"max-height":600,"option-height":20,"show-labels":false,"searchable":true,"loading":_vm.isLoading,"track-by":"titre","internal-search":true,"showPointer":true,"label":"titre"},on:{"search-change":_vm.TypingSearch},scopedSlots:_vm._u([{key:"singleLabel",fn:function(props){return [_c('span',{staticClass:"option__desc d-inline-flex flex-column"},[_c('span',{staticClass:"option__title"},[_vm._v(_vm._s(props.option.titre))])])]}},{key:"option",fn:function(props){return [(_vm.styled)?_c('div',{staticClass:"option__desc d-inline-flex flex-column align-items-start"},[_c('span',{staticClass:"option__title mb-2"},[_c('CIcon',{staticClass:"mr-1 text-info",attrs:{"name":"cilFolder"}}),_vm._v(" "+_vm._s(props.option.titre)+" ")],1),_c('div',{staticClass:"d-flex aling-items-center"},[_c('span',{staticClass:"text-info bg-light p-1 mt-2 h6"},[_vm._v(_vm._s(props.option.type))]),_c('router-link',{attrs:{"to":'/projets/' + props.option.idcontents}},[_c('CButton',{staticClass:"ml-4",attrs:{"variant":"ghost","color":"warning","size":"sm"}},[_c('CIcon',{attrs:{"name":"cilPencil"}})],1)],1)],1)]):_vm._e(),(!_vm.styled)?_c('div',{staticClass:"option__desc d-inline-flex flex-column align-items-start",on:{"click":function($event){return _vm.ParentSelected(props)}}},[_c('span',{staticClass:"option__title mb-2"},[_c('CIcon',{staticClass:"mr-1 text-dark",attrs:{"name":"cilFolder"}}),_vm._v(" "+_vm._s(props.option.titre)+" "),_c('small',{staticClass:"text-dark p-1 mt-2 ml-2 text-type"},[_vm._v(_vm._s(props.option.type))])],1)]):_vm._e()]}}]),model:{value:(_vm.searchValue),callback:function ($$v) {_vm.searchValue=$$v},expression:"searchValue"}})],1)}
-var staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/views/App/search/Search.vue?vue&type=template&id=48f9fbee&
-
-// EXTERNAL MODULE: ./node_modules/vue-multiselect/dist/vue-multiselect.min.js
-var vue_multiselect_min = __webpack_require__("8e5f");
-var vue_multiselect_min_default = /*#__PURE__*/__webpack_require__.n(vue_multiselect_min);
-
-// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
-var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
-var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
-
-// EXTERNAL MODULE: ./src/views/App/config/config.js
-var config = __webpack_require__("b8a6");
-
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/search/Search.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
- // register globally
-
-external_commonjs_vue_commonjs2_vue_root_Vue_default.a.component("multiselect", vue_multiselect_min_default.a);
-/* harmony default export */ var Searchvue_type_script_lang_js_ = ({
-  // OR register locally
-  props: {
-    styled: {
-      type: Boolean,
-      default: false
-    }
-  },
-  components: {
-    Multiselect: vue_multiselect_min_default.a
-  },
-  data: function data() {
-    return {
-      value: "",
-      searchValue: "",
-      options: ["list", "of", "options"],
-      project: [],
-      isLoading: false,
-      timer: null
-    };
-  },
-  mounted: function mounted() {//this.LoadProjectData();
-  },
-  watch: {},
-  computed: {
-    pOptions: function pOptions() {
-      var tab = [];
-
-      if (this.project.length) {
-        for (var i in this.project) {
-          tab.push(this.project[i].titre);
-        }
-      }
-
-      return tab;
-    }
-  },
-  methods: {
-    ParentSelected: function ParentSelected(data) {
-      console.log("dataSelected :", data.option);
-      this.$emit("parent-selected", data.option);
-    },
-    // Recherche des informations 1.5s après la saisie
-    TypingSearch: function TypingSearch(value) {
-      if (value.length >= 2) {
-        this.isLoading = true;
-        this.value = value;
-        var self = this;
-        clearTimeout(self.timer);
-        self.timer = setTimeout(function () {
-          self.LoadProjectData();
-        }, 1500);
-      }
-    },
-    // Request for Loading data on DB
-    LoadProjectData: function LoadProjectData() {
-      var _this = this;
-
-      this.isLoading = true;
-      config["a" /* default */].post("/gestion-project/search?key=" + this.value, {
-        level: 0
-      }).then(function (reponse) {
-        if (reponse.status) {
-          if (reponse) {
-            _this.project = reponse.data;
-            console.log("Project search load", reponse);
-          }
-        }
-
-        _this.isLoading = false;
-      }).catch(function (error) {
-        console.log("error", error);
-      });
-    }
-  }
-});
-// CONCATENATED MODULE: ./src/views/App/search/Search.vue?vue&type=script&lang=js&
- /* harmony default export */ var search_Searchvue_type_script_lang_js_ = (Searchvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-multiselect/dist/vue-multiselect.min.css?vue&type=style&index=0&lang=css&
-var vue_multiselect_minvue_type_style_index_0_lang_css_ = __webpack_require__("60bc");
-
-// EXTERNAL MODULE: ./src/views/App/search/Search.vue?vue&type=style&index=1&lang=scss&
-var Searchvue_type_style_index_1_lang_scss_ = __webpack_require__("5724");
-
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__("2877");
-
-// CONCATENATED MODULE: ./src/views/App/search/Search.vue
-
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  search_Searchvue_type_script_lang_js_,
+  facture_NewFacturevue_type_script_lang_js_,
   render,
   staticRenderFns,
   false,
@@ -876,7 +829,611 @@ var component = Object(componentNormalizer["a" /* default */])(
   
 )
 
-/* harmony default export */ var Search = __webpack_exports__["a"] = (component.exports);
+/* harmony default export */ var NewFacture = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "7afe":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "b8a6":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("bc3a");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var wbuutilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("bfb1");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_objectSpread(_objectSpread({}, wbuutilities__WEBPACK_IMPORTED_MODULE_1__[/* AjaxBasic */ "a"]), {}, {
+  TestDomain: "http://gestiontaches.kksa",
+  baseUrl: "http://gestion-taches-vps.habeuk.com",
+  //baseUrl: "http://gestion-taches.kksa",
+  ModeDebug: true,
+  postOld: function postOld(request) {
+    var _this = this;
+
+    var datas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    return new Promise(function (resolv) {
+      var configs = {
+        headers: {}
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this.baseUrl + request, datas, configs).then(function (reponse) {
+        //console.log("Config success : ", reponse);
+        resolv({
+          status: true,
+          data: reponse.data,
+          reponse: reponse
+        });
+      }).catch(function (error) {
+        resolv({
+          status: false,
+          error: error.response
+        });
+      });
+    });
+  },
+  getOld: function getOld(request) {
+    var _this2 = this;
+
+    var datas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    // console.log("ssss");
+    return new Promise(function (resolv) {
+      var configs = {
+        headers: {}
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(_this2.baseUrl + request, datas, configs).then(function (reponse) {
+        console.log("Config get success : ", reponse);
+        resolv({
+          status: true,
+          data: reponse.data,
+          reponse: reponse
+        });
+      }).catch(function (error) {
+        resolv({
+          status: false,
+          error: error.response
+        });
+      });
+    });
+  }
+}));
+
+/***/ }),
+
+/***/ "b965":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewFacture_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("7afe");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewFacture_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewFacture_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
+/***/ "d111":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("c1df");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var Utilities = {
+  /**
+   * Prepare les données pour la sauvagarde.
+   */
+  formatData: function formatData(datas) {
+    return new Promise(function (resolv) {
+      console.log("fdate : ", datas);
+      var result = [];
+
+      if (datas && datas.titre) {
+        var ddp = moment__WEBPACK_IMPORTED_MODULE_0___default()(datas.date_depart_proposer + " " + datas.heure_debut, "YYYY-MM-DD  HH:mm").unix();
+        var dfp = moment__WEBPACK_IMPORTED_MODULE_0___default()(datas.date_fin_proposer + " " + datas.heure_fin, "YYYY-MM-DD  HH:mm").unix(); //edition de la table contents
+
+        var table1 = {
+          table: "gestion_project_contents",
+          fields: {
+            text: datas.text,
+            titre: datas.titre,
+            type: datas.type,
+            privaty: datas.privaty ? 1 : 0
+          },
+          action: "update"
+        };
+
+        if (datas.idcontents) {
+          table1.where = [{
+            column: "idcontents",
+            value: datas.idcontents
+          }];
+        } //Edition de la table times
+
+
+        if (datas.date_depart_proposer.length && datas.date_fin_proposer.length) {
+          var table2 = {
+            table: "gestion_project_times",
+            fields: {
+              status: datas.status,
+              date_depart_proposer: ddp,
+              date_fin_proposer: dfp
+            },
+            action: "update",
+            where: [{
+              column: "idcontents",
+              value: datas.idcontents
+            }]
+          };
+
+          if (parseInt(datas.status) === 1 && (!datas.date_fin_reel || datas.date_fin_reel === "")) {
+            table2.fields.date_fin_reel = moment__WEBPACK_IMPORTED_MODULE_0___default()().unix();
+          }
+
+          result.push(table2);
+        } //mise à jour de la table gestion times
+
+
+        result.push(table1);
+        console.log("ligne", result);
+      }
+
+      resolv(result);
+    });
+  },
+
+  /**
+   * preparation des données pour la mise à jour de la hiérachie
+   */
+  formatHierarchie: function formatHierarchie(datas, nid) {
+    return new Promise(function (resolv) {
+      console.log("fdate : ", nid);
+      var result = [];
+
+      if (datas && datas.titre) {
+        //Edition de la table times
+        var table3 = {
+          table: "gestion_project_hierachie",
+          fields: {
+            idcontentsparent: nid.id,
+            idcontents: datas.idcontents,
+            ordre: nid.ordre
+          },
+          action: "update",
+          where: [{
+            column: "idcontents",
+            value: datas.idcontents
+          }]
+        }; //mise à jour de la table gestion times
+
+        result.push(table3);
+        console.log("ligne", result);
+      }
+
+      resolv(result);
+    });
+  },
+
+  /**
+   * un tableau
+   * @param [] cards
+   */
+  formCard: function formCard(cards) {
+    var results = [];
+
+    for (var i in cards) {
+      var card = cards[i];
+
+      if (card.cards) {
+        card.cards = this.formCard(card.cards);
+      }
+
+      results.push(_objectSpread(_objectSpread({}, card), {}, {
+        open: false
+      }));
+    }
+
+    return results;
+  },
+
+  /**
+   * Format les données pour la creation d'un nouveau project, taches, memos, à faire , bugs ...
+   * @param datas Array
+   * @param idc Number, id du contenu encours.
+   */
+  formatAddData: function formatAddData(datas) {
+    var idc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var level = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    //console.log("formatAddData datas :", datas, "\n idc", idc);
+    return new Promise(function (resolv) {
+      var childstable = [];
+      var state = parseInt(datas.status, 10);
+      level = parseInt(level, 10);
+
+      if (datas.date_depart_proposer.length && datas.date_fin_proposer) {
+        var ddp = moment__WEBPACK_IMPORTED_MODULE_0___default()(datas.date_depart_proposer + " " + datas.heure_debut, "YYYY-MM-DD  HH:mm").unix();
+        var dfp = moment__WEBPACK_IMPORTED_MODULE_0___default()(datas.date_fin_proposer + " " + datas.heure_fin, "YYYY-MM-DD  HH:mm").unix();
+        childstable.push({
+          table: "gestion_project_times",
+          fields: {
+            date_depart_proposer: ddp,
+            date_fin_proposer: dfp,
+            status: state
+          }
+        });
+      }
+
+      childstable.push({
+        table: "gestion_project_hierachie",
+        fields: {
+          idcontentsparent: idc,
+          ordre: 0,
+          level: level
+        }
+      });
+      var result = [];
+
+      if (datas && datas.titre) {
+        var ligne = {
+          table: "gestion_project_contents",
+          fields: {
+            text: datas.text,
+            titre: datas.titre,
+            type: datas.type,
+            privaty: datas.privaty ? 1 : 0
+          }
+        };
+        ligne.childstable = {
+          colum_id_name: "idcontents",
+          tables: childstable
+        };
+        result.push(ligne);
+      }
+
+      resolv(result);
+    });
+  },
+  // Remplissage des champs pour l’édition d’un contenu du pop-up avec les contenus à éditer
+  fomatVal: function fomatVal(result, postData) {
+    return new Promise(function (resolv) {
+      //console.log("postData : ", postData);
+
+      /*
+      if (result.date_depart_proposer || result.date_fin_proposer) {
+        console.log("val.date_depart_proposer ", result);
+      }
+      /**/
+      if (result.idcontents) {
+        postData.idcontents = result.idcontents;
+      }
+
+      for (var i in postData) {
+        if (result[i]) {
+          if (i === "date_depart_proposer") {
+            postData[i] = moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(result[i]).format("YYYY-MM-DD");
+            postData.heure_debut = moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(result[i]).format("HH:mm");
+          } else if (i === "date_fin_proposer") {
+            postData[i] = moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(result[i]).format("YYYY-MM-DD");
+            postData.heure_fin = moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(result[i]).format("HH:mm");
+          } else if (i === "privaty") {
+            postData[i] = result[i] == "0" ? 0 : 1;
+          } else {
+            postData[i] = result[i];
+          }
+        }
+      }
+
+      resolv();
+    });
+  },
+  // format data for deleted action
+  formatDeleteData: function formatDeleteData(datas) {
+    return new Promise(function (resolv) {
+      var result = [];
+
+      if (datas && datas.titre) {
+        var ligne = {
+          table: "gestion_project_contents",
+          fields: {}
+        };
+        ligne.action = "delete";
+
+        if (datas.idcontents) {
+          ligne.where = [{
+            column: "idcontents",
+            value: datas.idcontents
+          }];
+        }
+
+        ligne.childstable = {
+          tables: [{
+            table: "gestion_project_times",
+            fields: {},
+            action: "delete",
+            where: [{
+              column: "idcontents",
+              value: datas.idcontents
+            }]
+          }, {
+            table: "gestion_project_hierachie",
+            fields: {},
+            action: "delete",
+            where: [{
+              column: "idcontents",
+              value: datas.idcontents
+            }]
+          }]
+        };
+        result.push(ligne);
+        console.log("ligne", result);
+      }
+
+      resolv(result);
+    });
+  },
+  //client and societé format
+
+  /**
+   * preparation des données pour l'ajout d'un nouveau client
+   */
+  formatDataClient: function formatDataClient(datas) {
+    return new Promise(function (resolv) {
+      var result = [];
+
+      if (datas && datas.nom) {
+        //edition de la table contents
+        var table1 = {
+          table: "gestion_project_client",
+          fields: {
+            nom: datas.nom,
+            uid: datas.uid,
+            prenom: datas.prenom,
+            phone: datas.phone,
+            adresse: datas.adresse,
+            fonction: datas.fonction,
+            idsociete: datas.idsociete
+          },
+          action: "update"
+        };
+
+        if (datas.idclient) {
+          table1.where = [{
+            column: "idclient",
+            value: datas.idclient
+          }];
+        } //mise à jour de la table gestion times
+
+
+        result.push(table1);
+      }
+
+      resolv(result);
+    });
+  },
+
+  /**
+   * preparation des données pour l'ajout d'une nouvelle société
+   */
+  formatDataSte: function formatDataSte(datas) {
+    return new Promise(function (resolv) {
+      var result = [];
+
+      if (datas && datas.nom) {
+        //edition de la table contents
+        var table1 = {
+          table: "gestion_project_societe",
+          fields: {
+            nom: datas.nom,
+            email: datas.email,
+            phone: datas.phone,
+            adresse: datas.adresse,
+            siteweb: datas.siteweb
+          },
+          action: "update"
+        };
+
+        if (datas.idsociete) {
+          table1.where = [{
+            column: "idsociete",
+            value: datas.idsociete
+          }];
+        } //mise à jour de la table societe
+
+
+        result.push(table1);
+      }
+
+      resolv(result);
+    });
+  },
+  // format data for deleted action of entitie client or societe
+  formatDeleteClient: function formatDeleteClient(datas) {
+    return new Promise(function (resolv) {
+      var result = [];
+
+      if (datas.idclient) {
+        var ligne = {
+          table: "gestion_project_client",
+          fields: {},
+          action: "delete",
+          where: [{
+            column: "idclient",
+            value: datas.idclient
+          }]
+        };
+        result.push(ligne);
+        console.log("ligne 1", result);
+      } else if (datas.idsociete) {
+        ligne = {
+          table: "gestion_project_client",
+          fields: {},
+          action: "delete",
+          where: [{
+            column: "idsociete",
+            value: datas.idsociete
+          }]
+        };
+        var ligne1 = {
+          table: "gestion_project_societe",
+          fields: {},
+          action: "delete",
+          where: [{
+            column: "idsociete",
+            value: datas.idsociete
+          }]
+        };
+        result.push(ligne);
+        result.push(ligne1);
+        console.log("ligne2", result);
+      }
+
+      resolv(result);
+    });
+  },
+  // Format data for create new invoice
+  formatAddInvoice: function formatAddInvoice(datas, update) {
+    return new Promise(function (resolv) {
+      var result = [];
+      var cat = moment__WEBPACK_IMPORTED_MODULE_0___default()().unix();
+      var uat = moment__WEBPACK_IMPORTED_MODULE_0___default()().unix();
+      console.log("fadin :", datas);
+
+      if (datas && datas.numero) {
+        // Edition de la table contents.
+        var table1 = {
+          table: "gestion_project_invoice",
+          fields: {
+            numero: datas.numero,
+            idcontents: datas.idcontents !== "" ? datas.idcontents : null,
+            idclients: datas.idclients,
+            objet: datas.objet,
+            creaated: cat,
+            proprietaire: datas.proprietaire,
+            updated: uat
+          }
+        };
+
+        if (update == true) {
+          table1.where = [{
+            column: "numero",
+            value: datas.numero
+          }];
+          table1.action = "update";
+        } //mise à jour de la table societe
+
+
+        result.push(table1);
+      }
+
+      resolv(result);
+    });
+  },
+  // suppression d’une facture
+  formatDeleteInvoice: function formatDeleteInvoice(datas) {
+    return new Promise(function (resolv) {
+      var result = [];
+
+      if (datas && datas.numero) {
+        //edition de la table contents
+        var table1 = {
+          table: "gestion_project_invoice",
+          fields: {},
+          action: "delete",
+          where: [{
+            column: "numero",
+            value: datas.numero
+          }]
+        };
+        var table2 = {
+          table: "gestion_project_invoice_list",
+          fields: {},
+          action: "delete",
+          where: [{
+            column: "idinvoice",
+            value: datas.numero
+          }]
+        }; //mise à jour de la table societe
+
+        result.push(table2);
+        result.push(table1);
+      }
+
+      resolv(result);
+    });
+  },
+  formatAddInvoiceList: function formatAddInvoiceList(datas, update) {
+    return new Promise(function (resolv) {
+      var result = [];
+
+      if (datas && datas.titre) {
+        //edition de la table contents
+        var table1 = {
+          table: "gestion_project_invoice_list",
+          fields: {
+            titre: datas.titre,
+            idcontents: datas.idcontents !== "" ? datas.idcontents : null,
+            description: datas.description,
+            cout: datas.cout,
+            idinvoice: datas.idinvoice
+          }
+        };
+
+        if (update == true) {
+          table1.where = [{
+            column: "idinvoicelist",
+            value: datas.idinvoicelist
+          }];
+          table1.action = "update";
+        } //mise à jour de la table societe
+
+
+        result.push(table1);
+      }
+
+      resolv(result);
+    });
+  },
+  formatDeleteInvoiceList: function formatDeleteInvoiceList(datas) {
+    return new Promise(function (resolv) {
+      var result = [];
+      console.log("fadin :", datas);
+
+      if (datas && datas.idinvoicelist) {
+        //edition de la table contents
+        var table1 = {
+          table: "gestion_project_invoice_list",
+          fields: {},
+          action: "delete",
+          where: [{
+            column: "idinvoicelist",
+            value: datas.idinvoicelist
+          }]
+        }; //mise à jour de la table societe
+
+        result.push(table1);
+      }
+
+      resolv(result);
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["a"] = (Utilities);
 
 /***/ }),
 
@@ -891,8 +1448,6 @@ var component = Object(componentNormalizer["a" /* default */])(
    * selectionne un enssemble de données à partir d'une requette personnalisé
    */
   selectDatas: function selectDatas() {
-    var _this = this;
-
     var where = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{
       column: "c.type",
       operator: "=",
@@ -900,19 +1455,8 @@ var component = Object(componentNormalizer["a" /* default */])(
     }];
     return new Promise(function (resolv) {
       var query = "";
-      query += " select ";
-      query += " c.idcontents, c.text, c.titre, c.created_at, ";
-      query += " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
-      query += " h.ordre, h.level";
-      query += " from ";
-      query += _this.formatStringTable("gestion_project_hierachie") + " as h ";
-      query += " INNER JOIN ";
-      query += _this.formatStringTable("gestion_project_contents") + " as c ";
-      query += " ON h.idcontents = c.idcontents "; //query += "WHERE ( h.idcontentsparent = $idcontents OR c.idcontents = $idcontents ) ";
 
       if (where.length) {
-        query += " WHERE ";
-
         for (var i in where) {
           query += where[i].column + " " + where[i].operator + " " + "'" + where[i].value + "'" + " ";
         }
@@ -921,8 +1465,7 @@ var component = Object(componentNormalizer["a" /* default */])(
       query += " ORDER BY  c.`idcontents` DESC";
       query += " limit 0,50 "; //console.log("query :: ", query);
 
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
-        // console.log("selectDatas : ", reponse);
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/selectdatas", query).then(function (reponse) {
         if (reponse.status) {
           resolv(reponse.data);
         } else {
@@ -932,15 +1475,8 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectTypes: function selectTypes() {
-    var _this2 = this;
-
     return new Promise(function (resolv) {
-      var query = "";
-      query += " select * ";
-      query += " from ";
-      query += _this2.formatStringTable("gestion_project_type");
-      query += " limit 0,50 ";
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].get("/gestion-project/select/project-type").then(function (reponse) {
         // console.log("selectDatas : ", reponse);
         if (reponse.status) {
           resolv(reponse.data);
@@ -951,23 +1487,16 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectProject: function selectProject(where) {
-    var _this3 = this;
-
     return new Promise(function (resolv) {
       var query = "";
-      query += " select * ";
-      query += " from ";
-      query += _this3.formatStringTable("gestion_project_contents");
 
       if (where.length) {
-        query += " WHERE ";
-
         for (var i in where) {
           query += where[i].column + " " + where[i].operator + " " + "'" + where[i].value + "'" + " ";
         }
       }
 
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/select-project", query).then(function (reponse) {
         // console.log("selectDatas : ", reponse);
         if (reponse.status) {
           resolv(reponse.data);
@@ -978,13 +1507,13 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectFatureList: function selectFatureList(where) {
-    var _this4 = this;
+    var _this = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this4.formatStringTable("gestion_project_invoice_list");
+      query += _this.formatStringTable("gestion_project_invoice_list");
 
       if (where.length) {
         query += " WHERE ";
@@ -1005,13 +1534,13 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectInvoice: function selectInvoice(where) {
-    var _this5 = this;
+    var _this2 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this5.formatStringTable("gestion_project_invoice");
+      query += _this2.formatStringTable("gestion_project_invoice");
 
       if (where.length) {
         query += " WHERE ";
@@ -1032,13 +1561,13 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectClients: function selectClients(where) {
-    var _this6 = this;
+    var _this3 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this6.formatStringTable("gestion_project_client");
+      query += _this3.formatStringTable("gestion_project_client");
 
       if (where.length) {
         query += " WHERE ";
@@ -1060,13 +1589,13 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectSte: function selectSte(where) {
-    var _this7 = this;
+    var _this4 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this7.formatStringTable("gestion_project_societe");
+      query += _this4.formatStringTable("gestion_project_societe");
 
       if (where.length) {
         query += " WHERE ";
@@ -1088,13 +1617,13 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   selectClient: function selectClient(table) {
-    var _this8 = this;
+    var _this5 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this8.formatStringTable(table);
+      query += _this5.formatStringTable(table);
       query += " limit 0,50 ";
       _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
         // console.log("selectDatas : ", reponse);
@@ -1108,16 +1637,10 @@ var component = Object(componentNormalizer["a" /* default */])(
   },
   //selectionne et affiche les derniers données modifié
   selectAll: function selectAll() {
-    var _this9 = this;
-
     return new Promise(function (resolv) {
       var query = "";
-      query += " select * ";
-      query += " from ";
-      query += _this9.formatStringTable("gestion_project_contents");
-      query += " order by update_at DESC ";
-      query += " limit 0,50 ";
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
+      query += " c.idcontents is not NULL limit 0,50 ";
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/select-project", query).then(function (reponse) {
         // console.log("selectDatas : ", reponse);
         if (reponse.status) {
           resolv(reponse.data);
@@ -1128,8 +1651,6 @@ var component = Object(componentNormalizer["a" /* default */])(
     });
   },
   SelectTacheEnours: function SelectTacheEnours() {
-    var _this10 = this;
-
     var where = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{
       column: "t.status",
       operator: "=",
@@ -1137,33 +1658,17 @@ var component = Object(componentNormalizer["a" /* default */])(
     }];
     return new Promise(function (resolv) {
       var query = "";
-      query += " select ";
-      query += " c.idcontents, c.text, c.titre, c.created_at, ";
-      query += " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
-      query += " h.ordre, h.level, ";
-      query += " t.status";
-      query += " from ";
-      query += _this10.formatStringTable("gestion_project_hierachie") + " as h ";
-      query += " INNER JOIN ";
-      query += _this10.formatStringTable("gestion_project_contents") + " as c ";
-      query += " ON h.idcontents = c.idcontents ";
-      query += " INNER JOIN ";
-      query += _this10.formatStringTable("gestion_project_times") + " as t ";
-      query += " ON t.idcontents = c.idcontents "; //query += "WHERE ( h.idcontentsparent = $idcontents OR c.idcontents = $idcontents ) ";
 
       if (where.length) {
-        query += " WHERE ";
-
         for (var i in where) {
           query += where[i].column + " " + where[i].operator + " " + "'" + where[i].value + "'" + " ";
         }
       }
 
-      query += " ORDER BY  c.`idcontents` DESC";
+      query += " ORDER BY  c.`idcontents` DESC ";
       query += " limit 0,50 "; //console.log("query :: ", query);
 
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
-        // console.log("selectDatas : ", reponse);
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/select-tache-enours", query).then(function (reponse) {
         if (reponse.status) {
           resolv(reponse.data);
         } else {
@@ -1174,7 +1679,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   },
 
   /**
-   * les tables sous drupal doivent etre encarée avec {}
+   * Les tables sous drupal doivent etre encarée avec {}
    */
   formatStringTable: function formatStringTable(table) {
     return "{" + table + "}";
@@ -1183,52 +1688,10 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ "f9cf":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "f840":
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* harmony import */ var _config_SelectDb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("f0ae");
-
-var OptionsType = {
-  /**
-   *
-   */
-  opts: [],
-  instance: false,
-  loadType: function loadType() {
-    var _this = this;
-
-    return new Promise(function (resolv) {
-      if (_this.instance) {
-        _this.instance.then(function () {
-          resolv(_this.opts);
-        });
-      } else {
-        if (!_this.opts.length) {
-          _this.instance = _config_SelectDb__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].selectTypes();
-
-          _this.instance.then(function (reponse) {
-            // console.log("type : ,", reponse);
-            var fm = [];
-
-            for (var i in reponse) {
-              fm.push({
-                value: reponse[i].name,
-                label: reponse[i].label,
-                description: reponse[i].description
-              });
-            }
-
-            _this.opts = fm; //console.log("selectTypes : ", this.opts);
-
-            resolv(_this.opts);
-          });
-        }
-      }
-    });
-  }
-};
-/* harmony default export */ __webpack_exports__["a"] = (OptionsType);
+module.exports = __webpack_require__.p + "img/universe png.f19c3c40.png";
 
 /***/ })
 

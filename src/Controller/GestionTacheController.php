@@ -26,9 +26,7 @@ class GestionTacheController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     // return new static($container->get('prestashop_rest_api.cron'),
     // $container->get('prestashop_rest_api.build_product_to_drupal'));
-    return new static($container->get('gestion_tache.api'),
-        $container->get('query_ajax.insert_update'),
-        $container->get('query_ajax.select'));
+    return new static($container->get('gestion_tache.api'), $container->get('query_ajax.insert_update'), $container->get('query_ajax.select'));
   }
   
   /**
@@ -37,30 +35,37 @@ class GestionTacheController extends ControllerBase {
    * @param InsertUpdate $InsertUpdate
    * @param Select $Select
    */
-  function __construct(GestionProject $GestionProject,
-      InsertUpdate $InsertUpdate, Select $Select) {
+  function __construct(GestionProject $GestionProject, InsertUpdate $InsertUpdate, Select $Select) {
     $this->GestionProject = $GestionProject;
     $this->InsertUpdate = $InsertUpdate;
     $this->Select = $Select;
   }
   
   /**
-   * permet d'ajouter et modifier les données.
+   * Permet d'ajouter et modifier les données.
+   * On va proteger l'insertion, en verifiant les tables et en ajoutant $uid
+   * chaque foix que cela est necessaire.
    *
    * @param Request $Request
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
   function Save(Request $Request) {
     $inserts = Json::decode($Request->getContent());
+    $this->GestionProject->Load->ValidationInsert($inserts);
+    $this->GestionProject->Load->addUserIdGestionProjectContent($inserts);
     $configs = $this->InsertUpdate->buildInserts($inserts);
-    return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(),
-        $this->InsertUpdate->AjaxStatus->getMessage());
+    return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
   }
   
   function Select(Request $Request) {
     return $this->reponse($this->Select->select());
   }
   
+  /**
+   *
+   * @param string $query_param
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   */
   function CustomSelect($query_param) {
     $results = [];
     switch ($query_param) {
@@ -76,11 +81,34 @@ class GestionTacheController extends ControllerBase {
   }
   
   /**
+   * -
+   */
+  function SelectProjectType() {
+    return $this->reponse($this->GestionProject->Load->SelectProjectType());
+  }
+  
+  function selectdatas() {
+    return $this->reponse($this->GestionProject->Load->selectdatas());
+  }
+  
+  function selectTacheEnours() {
+    return $this->reponse($this->GestionProject->Load->selectTacheEnours());
+  }
+  
+  function selectProject() {
+    return $this->reponse($this->GestionProject->Load->selectProject());
+  }
+  
+  /**
    * Builds the response.
    */
   public function build() {
-    $configs = ['#type' => "html_tag", '#tag' => 'section',
-      '#value' => 'Gestion de tache', '#attributes' => ['id' => 'app'
+    $configs = [
+      '#type' => "html_tag",
+      '#tag' => 'section',
+      '#value' => 'Gestion de tache',
+      '#attributes' => [
+        'id' => 'app'
       ]
     ];
     $configs['#attached']['library'][] = 'gestion_tache/app_gestion_tache';

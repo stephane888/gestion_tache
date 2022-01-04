@@ -7,14 +7,14 @@
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"051d4be2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/Clients.vue?vue&type=template&id=49c09b12&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"780923cc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/Clients.vue?vue&type=template&id=49c09b12&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('AddNew',{ref:"addClient",attrs:{"plusColor":"info","selectOption":_vm.selectOption},on:{"load-list-client":_vm.LoadClient}}),_c('CRow',[_c('CCol',{staticClass:"mt-3 mb-2"},[_c('ClientList',{attrs:{"title":'Liste des Clients',"items":_vm.itemsClient,"isLoading":_vm.cisloading,"tableFields":_vm.fieldsClient},on:{"data-to-edite":_vm.DataToEdit,"suppression-ok":_vm.LoadClient}})],1)],1),_c('AddNew',{ref:"addSte",attrs:{"plusColor":"dark","modalType":false,"modalTitle":"Nouvelle Société","selectOption":_vm.selectOption},on:{"load-list-ste":_vm.LoadSte}}),_c('CRow',[_c('CCol',{staticClass:"mt-3"},[_c('ClientList',{attrs:{"title":'Liste des Sociétés',"items":_vm.itemsSte,"isLoading":_vm.sisloading,"tableFields":_vm.fieldsSte},on:{"data-to-edite":_vm.DataToEditSte,"suppression-ok":_vm.LoadSte}})],1)],1)],1)}
 var staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/views/App/Clients.vue?vue&type=template&id=49c09b12&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"051d4be2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/client/ClientList.vue?vue&type=template&id=708da7ce&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"780923cc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/client/ClientList.vue?vue&type=template&id=708da7ce&
 var ClientListvue_type_template_id_708da7ce_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('CCard',[_c('CCardHeader',[_vm._v(" "+_vm._s(_vm.title)+" "),_c('div',{staticClass:"card-header-actions"},[_c('a',{staticClass:"card-header-action",attrs:{"href":"#","rel":"noreferrer noopener","target":"_blank"}},[_c('small',{staticClass:"text-muted"})])])]),_c('CCardBody',{},[_c('CDataTable',{staticClass:"m-0 table-borderless",attrs:{"hover":"","responsive":false,"loading":_vm.isLoading,"items":_vm.items,"fields":_vm.tableFields,"header":false,"cleaner":"","table-filter":"","items-per-page-select":"","items-per-page":5,"pagination":""},scopedSlots:_vm._u([{key:"user",fn:function(ref){
 var item = ref.item;
 return _c('td',{},[_c('div',[_c('CLink',{staticClass:"text-decoration-none",attrs:{"to":{
@@ -276,14 +276,14 @@ var component = Object(componentNormalizer["a" /* default */])(
 // EXTERNAL MODULE: ./src/views/App/config/SelectDb.js
 var SelectDb = __webpack_require__("f0ae");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"051d4be2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/client/AddNew.vue?vue&type=template&id=43620b8c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"780923cc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/client/AddNew.vue?vue&type=template&id=43620b8c&
 var AddNewvue_type_template_id_43620b8c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('CRow',{staticClass:"ml-2 mt-n2 d-flex",attrs:{"alignVertical":"center"}},[_c('CButton',{attrs:{"size":"sm","color":_vm.plusColor,"shape":"pill"},on:{"click":_vm.modalAddOn}},[_c('CIcon',{staticClass:"text-white",attrs:{"name":"cilPlus","height":35,"size":"xl"}})],1),_c('h6',{staticClass:"ml-1 mt-1"},[_vm._v("Nouveau Client")])],1),_c('CModal',{attrs:{"size":"lg","title":_vm.modalTitle,"color":_vm.plusColor,"show":_vm.modalAdd,"footer":false},on:{"update:show":function($event){_vm.modalAdd=$event}}},[_c('PopUpClient',{ref:"pop",attrs:{"modalType":_vm.modalType,"btnState":_vm.btnStateAdd,"formValues":_vm.dataToEdit,"selectOption":_vm.selectOption},on:{"load-list-client":_vm.loadListClient,"load-list-ste":_vm.loadListSte}}),_c('template',{slot:"footer"},[_c('div',{staticClass:"d-flex justify-content-end mr-3"},[_c('CButton',{staticClass:"mx-1",attrs:{"color":"light"},on:{"click":function($event){_vm.modalAdd = false}}},[_vm._v(" Cancel ")]),_c('CButton',{staticClass:"mx-1",attrs:{"color":_vm.btnStateAdd.state ? _vm.plusColor : 'light'},on:{"click":_vm.PostNewClient}},[_vm._v(" Add ")])],1)])],2)],1)}
 var AddNewvue_type_template_id_43620b8c_staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/views/App/client/AddNew.vue?vue&type=template&id=43620b8c&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"051d4be2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/client/PopUpClient.vue?vue&type=template&id=67ba1f3a&scoped=true&lang=html&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"780923cc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/views/App/client/PopUpClient.vue?vue&type=template&id=67ba1f3a&scoped=true&lang=html&
 var PopUpClientvue_type_template_id_67ba1f3a_scoped_true_lang_html_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"check-valid-form":_vm.checkForSave}},[_c('div',{staticClass:"pl-sm-2"},[_c('CRow',[_c('CCol',{attrs:{"sm":"6"}},[_c('CInput',{attrs:{"label":"Name:","placeholder":_vm.modalType ? 'Nom du client' : 'Nom de la société',"wasValidated":_vm.wasValidated,"validFeedback":"ok","invalidFeedback":"requis","isValid":_vm.inputValidation,"autocomplete":"name"},model:{value:(_vm.postData.nom),callback:function ($$v) {_vm.$set(_vm.postData, "nom", $$v)},expression:"postData.nom"}})],1),(_vm.modalType)?_c('CCol',{attrs:{"sm":"5"}},[_c('CInput',{attrs:{"label":"Prenom:","placeholder":"Prenom"},model:{value:(_vm.postData.prenom),callback:function ($$v) {_vm.$set(_vm.postData, "prenom", $$v)},expression:"postData.prenom"}})],1):_vm._e(),_c('CCol',{attrs:{"sm":"6"}},[_c('CInput',{attrs:{"label":"Adresse:","placeholder":"Adresse"},model:{value:(_vm.postData.adresse),callback:function ($$v) {_vm.$set(_vm.postData, "adresse", $$v)},expression:"postData.adresse"}})],1),(_vm.modalType)?_c('CCol',{attrs:{"sm":"3"}},[_c('CInput',{attrs:{"label":"Uid:","placeholder":"uid","type":"number"},model:{value:(_vm.postData.uid),callback:function ($$v) {_vm.$set(_vm.postData, "uid", $$v)},expression:"postData.uid"}})],1):_vm._e(),_c('CCol',{attrs:{"sm":"5"}},[_c('CInput',{attrs:{"label":"Phone:","placeholder":"Phone"},model:{value:(_vm.postData.phone),callback:function ($$v) {_vm.$set(_vm.postData, "phone", $$v)},expression:"postData.phone"}})],1),(!_vm.modalType)?_c('CCol',{attrs:{"sm":"6"}},[_c('CInput',{attrs:{"label":"Email:","placeholder":"Email","type":"email","required":"","wasValidated":_vm.eValidated,"validFeedback":"ok","invalidFeedback":"Veuiller entrer un email valide","isValid":_vm.emailValidation},model:{value:(_vm.postData.email),callback:function ($$v) {_vm.$set(_vm.postData, "email", $$v)},expression:"postData.email"}})],1):_vm._e(),(!_vm.modalType)?_c('CCol',{attrs:{"sm":"7"}},[_c('CInput',{attrs:{"label":"Site Web:","placeholder":"Site Web"},model:{value:(_vm.postData.siteweb),callback:function ($$v) {_vm.$set(_vm.postData, "siteweb", $$v)},expression:"postData.siteweb"}})],1):_vm._e(),(_vm.modalType)?_c('CCol',{attrs:{"sm":"7"}},[_c('CInput',{attrs:{"label":"Fonction:","placeholder":"fonction"},model:{value:(_vm.postData.fonction),callback:function ($$v) {_vm.$set(_vm.postData, "fonction", $$v)},expression:"postData.fonction"}})],1):_vm._e(),(_vm.modalType)?_c('CCol',{attrs:{"sm":"6"}},[_c('CSelect',{attrs:{"label":"Société:","options":_vm.selectOptionFormat,"placeholder":"Sélectionner la société du client","value":_vm.postData.idsociete},on:{"update:value":function($event){return _vm.$set(_vm.postData, "idsociete", $event)}},model:{value:(_vm.postData.idsociete),callback:function ($$v) {_vm.$set(_vm.postData, "idsociete", $$v)},expression:"postData.idsociete"}})],1):_vm._e()],1)],1)])}
 var PopUpClientvue_type_template_id_67ba1f3a_scoped_true_lang_html_staticRenderFns = []
 
@@ -902,12 +902,21 @@ var Clients_component = Object(componentNormalizer["a" /* default */])(
 "use strict";
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("bc3a");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var wbuutilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("bfb1");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-/* harmony default export */ __webpack_exports__["a"] = ({
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (_objectSpread(_objectSpread({}, wbuutilities__WEBPACK_IMPORTED_MODULE_1__[/* AjaxBasic */ "a"]), {}, {
+  TestDomain: "http://gestiontaches.kksa",
   baseUrl: "http://gestion-taches-vps.habeuk.com",
   //baseUrl: "http://gestion-taches.kksa",
   ModeDebug: true,
-  post: function post(request) {
+  postOld: function postOld(request) {
     var _this = this;
 
     var datas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -930,7 +939,7 @@ var Clients_component = Object(componentNormalizer["a" /* default */])(
       });
     });
   },
-  get: function get(request) {
+  getOld: function getOld(request) {
     var _this2 = this;
 
     var datas = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -954,7 +963,7 @@ var Clients_component = Object(componentNormalizer["a" /* default */])(
       });
     });
   }
-});
+}));
 
 /***/ }),
 
@@ -977,7 +986,7 @@ var Utilities = {
    */
   formatData: function formatData(datas) {
     return new Promise(function (resolv) {
-      //console.log("fdate : ", datas);
+      console.log("fdate : ", datas);
       var result = [];
 
       if (datas && datas.titre) {
@@ -989,7 +998,8 @@ var Utilities = {
           fields: {
             text: datas.text,
             titre: datas.titre,
-            type: datas.type
+            type: datas.type,
+            privaty: datas.privaty ? 1 : 0
           },
           action: "update"
         };
@@ -1130,7 +1140,8 @@ var Utilities = {
           fields: {
             text: datas.text,
             titre: datas.titre,
-            type: datas.type
+            type: datas.type,
+            privaty: datas.privaty ? 1 : 0
           }
         };
         ligne.childstable = {
@@ -1146,6 +1157,8 @@ var Utilities = {
   // Remplissage des champs pour l’édition d’un contenu du pop-up avec les contenus à éditer
   fomatVal: function fomatVal(result, postData) {
     return new Promise(function (resolv) {
+      //console.log("postData : ", postData);
+
       /*
       if (result.date_depart_proposer || result.date_fin_proposer) {
         console.log("val.date_depart_proposer ", result);
@@ -1163,6 +1176,8 @@ var Utilities = {
           } else if (i === "date_fin_proposer") {
             postData[i] = moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(result[i]).format("YYYY-MM-DD");
             postData.heure_fin = moment__WEBPACK_IMPORTED_MODULE_0___default.a.unix(result[i]).format("HH:mm");
+          } else if (i === "privaty") {
+            postData[i] = result[i] == "0" ? 0 : 1;
           } else {
             postData[i] = result[i];
           }
@@ -1478,8 +1493,6 @@ var Utilities = {
    * selectionne un enssemble de données à partir d'une requette personnalisé
    */
   selectDatas: function selectDatas() {
-    var _this = this;
-
     var where = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{
       column: "c.type",
       operator: "=",
@@ -1487,19 +1500,8 @@ var Utilities = {
     }];
     return new Promise(function (resolv) {
       var query = "";
-      query += " select ";
-      query += " c.idcontents, c.text, c.titre, c.created_at, ";
-      query += " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
-      query += " h.ordre, h.level";
-      query += " from ";
-      query += _this.formatStringTable("gestion_project_hierachie") + " as h ";
-      query += " INNER JOIN ";
-      query += _this.formatStringTable("gestion_project_contents") + " as c ";
-      query += " ON h.idcontents = c.idcontents "; //query += "WHERE ( h.idcontentsparent = $idcontents OR c.idcontents = $idcontents ) ";
 
       if (where.length) {
-        query += " WHERE ";
-
         for (var i in where) {
           query += where[i].column + " " + where[i].operator + " " + "'" + where[i].value + "'" + " ";
         }
@@ -1508,8 +1510,7 @@ var Utilities = {
       query += " ORDER BY  c.`idcontents` DESC";
       query += " limit 0,50 "; //console.log("query :: ", query);
 
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
-        // console.log("selectDatas : ", reponse);
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/selectdatas", query).then(function (reponse) {
         if (reponse.status) {
           resolv(reponse.data);
         } else {
@@ -1519,15 +1520,8 @@ var Utilities = {
     });
   },
   selectTypes: function selectTypes() {
-    var _this2 = this;
-
     return new Promise(function (resolv) {
-      var query = "";
-      query += " select * ";
-      query += " from ";
-      query += _this2.formatStringTable("gestion_project_type");
-      query += " limit 0,50 ";
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].get("/gestion-project/select/project-type").then(function (reponse) {
         // console.log("selectDatas : ", reponse);
         if (reponse.status) {
           resolv(reponse.data);
@@ -1538,23 +1532,16 @@ var Utilities = {
     });
   },
   selectProject: function selectProject(where) {
-    var _this3 = this;
-
     return new Promise(function (resolv) {
       var query = "";
-      query += " select * ";
-      query += " from ";
-      query += _this3.formatStringTable("gestion_project_contents");
 
       if (where.length) {
-        query += " WHERE ";
-
         for (var i in where) {
           query += where[i].column + " " + where[i].operator + " " + "'" + where[i].value + "'" + " ";
         }
       }
 
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/select-project", query).then(function (reponse) {
         // console.log("selectDatas : ", reponse);
         if (reponse.status) {
           resolv(reponse.data);
@@ -1565,13 +1552,13 @@ var Utilities = {
     });
   },
   selectFatureList: function selectFatureList(where) {
-    var _this4 = this;
+    var _this = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this4.formatStringTable("gestion_project_invoice_list");
+      query += _this.formatStringTable("gestion_project_invoice_list");
 
       if (where.length) {
         query += " WHERE ";
@@ -1592,13 +1579,13 @@ var Utilities = {
     });
   },
   selectInvoice: function selectInvoice(where) {
-    var _this5 = this;
+    var _this2 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this5.formatStringTable("gestion_project_invoice");
+      query += _this2.formatStringTable("gestion_project_invoice");
 
       if (where.length) {
         query += " WHERE ";
@@ -1619,13 +1606,13 @@ var Utilities = {
     });
   },
   selectClients: function selectClients(where) {
-    var _this6 = this;
+    var _this3 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this6.formatStringTable("gestion_project_client");
+      query += _this3.formatStringTable("gestion_project_client");
 
       if (where.length) {
         query += " WHERE ";
@@ -1647,13 +1634,13 @@ var Utilities = {
     });
   },
   selectSte: function selectSte(where) {
-    var _this7 = this;
+    var _this4 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this7.formatStringTable("gestion_project_societe");
+      query += _this4.formatStringTable("gestion_project_societe");
 
       if (where.length) {
         query += " WHERE ";
@@ -1675,13 +1662,13 @@ var Utilities = {
     });
   },
   selectClient: function selectClient(table) {
-    var _this8 = this;
+    var _this5 = this;
 
     return new Promise(function (resolv) {
       var query = "";
       query += " select * ";
       query += " from ";
-      query += _this8.formatStringTable(table);
+      query += _this5.formatStringTable(table);
       query += " limit 0,50 ";
       _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
         // console.log("selectDatas : ", reponse);
@@ -1695,16 +1682,10 @@ var Utilities = {
   },
   //selectionne et affiche les derniers données modifié
   selectAll: function selectAll() {
-    var _this9 = this;
-
     return new Promise(function (resolv) {
       var query = "";
-      query += " select * ";
-      query += " from ";
-      query += _this9.formatStringTable("gestion_project_contents");
-      query += " order by update_at DESC ";
-      query += " limit 0,50 ";
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
+      query += " c.idcontents is not NULL limit 0,50 ";
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/select-project", query).then(function (reponse) {
         // console.log("selectDatas : ", reponse);
         if (reponse.status) {
           resolv(reponse.data);
@@ -1715,8 +1696,6 @@ var Utilities = {
     });
   },
   SelectTacheEnours: function SelectTacheEnours() {
-    var _this10 = this;
-
     var where = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [{
       column: "t.status",
       operator: "=",
@@ -1724,33 +1703,17 @@ var Utilities = {
     }];
     return new Promise(function (resolv) {
       var query = "";
-      query += " select ";
-      query += " c.idcontents, c.text, c.titre, c.created_at, ";
-      query += " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
-      query += " h.ordre, h.level, ";
-      query += " t.status";
-      query += " from ";
-      query += _this10.formatStringTable("gestion_project_hierachie") + " as h ";
-      query += " INNER JOIN ";
-      query += _this10.formatStringTable("gestion_project_contents") + " as c ";
-      query += " ON h.idcontents = c.idcontents ";
-      query += " INNER JOIN ";
-      query += _this10.formatStringTable("gestion_project_times") + " as t ";
-      query += " ON t.idcontents = c.idcontents "; //query += "WHERE ( h.idcontentsparent = $idcontents OR c.idcontents = $idcontents ) ";
 
       if (where.length) {
-        query += " WHERE ";
-
         for (var i in where) {
           query += where[i].column + " " + where[i].operator + " " + "'" + where[i].value + "'" + " ";
         }
       }
 
-      query += " ORDER BY  c.`idcontents` DESC";
+      query += " ORDER BY  c.`idcontents` DESC ";
       query += " limit 0,50 "; //console.log("query :: ", query);
 
-      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select", query).then(function (reponse) {
-        // console.log("selectDatas : ", reponse);
+      _config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/gestion-project/select/select-tache-enours", query).then(function (reponse) {
         if (reponse.status) {
           resolv(reponse.data);
         } else {
@@ -1761,7 +1724,7 @@ var Utilities = {
   },
 
   /**
-   * les tables sous drupal doivent etre encarée avec {}
+   * Les tables sous drupal doivent etre encarée avec {}
    */
   formatStringTable: function formatStringTable(table) {
     return "{" + table + "}";

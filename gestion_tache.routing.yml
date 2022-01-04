@@ -59,6 +59,45 @@ gestion_tache.select:
     _permission: 'gestion_tache__reserve_content'
 
 
+# L'utilisateur doit etre administrateur.  
+# La selection est contenu la body.  
+gestion_tache.select.project_type:   
+  path: "/gestion-project/select/project-type"
+  methods: [GET]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::SelectProjectType'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+
+gestion_tache.select.selectdatas:
+  path: "/gestion-project/select/selectdatas"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectdatas'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+
+gestion_tache.select.select_tache_enours:
+  path: "/gestion-project/select/select-tache-enours"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectTacheEnours'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+
+gestion_tache.select.select_project:
+  path: "/gestion-project/select/select-project"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectProject'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+
+
 # Les données à selectionner sont definit par le paramettre.   
 # Les parametres sont dans le body.  
 gestion_tache.custom_select:   
