@@ -1097,7 +1097,8 @@ var Utilities = {
             titre: datas.titre,
             type: datas.type,
             privaty: datas.privaty ? 1 : 0
-          }
+          },
+          action: "insert"
         };
         ligne.childstable = {
           colum_id_name: "idcontents",
