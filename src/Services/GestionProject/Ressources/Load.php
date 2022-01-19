@@ -82,7 +82,7 @@ class Load {
     $query .= " c.idcontents, c.text, c.titre, c.created_at, ";
     $query .= " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
     $query .= " h.ordre, h.level, ";
-    $query .= " t.status ";
+    $query .= " t.status, t.date_depart_proposer, t.date_fin_proposer, t.date_fin_reel ";
     $query .= " from ";
     $query .= " {gestion_project_hierachie} as h ";
     $query .= " INNER JOIN ";
