@@ -6,6 +6,7 @@ gestion_tache.init:
   requirements:
     _permission: 'access content'
 
+
 gestion_tache.search:
   path: "/gestion-project/search"
   methods: [POST]
@@ -14,6 +15,8 @@ gestion_tache.search:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Search'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
 
     
 gestion_tache.Load_project:   
@@ -24,6 +27,8 @@ gestion_tache.Load_project:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProject'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
 
     
 gestion_tache.Load_project_with_childrens:   
@@ -34,6 +39,8 @@ gestion_tache.Load_project_with_childrens:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProjectWithChildrens'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
 
 
 # L'utilisateur doit etre administrateur.
@@ -45,6 +52,8 @@ gestion_tache.save:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Save'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
 
 
 # L'utilisateur doit etre administrateur.  
@@ -57,6 +66,8 @@ gestion_tache.select:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Select'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
 
 
 # L'utilisateur doit etre administrateur.  
@@ -69,6 +80,9 @@ gestion_tache.select.project_type:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::SelectProjectType'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+
 
 gestion_tache.select.selectdatas:
   path: "/gestion-project/select/selectdatas"
@@ -78,6 +92,9 @@ gestion_tache.select.selectdatas:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectdatas'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+
 
 gestion_tache.select.select_tache_enours:
   path: "/gestion-project/select/select-tache-enours"
@@ -87,6 +104,9 @@ gestion_tache.select.select_tache_enours:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectTacheEnours'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+
 
 gestion_tache.select.select_project:
   path: "/gestion-project/select/select-project"
@@ -96,6 +116,8 @@ gestion_tache.select.select_project:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectProject'
   requirements:
     _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
 
 
 # Les données à selectionner sont definit par le paramettre.   
@@ -108,8 +130,63 @@ gestion_tache.custom_select:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::CustomSelect'
   requirements:
     _permission: 'gestion_tache__reserve_content'
-    
-    
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+      
+# Recupere la liste des utilisateurs ou un utilisateur.
+gestion_tache.users:   
+  path: "/gestion-project/users/{uid}"
+  methods: [POST,GET]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::getUsers'
+    uid: null
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+
+      
+# supprime ou ajoute un utilisateur executant une tache.
+gestion_tache.user:   
+  path: "/gestion-project/executant/{idcontents}/{uid}"
+  methods: [POST,DELETE]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::manageUser'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']    
+      
+# supprime ou ajoute une prime pour un utilisateur.
+gestion_tache.user_prime:   
+  path: "/gestion-project/prime/{idcontents}"
+  methods: [POST,DELETE]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::managePrime'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']   
+      
+
+# supprime ou ajoute un utilisateur.
+gestion_tache.user_taches:   
+  path: "/gestion-project/select/select-mes-taches/{uid}"
+  methods: [POST]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::UserTaches'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']  
+      
+      
+   
     
     
     

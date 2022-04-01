@@ -201,6 +201,9 @@ class Load {
     $query .= " AND ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
     // return $query;
     $project = $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    // on ajoute la liste de utilisateur dans la requete.
+    if (!empty($project[0]))
+      $project[0]['executant'] = $this->getUserExectutant($idcontents);
     if (!empty($this->filtre)) {
       $this->loadRCardList($idcontents, $project);
     }
@@ -209,6 +212,26 @@ class Load {
       $this->loadRCard($idcontents, $project, $deep);
     }
     return $project;
+  }
+  
+  public function LoadTaches(int $uid) {
+    $champs = $this->requeteLoadCard;
+    $query = "select $champs from {gestion_project_contents} as c
+      INNER JOIN {gestion_project_executant} as gpe ON c.idcontents = gpe.idcontents 
+      INNER JOIN {gestion_project_hierachie} as h ON h.idcontents = c.idcontents
+      LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
+      LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+      WHERE gpe.uid = '" . $uid . "';
+    ";
+    return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+  
+  /**
+   * --
+   */
+  protected function getUserExectutant(int $idcontents) {
+    $query = "select * from {gestion_project_executant} where idcontents = " . $idcontents;
+    return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
   
   protected function loadRCardList($idcontents, &$results) {
