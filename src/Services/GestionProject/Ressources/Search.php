@@ -27,7 +27,7 @@ class Search {
     // LIMIT 50
     // ( (`uid` == '$uid' OR `uid` == '0') OR `privaty`=='0' ) AND
     $query = "select * from {gestion_project_contents} WHERE 
-    ( ( `uid` = '0' OR `uid` = '$uid' ) OR `privaty` = '0' )  AND  `titre` LIKE '%$queryKey%' LIMIT 50 ";
+    ( ( (`uid` = '0' and `privaty` = '0') OR `uid` = '$uid' ) OR `privaty` = '0' )  AND  `titre` LIKE '%$queryKey%' LIMIT 50 ";
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
   

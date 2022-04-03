@@ -198,7 +198,7 @@ class Load {
       LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
       WHERE ( c.idcontents = $idcontents )
     ";
-    $query .= " AND ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
+    $query .= " AND ( ( (c.`uid` = '0' and c.`privaty` = '0') OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
     // return $query;
     $project = $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     // on ajoute la liste de utilisateur dans la requete.
