@@ -59751,6 +59751,7 @@ module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
     var user = JSON.parse(window.localStorage.getItem("user")); //let currentPage = window.location.href
 
     var redirectPage = window.location.origin + "#/pages/login";
+    if (window.location.pathname != "/") redirectPage = window.location.origin + window.location.pathname + "#/pages/login";
     var hash = window.location.pathname;
     console.log("hash,", hash.includes("/login"), user);
 
