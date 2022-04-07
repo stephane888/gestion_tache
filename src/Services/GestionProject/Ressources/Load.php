@@ -249,8 +249,9 @@ class Load {
       foreach ($results as $key => $ligne) {
         if ($ligne['idcontents'] == $idcontents) {
           $results[$key]['cards'] = $project;
-          foreach ($results[$key]['cards'] as $data) {
+          foreach ($results[$key]['cards'] as $k2 => $data) {
             $idcontents = $data['idcontents'];
+            $results[$key]['cards'][$k2]['executant'] = $this->getUserExectutant($idcontents);
             $this->loadRCardList($data['idcontents'], $results[$key]['cards']);
           }
         }
@@ -278,8 +279,9 @@ class Load {
         foreach ($results as $key => $ligne) {
           if ($ligne['idcontents'] == $idcontents) {
             $results[$key]['cards'] = $project;
-            foreach ($results[$key]['cards'] as $data) {
+            foreach ($results[$key]['cards'] as $k2 => $data) {
               $idcontents = $data['idcontents'];
+              $results[$key]['cards'][$k2]['executant'] = $this->getUserExectutant($idcontents);
               $this->loadRCard($data['idcontents'], $results[$key]['cards'], $deep);
             }
           }
