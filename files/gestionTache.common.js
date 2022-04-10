@@ -87,7 +87,7 @@ module.exports =
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "css/" + ({}[chunkId]||chunkId) + "." + {"0":"31d6cfe0","1":"31d6cfe0","2":"31d6cfe0","4":"e1312719","5":"f6f2d610","6":"a1f6bc80","7":"cb1bc02b","8":"31d6cfe0","9":"434c5bcc","10":"96a655cf","11":"422cf218","12":"31d6cfe0","13":"31d6cfe0","14":"31d6cfe0","15":"31d6cfe0","16":"31d6cfe0","17":"31d6cfe0","18":"31d6cfe0","19":"31d6cfe0","20":"31d6cfe0"}[chunkId] + ".css";
+/******/ 				var href = "css/" + ({}[chunkId]||chunkId) + "." + {"0":"31d6cfe0","1":"31d6cfe0","2":"31d6cfe0","4":"3273f3dc","5":"7663973e","6":"a1f6bc80","7":"cb1bc02b","8":"31d6cfe0","9":"db8b259e","10":"96a655cf","11":"422cf218","12":"31d6cfe0","13":"31d6cfe0","14":"31d6cfe0","15":"31d6cfe0","16":"31d6cfe0","17":"31d6cfe0","18":"31d6cfe0","19":"31d6cfe0","20":"31d6cfe0"}[chunkId] + ".css";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
@@ -59781,7 +59781,7 @@ module.exports = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
           value: pass
         }]
       };
-      _views_App_config_config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("http://gestiontaches.kksa/login-rx-vuejs/user-connexion", data // {
+      _views_App_config_config__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].post("/login-rx-vuejs/user-connexion", data // {
       //   headers: {
       //     // Accept: "application/json",
       //     "Content-Type": "application/json",
@@ -62677,7 +62677,7 @@ var node_modules_axios_default = /*#__PURE__*/__webpack_require__.n(node_modules
  */
 
 const InstAxios = node_modules_axios_default.a.create({
-  timeout: 300000
+  timeout: 300000,
 });
 
 var formatBasicAuth = function(userName, password) {
@@ -62701,30 +62701,48 @@ if (window.localStorage.getItem("current_user")) {
 }
 
 const basicRequest = {
-  /* permet de lire la variable user dans le localstorage et de formater l'authorisation */
+  /* Permet de lire la variable user dans le localstorage et de formater l'authorisation */
   auth: user ? formatBasicAuth(user.username, user.password) : null,
   current_user: current_user,
   axiosInstance: InstAxios,
   /**
    * Domaine permettant d'effectuer les tests en local.
+   * C'est sur ce domaine que les requetes vont etre transmise quand on est en local.
+   * @public
    */
   TestDomain: null,
   /**
+   * Permet de specifier un domaine pour la production. ( utiliser uniquement quand l'application front est sur un domaine different de l'application serveur ).
+   */
+  baseUrl: null,
+  /**
    * Permet de determiner, si nous sommes en local ou pas.
+   * @public
+   * @returns Booleans
    */
   isLocalDev:
     window.location.host.includes("localhost") ||
     window.location.host.includes(".kksa")
       ? true
       : false,
-  BaseUrl() {
-    return this.isLocalDev && this.TestDomain
-      ? this.TestDomain.trim("/")
-      : window.location.protocol + "//" + window.location.host;
+  /**
+   * Permet de derminer la source du domaine, en function des paramettres definit.
+   * @private (ne doit pas etre surcharger).
+   * @returns String
+   */
+  getBaseUrl() {
+    if (this.baseUrl)
+      return this.isLocalDev && this.TestDomain
+        ? this.TestDomain.trim("/")
+        : this.baseUrl;
+    else
+      return this.isLocalDev && this.TestDomain
+        ? this.TestDomain.trim("/")
+        : window.location.protocol + "//" + window.location.host;
   },
   post: function(url, datas, configs) {
     return new Promise((resolv, reject) => {
-      const urlFinal = url.includes("://") ? url : this.BaseUrl() + url;
+      const urlFinal = url.includes("://") ? url : this.getBaseUrl() + url;
       InstAxios.post(urlFinal, datas, configs)
         .then((reponse) => {
           resolv({ status: true, data: reponse.data, reponse: reponse });
@@ -62734,14 +62752,14 @@ const basicRequest = {
             status: false,
             error: error.response,
             code: error.code,
-            stack: error.stack
+            stack: error.stack,
           });
         });
     });
   },
   delete: function(url, datas, configs) {
     return new Promise((resolv, reject) => {
-      const urlFinal = url.includes("://") ? url : this.BaseUrl() + url;
+      const urlFinal = url.includes("://") ? url : this.getBaseUrl() + url;
       console.log("config", datas, configs);
       InstAxios.delete(urlFinal, configs, datas)
         .then((reponse) => {
@@ -62752,14 +62770,14 @@ const basicRequest = {
             status: false,
             error: error.response,
             code: error.code,
-            stack: error.stack
+            stack: error.stack,
           });
         });
     });
   },
   get: function(url, configs) {
     return new Promise((resolv, reject) => {
-      const urlFinal = url.includes("://") ? url : this.BaseUrl() + url;
+      const urlFinal = url.includes("://") ? url : this.getBaseUrl() + url;
       InstAxios.get(urlFinal, configs)
         .then((reponse) => {
           resolv({ status: true, data: reponse.data, reponse: reponse });
@@ -62769,7 +62787,7 @@ const basicRequest = {
             status: false,
             error: error.response,
             code: error.code,
-            stack: error.stack
+            stack: error.stack,
           });
         });
     });
@@ -62791,11 +62809,11 @@ const basicRequest = {
             upload: fileEncode.base64,
             filename: fileCompose[0],
             ext: fileCompose[1],
-            id: id
+            id: id,
           }),
-          cache: "default"
+          cache: "default",
         };
-        const urlFinal = url.includes("://") ? url : this.BaseUrl() + url;
+        const urlFinal = url.includes("://") ? url : this.getBaseUrl() + url;
         fetch(urlFinal, myInit).then(function(response) {
           response
             .json()
@@ -62820,7 +62838,7 @@ const basicRequest = {
       };
       reader.onerror = (error) => reject(error);
     });
-  }
+  },
 };
 
 /* harmony default export */ var basic = (basicRequest);
@@ -68925,7 +68943,7 @@ var config_formatBasicAuth = function formatBasicAuth(userName, password) {
 
 /* harmony default export */ var config_config = __webpack_exports__["a"] = (config_objectSpread(config_objectSpread({}, basic), {}, {
   TestDomain: "http://gestiontaches.kksa",
-  baseUrl: "http://gestion-taches-vps.habeuk.com",
+  baseUrl: "https://gestion-taches-vps.habeuk.com",
   basicAuth: config_formatBasicAuth("stane", "azabzistany@gmail.com"),
   //baseUrl: "http://gestion-taches.kksa",
   ModeDebug: true,
@@ -110367,7 +110385,7 @@ if (inBrowser && window.Vue) {
  // Containers
 
 var TheContainer = function TheContainer() {
-  return Promise.all(/* import() */[__webpack_require__.e(1), __webpack_require__.e(10), __webpack_require__.e(2), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, "f593"));
+  return Promise.all(/* import() */[__webpack_require__.e(1), __webpack_require__.e(10), __webpack_require__.e(2), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, "f593"));
 }; // Views
 
 
