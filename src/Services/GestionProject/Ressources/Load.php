@@ -17,7 +17,7 @@ class Load {
   private $requeteSimple = " c.idcontents, c.text, c.titre, c.created_at, c.update_at, c.type, c.uid, c.lastupdateuid, c.privaty, 
   h.idhierachie, h.idcontentsparent, h.ordre, h.level";
   private $requete = " cf.idconfigs, cf.testconfigs ";
-  private $requeteLoadCard = " ct.date_depart_proposer, ct.date_fin_proposer, ct.date_fin_reel, ct.status, ct.temps_pause, ct.raison ";
+  private $requeteLoadCard = " ct.date_depart_proposer, ct.date_fin_proposer, ct.date_fin_reel, ct.status, ct.temps_pause, ct.raison, pm.status as prime_status, pm.montant as prime_montant ";
   protected $user;
   
   function __construct(Connection $Connection, RequestStack $RequestStack, AccountProxy $user) {
@@ -125,7 +125,9 @@ class Load {
       "gestion_project_contents",
       "gestion_project_hierachie",
       "gestion_project_times",
-      "gestion_project_type"
+      "gestion_project_type",
+      "gestion_project_prime",
+      "gestion_project_executant"
     ];
     foreach ($inserts as $value) {
       if (empty($value['table']) || !empty($tables[$value['table']])) {
@@ -196,14 +198,26 @@ class Load {
       INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
       LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
       LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+      LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
       WHERE ( c.idcontents = $idcontents )
     ";
-    $query .= " AND ( ( (c.`uid` = '0' and c.`privaty` = '0') OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
-    // return $query;
+    $query .= " AND 
+     (
+     /* une anciente tache qui a été rencu privé */
+		    (c.`privaty` = '1' and c.`lastupdateuid`='$uid' and c.`uid`='0')		 
+     /* Une nouvelle tache qui est privé */
+		    OR (c.`privaty` = '1' and c.`uid`='$uid')
+		 /* une tache à access public */
+		    OR (c.`privaty` = '0')		 
+	   )
+  ";
+    
     $project = $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     // on ajoute la liste de utilisateur dans la requete.
-    if (!empty($project[0]))
+    if (!empty($project[0])) {
       $project[0]['executant'] = $this->getUserExectutant($idcontents);
+    }
+    
     if (!empty($this->filtre)) {
       $this->loadRCardList($idcontents, $project);
     }
@@ -214,6 +228,10 @@ class Load {
     return $project;
   }
   
+  /**
+   *
+   * @param int $uid
+   */
   public function LoadTaches(int $uid) {
     $champs = $this->requeteLoadCard;
     $query = "select $champs from {gestion_project_contents} as c
@@ -221,6 +239,7 @@ class Load {
       INNER JOIN {gestion_project_hierachie} as h ON h.idcontents = c.idcontents
       LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
       LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+      LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
       WHERE gpe.uid = '" . $uid . "';
     ";
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
@@ -234,6 +253,14 @@ class Load {
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
   
+  /**
+   * --
+   */
+  protected function getTachePrime(int $idcontents) {
+    $query = " select * from {gestion_project_prime} where idcontents = " . $idcontents;
+    return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+  
   protected function loadRCardList($idcontents, &$results) {
     $uid = $this->user->id();
     $champs = $this->requeteLoadCard;
@@ -241,9 +268,20 @@ class Load {
         INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
         LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
         LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+        LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
         WHERE ( h.idcontentsparent = $idcontents $this->filtre)
       ";
-    $request .= " AND ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
+    $request .= " AND 
+     (
+     /* une anciente tache qui a été rencu privé */
+		    (c.`privaty` = '1' and c.`lastupdateuid`='$uid' and c.`uid`='0')		 
+     /* Une nouvelle tache qui est privé */
+		    OR (c.`privaty` = '1' and c.`uid`='$uid')
+		 /* une tache à access public */
+		    OR (c.`privaty` = '0')		 
+	   )
+
+ ";
     $project = $this->Connection->query($request)->fetchAll(\PDO::FETCH_ASSOC);
     if (!empty($project)) {
       foreach ($results as $key => $ligne) {
@@ -262,6 +300,12 @@ class Load {
     }
   }
   
+  /**
+   *
+   * @param int $idcontents
+   * @param array $results
+   * @param number $deep
+   */
   protected function loadRCard($idcontents, &$results, $deep = 0) {
     $deep++;
     $uid = $this->user->id();
@@ -271,9 +315,19 @@ class Load {
         INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
         LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
         LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+        LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
         WHERE ( h.idcontentsparent = $idcontents )
       ";
-      $request .= " AND ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
+      $request .= " AND 
+     (
+     /* une anciente tache qui a été rencu privé */
+		    (c.`privaty` = '1' and c.`lastupdateuid`='$uid' and c.`uid`='0')		 
+     /* Une nouvelle tache qui est privé */
+		    OR (c.`privaty` = '1' and c.`uid`='$uid')
+		 /* une tache à access public */
+		    OR (c.`privaty` = '0')		 
+	   )
+ ";
       $project = $this->Connection->query($request)->fetchAll(\PDO::FETCH_ASSOC);
       if (!empty($project)) {
         foreach ($results as $key => $ligne) {

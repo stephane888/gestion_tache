@@ -27,7 +27,16 @@ class Search {
     // LIMIT 50
     // ( (`uid` == '$uid' OR `uid` == '0') OR `privaty`=='0' ) AND
     $query = "select * from {gestion_project_contents} WHERE 
-    ( ( (`uid` = '0' and `privaty` = '0') OR `uid` = '$uid' ) OR `privaty` = '0' )  AND  `titre` LIKE '%$queryKey%' LIMIT 50 ";
+    (
+     /* une anciente tache qui a été rencu privé */
+		    (`privaty` = '1' and `lastupdateuid`='$uid' and `uid`='0')		 
+     /* Une nouvelle tache qui est privé */
+		    OR (`privaty` = '1' and `uid`='$uid')
+		 /* une tache à access public */
+		    OR (`privaty` = '0')		 
+	   )  
+     AND `titre` LIKE '%$queryKey%' LIMIT 50 ";
+    // return $query;
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
   

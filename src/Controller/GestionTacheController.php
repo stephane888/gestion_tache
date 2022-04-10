@@ -43,8 +43,8 @@ class GestionTacheController extends ControllerBase {
   
   /**
    * Permet d'ajouter et modifier les données.
-   * On va proteger l'insertion, en verifiant les tables et en ajoutant $uid
-   * chaque foix que cela est necessaire.
+   * Les tables qui peuvent contenir les données doivent etre dans Load::ValidationInsert.
+   * Chaque foix que cela est necessaire.
    *
    * @param Request $Request
    * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -208,44 +208,44 @@ class GestionTacheController extends ControllerBase {
   }
   
   /**
-   * --
+   * -La sauvegarde/maj/delete se fait sur save update.
    */
   public function managePrime(Request $request, int $idcontents) {
-    $method = $request->getMethod();
-    if ($method == 'POST') {
-      $insert = [
-        'table' => 'gestion_project_executant',
-        'fields' => [
-          'idcontents' => $idcontents,
-          'uid' => $uid
-        ]
-      ];
-      $configs = $this->InsertUpdate->buildInserts([
-        $insert
-      ]);
-      return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
-    }
-    elseif ($method == 'DELETE') {
-      $insert = [
-        'table' => 'gestion_project_executant',
-        'fields' => [],
-        'action' => 'delete',
-        'where' => [
-          [
-            'column' => 'idcontents',
-            'value' => $idcontents
-          ],
-          [
-            'column' => 'uid',
-            'value' => $uid
-          ]
-        ]
-      ];
-      $configs = $this->InsertUpdate->buildInserts([
-        $insert
-      ]);
-      return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
-    }
+    // $method = $request->getMethod();
+    // if ($method == 'POST') {
+    // $insert = [
+    // 'table' => 'gestion_project_executant',
+    // 'fields' => [
+    // 'idcontents' => $idcontents,
+    // 'uid' => $uid
+    // ]
+    // ];
+    // $configs = $this->InsertUpdate->buildInserts([
+    // $insert
+    // ]);
+    // return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
+    // }
+    // elseif ($method == 'DELETE') {
+    // $insert = [
+    // 'table' => 'gestion_project_executant',
+    // 'fields' => [],
+    // 'action' => 'delete',
+    // 'where' => [
+    // [
+    // 'column' => 'idcontents',
+    // 'value' => $idcontents
+    // ],
+    // [
+    // 'column' => 'uid',
+    // 'value' => $uid
+    // ]
+    // ]
+    // ];
+    // $configs = $this->InsertUpdate->buildInserts([
+    // $insert
+    // ]);
+    // return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
+    // }
   }
   
   public function UserTaches($uid) {
