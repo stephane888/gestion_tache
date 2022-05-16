@@ -229,6 +229,7 @@ class Load {
   }
   
   /**
+   * Charge les taches des utilisateurs.
    *
    * @param int $uid
    */
@@ -237,10 +238,10 @@ class Load {
     $query = "select $champs from {gestion_project_contents} as c
       INNER JOIN {gestion_project_executant} as gpe ON c.idcontents = gpe.idcontents 
       INNER JOIN {gestion_project_hierachie} as h ON h.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+      INNER JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
+      LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents      
       LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
-      WHERE gpe.uid = '" . $uid . "';
+      WHERE gpe.uid = '" . $uid . "'  AND ( ct.status = '0' OR ct.status = '2' );
     ";
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }

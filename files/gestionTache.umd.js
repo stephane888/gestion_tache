@@ -96,7 +96,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "css/" + ({}[chunkId]||chunkId) + "." + {"0":"31d6cfe0","1":"31d6cfe0","2":"31d6cfe0","4":"3273f3dc","5":"7663973e","6":"a1f6bc80","7":"cb1bc02b","8":"31d6cfe0","9":"db8b259e","10":"96a655cf","11":"422cf218","12":"31d6cfe0","13":"31d6cfe0","14":"31d6cfe0","15":"31d6cfe0","16":"31d6cfe0","17":"31d6cfe0","18":"31d6cfe0","19":"31d6cfe0","20":"31d6cfe0"}[chunkId] + ".css";
+/******/ 				var href = "css/" + ({}[chunkId]||chunkId) + "." + {"0":"31d6cfe0","1":"31d6cfe0","2":"31d6cfe0","4":"3273f3dc","5":"10de29c5","6":"a1f6bc80","7":"cb1bc02b","8":"31d6cfe0","9":"7af17b67","10":"96a655cf","11":"422cf218","12":"31d6cfe0","13":"31d6cfe0","14":"31d6cfe0","15":"31d6cfe0","16":"31d6cfe0","17":"31d6cfe0","18":"31d6cfe0","19":"31d6cfe0","20":"31d6cfe0"}[chunkId] + ".css";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
@@ -110835,13 +110835,15 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
  //import { users } from "drupal-vuejs";
@@ -110853,6 +110855,46 @@ var state = {
   sidebarMinimize: false,
   user: null,
   utilisateur: []
+};
+var getters = {
+  userList: function userList(state) {
+    var user = [];
+
+    if (state.utilisateur && state.utilisateur.length) {
+      var _iterator = _createForOfIteratorHelper(state.utilisateur),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var person = _step.value;
+          var obj = {};
+          obj["uid"] = person["uid"][0]["value"];
+          obj["name"] = person["name"][0]["value"];
+          obj["mail"] = person["mail"][0]["value"];
+          user.push(obj);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+
+    return user;
+  },
+  currentUser: function currentUser(state, getters) {
+    var utilisateur = getters.userList;
+    var vallue = "";
+    var user = JSON.parse(window.localStorage.getItem("current_user"));
+
+    if (user) {
+      utilisateur.forEach(function (element) {
+        if (element.uid == user) vallue = element;
+      });
+    }
+
+    return vallue;
+  }
 };
 var mutations = {
   toggleSidebarDesktop: function toggleSidebarDesktop(state) {
@@ -110935,6 +110977,7 @@ var actions = {
 };
 /* harmony default export */ var store = (new vuex_esm["a" /* default */].Store({
   state: state,
+  getters: getters,
   mutations: mutations,
   actions: actions
 }));

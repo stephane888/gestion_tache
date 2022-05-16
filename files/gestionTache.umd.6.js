@@ -779,6 +779,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var Utilities = {
+  /* 
+  data for add delete prime 
+  */
+  formatPrimeData: function formatPrimeData(data, method) {
+    return new Promise(function (resolv) {
+      var result = [];
+      var table = {
+        table: "gestion_project_prime",
+        fields: {
+          status: data.status ? 1 : 0,
+          montant: Number(data.montant, 10),
+          idcontents: data.id
+        }
+      };
+
+      if (method) {
+        table["action"] = "update";
+        table["where"] = [{
+          column: "idcontents",
+          value: data.id
+        }];
+      }
+
+      result.push(table);
+      resolv(result);
+    });
+  },
+
   /**
    * Prepare les données pour la sauvagarde.
    */
@@ -956,7 +984,7 @@ var Utilities = {
         childstable.push({
           table: "gestion_project_prime",
           fields: {
-            montant: datas.prime_price,
+            montant: datas.prime_montant,
             status: datas.prime_status ? 1 : 0
           }
         });
