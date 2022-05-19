@@ -14,10 +14,10 @@ class Load {
   private $filtre = '';
   const deep = 3;
   const queryKey = 'key';
-  private $requeteSimple = " c.idcontents, c.text, c.titre, c.created_at, c.update_at, c.type, c.uid, c.lastupdateuid, c.privaty, 
-  h.idhierachie, h.idcontentsparent, h.ordre, h.level";
-  private $requete = " cf.idconfigs, cf.testconfigs ";
-  private $requeteLoadCard = " ct.date_depart_proposer, ct.date_fin_proposer, ct.date_fin_reel, ct.status, ct.temps_pause, ct.raison, pm.status as prime_status, pm.montant as prime_montant ";
+  private $requeteSimple = " gpc.idcontents, gpc.text, gpc.titre, gpc.created_at, gpc.update_at, gpc.type, gpc.uid, gpc.lastupdateuid, gpc.privaty, 
+  gph.idhierachie, gph.idcontentsparent, gph.ordre, gph.level";
+  private $requete = " gpcf.idconfigs, gpcf.testconfigs ";
+  private $requeteLoadCard = " gpt.date_depart_proposer, gpt.date_fin_proposer, gpt.date_fin_reel, gpt.status, gpt.temps_pause, gpt.raison, gpp.status as prime_status, gpp.montant as prime_montant ";
   protected $user;
   
   function __construct(Connection $Connection, RequestStack $RequestStack, AccountProxy $user) {
@@ -36,10 +36,10 @@ class Load {
    */
   public function LoadProject(int $idcontents) {
     $champs = $this->requete;
-    $query = "select $champs from {gestion_project_hierachie} as h
-      INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
-      WHERE ( h.idcontentsparent = $idcontents OR c.idcontents = $idcontents )
+    $query = "select $champs from {gestion_project_hierachie} as gph
+      INNER JOIN {gestion_project_contents} as gpc ON gph.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents
+      WHERE ( gph.idcontentsparent = $idcontents OR gpc.idcontents = $idcontents )
     ";
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
@@ -50,22 +50,27 @@ class Load {
   }
   
   public function selectdatas() {
-    $where = $this->request->getContent();
+    $where = null;
+    $ortherQuery = null;
+    $this->getRequestQuery($where, $ortherQuery);
     $uid = $this->user->id();
     $query = "";
     $query .= " select ";
-    $query .= " c.idcontents, c.text, c.titre, c.created_at, ";
-    $query .= " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
-    $query .= " h.ordre, h.level";
+    $query .= " gpc.idcontents, gpc.text, gpc.titre, gpc.created_at, ";
+    $query .= " gpc.update_at, gpc.type, gph.idhierachie, gph.idcontentsparent, ";
+    $query .= " gph.ordre, gph.level";
     $query .= " from ";
-    $query .= " {gestion_project_hierachie} as h ";
+    $query .= " {gestion_project_hierachie} as gph ";
     $query .= " INNER JOIN ";
-    $query .= " {gestion_project_contents} as c ";
-    $query .= " ON h.idcontents = c.idcontents ";
-    $query .= " WHERE ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
-    if (!empty($where)) {
+    $query .= " {gestion_project_contents} as gpc ";
+    $query .= " ON gph.idcontents = gpc.idcontents ";
+    $query .= " WHERE ( ( gpc.`uid` = '0' OR gpc.`uid` = '$uid' ) OR gpc.`privaty` = '0'  ) ";
+    if ($where) {
       $query .= " AND ";
       $query .= $where;
+    }
+    if ($ortherQuery) {
+      $query .= " " . $ortherQuery . " ";
     }
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
@@ -75,26 +80,31 @@ class Load {
    * @return Array
    */
   public function selectTacheEnours() {
-    $where = $this->request->getContent();
+    $where = null;
+    $ortherQuery = null;
+    $this->getRequestQuery($where, $ortherQuery);
     $uid = $this->user->id();
     $query = "";
     $query .= " select ";
-    $query .= " c.idcontents, c.text, c.titre, c.created_at, ";
-    $query .= " c.update_at, c.type, h.idhierachie, h.idcontentsparent, ";
-    $query .= " h.ordre, h.level, ";
-    $query .= " t.status, t.date_depart_proposer, t.date_fin_proposer, t.date_fin_reel ";
+    $query .= " gpc.idcontents, gpc.text, gpc.titre, gpc.created_at, ";
+    $query .= " gpc.update_at, gpc.type, gph.idhierachie, gph.idcontentsparent, ";
+    $query .= " gph.ordre, gph.level, ";
+    $query .= " gpt.status, gpt.date_depart_proposer, gpt.date_fin_proposer, gpt.date_fin_reel ";
     $query .= " from ";
-    $query .= " {gestion_project_hierachie} as h ";
+    $query .= " {gestion_project_hierachie} as gph ";
     $query .= " INNER JOIN ";
-    $query .= " {gestion_project_contents} as c ";
-    $query .= " ON h.idcontents = c.idcontents ";
+    $query .= " {gestion_project_contents} as gpc ";
+    $query .= " ON gph.idcontents = gpc.idcontents ";
     $query .= " INNER JOIN ";
-    $query .= " {gestion_project_times} as t ";
-    $query .= " ON t.idcontents = c.idcontents ";
-    $query .= " WHERE ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
-    if (!empty($where)) {
+    $query .= " {gestion_project_times} as gpt ";
+    $query .= " ON gpt.idcontents = gpc.idcontents ";
+    $query .= " WHERE ( ( gpc.`uid` = '0' OR gpc.`uid` = '$uid' ) OR gpc.`privaty` = '0'  ) ";
+    if ($where) {
       $query .= " AND ";
       $query .= $where;
+    }
+    if ($ortherQuery) {
+      $query .= " " . $ortherQuery . " ";
     }
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
@@ -104,14 +114,19 @@ class Load {
    * @return \Drupal\Core\Database\Connection
    */
   public function selectProject() {
-    $where = $this->request->getContent();
+    $where = null;
+    $ortherQuery = null;
+    $this->getRequestQuery($where, $ortherQuery);
     $uid = $this->user->id();
     $query = "";
-    $query .= " select * from {gestion_project_contents} as c ";
-    $query .= " WHERE ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
-    if (!empty($where)) {
+    $query .= " select * from {gestion_project_contents} as gpc ";
+    $query .= " WHERE ( ( gpc.`uid` = '0' OR gpc.`uid` = '$uid' ) OR gpc.`privaty` = '0'  ) ";
+    if ($where) {
       $query .= " AND ";
       $query .= $where;
+    }
+    if ($ortherQuery) {
+      $query .= " " . $ortherQuery . " ";
     }
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
@@ -168,11 +183,11 @@ class Load {
   public function LoadContent(int $idcontents) {
     $champs = $this->requeteSimple;
     $uid = $this->user->id();
-    $query = "select $champs from {gestion_project_hierachie} as h
-      INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
-      WHERE ( c.idcontents = $idcontents )
+    $query = "select $champs from {gestion_project_hierachie} as gph
+      INNER JOIN {gestion_project_contents} as gpc ON gph.idcontents = gpc.idcontents
+      WHERE ( gpc.idcontents = $idcontents )
     ";
-    $query .= " AND ( ( c.`uid` = '0' OR c.`uid` = '$uid' ) OR c.`privaty` = '0'  ) ";
+    $query .= " AND ( ( gpc.`uid` = '0' OR gpc.`uid` = '$uid' ) OR gpc.`privaty` = '0'  ) ";
     return $this->Connection->query($query)->fetch(\PDO::FETCH_ASSOC);
   }
   
@@ -194,21 +209,21 @@ class Load {
         $this->filtre = ' and ' . $filtre;
       }
     }
-    $query = "select $champs from {gestion_project_hierachie} as h
-      INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
-      WHERE ( c.idcontents = $idcontents )
+    $query = "select $champs from {gestion_project_hierachie} as gph
+      INNER JOIN {gestion_project_contents} as gpc ON gph.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_times} as gpt ON gpt.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_prime} as gpp ON gpp.idcontents = gpc.idcontents
+      WHERE ( gpc.idcontents = $idcontents )
     ";
     $query .= " AND 
      (
      /* une anciente tache qui a été rencu privé */
-		    (c.`privaty` = '1' and c.`lastupdateuid`='$uid' and c.`uid`='0')		 
+		    (gpc.`privaty` = '1' and gpc.`lastupdateuid`='$uid' and gpc.`uid`='0')		 
      /* Une nouvelle tache qui est privé */
-		    OR (c.`privaty` = '1' and c.`uid`='$uid')
+		    OR (gpc.`privaty` = '1' and gpc.`uid`='$uid')
 		 /* une tache à access public */
-		    OR (c.`privaty` = '0')		 
+		    OR (gpc.`privaty` = '0')		 
 	   )
   ";
     
@@ -234,15 +249,56 @@ class Load {
    * @param int $uid
    */
   public function LoadTaches(int $uid) {
+    $where = null;
+    $ortherQuery = null;
+    $this->getRequestQuery($where, $ortherQuery);
     $champs = $this->requeteLoadCard;
-    $query = "select $champs from {gestion_project_contents} as c
-      INNER JOIN {gestion_project_executant} as gpe ON c.idcontents = gpe.idcontents 
-      INNER JOIN {gestion_project_hierachie} as h ON h.idcontents = c.idcontents
-      INNER JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
-      LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents      
-      LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
-      WHERE gpe.uid = '" . $uid . "'  AND ( ct.status = '0' OR ct.status = '2' );
+    $query = "select $champs from {gestion_project_contents} as gpc
+      INNER JOIN {gestion_project_executant} as gpe ON gpc.idcontents = gpe.idcontents 
+      INNER JOIN {gestion_project_hierachie} as gph ON gph.idcontents = gpc.idcontents
+      INNER JOIN {gestion_project_times} as gpt ON gpt.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents      
+      LEFT JOIN {gestion_project_prime} as gpp ON gpp.idcontents = gpc.idcontents
+      WHERE gpe.uid = '" . $uid . "'  AND ( gpt.status = '0' OR gpt.status = '2' ) 
     ";
+    if ($where) {
+      $query .= " AND ";
+      $query .= $where;
+    }
+    if ($ortherQuery) {
+      $query .= " " . $ortherQuery . " ";
+    }
+    return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+  }
+  
+  /**
+   * Permet au front de faire des filtres en function des differents cas.
+   *
+   * @param int $uid
+   */
+  public function LoadDatasByCustomRequest() {
+    $where = null;
+    $ortherQuery = null;
+    $this->getRequestQuery($where, $ortherQuery);
+    $uid = $this->user->id();
+    
+    $champs = $this->requeteLoadCard;
+    $champs .= ', gpe.uid as executant_uid ';
+    $query = "select $champs from {gestion_project_contents} as gpc
+       INNER JOIN {gestion_project_executant} as gpe ON gpc.idcontents = gpe.idcontents 
+      INNER JOIN {gestion_project_hierachie} as gph ON gph.idcontents = gpc.idcontents
+      INNER JOIN {gestion_project_times} as gpt ON gpt.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents
+      LEFT JOIN {gestion_project_prime} as gpp ON gpp.idcontents = gpc.idcontents
+    ";
+    $query .= "WHERE ( ( gpc.`uid` = '0' OR gpc.`uid` = '$uid' ) OR gpc.`privaty` = '0'  ) ";
+    if ($where) {
+      $query .= " AND ";
+      $query .= $where;
+    }
+    if ($ortherQuery) {
+      $query .= " " . $ortherQuery . " ";
+    }
     return $this->Connection->query($query)->fetchAll(\PDO::FETCH_ASSOC);
   }
   
@@ -265,21 +321,21 @@ class Load {
   protected function loadRCardList($idcontents, &$results) {
     $uid = $this->user->id();
     $champs = $this->requeteLoadCard;
-    $request = "select $champs from {gestion_project_hierachie} as h
-        INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
-        LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
-        LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
-        LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
-        WHERE ( h.idcontentsparent = $idcontents $this->filtre)
+    $request = "select $champs from {gestion_project_hierachie} as gph
+        INNER JOIN {gestion_project_contents} as gpc ON gph.idcontents = gpc.idcontents
+        LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents
+        LEFT JOIN {gestion_project_times} as gpt ON gpt.idcontents = gpc.idcontents
+        LEFT JOIN {gestion_project_prime} as gpp ON gpp.idcontents = gpc.idcontents
+        WHERE ( gph.idcontentsparent = $idcontents $this->filtre)
       ";
     $request .= " AND 
      (
      /* une anciente tache qui a été rencu privé */
-		    (c.`privaty` = '1' and c.`lastupdateuid`='$uid' and c.`uid`='0')		 
+		    (gpc.`privaty` = '1' and gpc.`lastupdateuid`='$uid' and gpc.`uid`='0')		 
      /* Une nouvelle tache qui est privé */
-		    OR (c.`privaty` = '1' and c.`uid`='$uid')
+		    OR (gpc.`privaty` = '1' and gpc.`uid`='$uid')
 		 /* une tache à access public */
-		    OR (c.`privaty` = '0')		 
+		    OR (gpc.`privaty` = '0')		 
 	   )
 
  ";
@@ -312,21 +368,21 @@ class Load {
     $uid = $this->user->id();
     if (self::deep >= $deep) {
       $champs = $this->requeteLoadCard;
-      $request = "select $champs from {gestion_project_hierachie} as h
-        INNER JOIN {gestion_project_contents} as c ON h.idcontents = c.idcontents
-        LEFT JOIN {gestion_project_configs} as cf ON cf.idcontents = c.idcontents
-        LEFT JOIN {gestion_project_times} as ct ON ct.idcontents = c.idcontents
-        LEFT JOIN {gestion_project_prime} as pm ON pm.idcontents = c.idcontents
-        WHERE ( h.idcontentsparent = $idcontents )
+      $request = "select $champs from {gestion_project_hierachie} as gph
+        INNER JOIN {gestion_project_contents} as gpc ON gph.idcontents = gpc.idcontents
+        LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents
+        LEFT JOIN {gestion_project_times} as gpt ON gpt.idcontents = gpc.idcontents
+        LEFT JOIN {gestion_project_prime} as gpp ON gpp.idcontents = gpc.idcontents
+        WHERE ( gph.idcontentsparent = $idcontents )
       ";
       $request .= " AND 
      (
      /* une anciente tache qui a été rencu privé */
-		    (c.`privaty` = '1' and c.`lastupdateuid`='$uid' and c.`uid`='0')		 
+		    (gpc.`privaty` = '1' and gpc.`lastupdateuid`='$uid' and gpc.`uid`='0')		 
      /* Une nouvelle tache qui est privé */
-		    OR (c.`privaty` = '1' and c.`uid`='$uid')
+		    OR (gpc.`privaty` = '1' and gpc.`uid`='$uid')
 		 /* une tache à access public */
-		    OR (c.`privaty` = '0')		 
+		    OR (gpc.`privaty` = '0')		 
 	   )
  ";
       $project = $this->Connection->query($request)->fetchAll(\PDO::FETCH_ASSOC);
@@ -345,6 +401,16 @@ class Load {
       else {
         $idcontents = false;
       }
+    }
+  }
+  
+  private function getRequestQuery(&$where, &$ortherQuery) {
+    $datas = Json::decode($this->request->getContent());
+    if (!empty($datas['where'])) {
+      $where = $datas['where'];
+    }
+    if (!empty($datas['orther_query'])) {
+      $ortherQuery = $datas['orther_query'];
     }
   }
   

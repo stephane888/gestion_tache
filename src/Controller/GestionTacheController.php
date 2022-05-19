@@ -43,7 +43,8 @@ class GestionTacheController extends ControllerBase {
   
   /**
    * Permet d'ajouter et modifier les données.
-   * Les tables qui peuvent contenir les données doivent etre dans Load::ValidationInsert.
+   * Les tables qui peuvent contenir les données doivent etre dans
+   * Load::ValidationInsert.
    * Chaque foix que cela est necessaire.
    *
    * @param Request $Request
@@ -223,7 +224,9 @@ class GestionTacheController extends ControllerBase {
     // $configs = $this->InsertUpdate->buildInserts([
     // $insert
     // ]);
-    // return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
+    // return $this->reponse($configs,
+    // $this->InsertUpdate->AjaxStatus->getCode(),
+    // $this->InsertUpdate->AjaxStatus->getMessage());
     // }
     // elseif ($method == 'DELETE') {
     // $insert = [
@@ -244,12 +247,18 @@ class GestionTacheController extends ControllerBase {
     // $configs = $this->InsertUpdate->buildInserts([
     // $insert
     // ]);
-    // return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
+    // return $this->reponse($configs,
+    // $this->InsertUpdate->AjaxStatus->getCode(),
+    // $this->InsertUpdate->AjaxStatus->getMessage());
     // }
   }
   
   public function UserTaches($uid) {
     return $this->reponse($this->GestionProject->Load->LoadTaches($uid));
+  }
+  
+  public function LoadDatasByCustomRequest() {
+    return $this->reponse($this->GestionProject->Load->LoadDatasByCustomRequest());
   }
   
   /**

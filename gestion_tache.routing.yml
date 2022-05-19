@@ -184,6 +184,18 @@ gestion_tache.user_taches:
     _permission: 'gestion_tache__reserve_content'
   options:
       _auth: ['basic_auth', 'cookie']  
+
+# supprime ou ajoute un utilisateur.
+gestion_tache.custom_request:   
+  path: "/gestion-project/custom-request"
+  methods: [POST]
+  defaults:
+    _title: 'Selection des données bases sur le filtre'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadDatasByCustomRequest'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']  
       
       
    
