@@ -1,0 +1,88 @@
+# App project routing definition
+
+entity.app_project.canonical:
+  route_name: entity.app_project.canonical
+  base_route: entity.app_project.canonical
+  title: 'View'
+
+entity.app_project.edit_form:
+  route_name: entity.app_project.edit_form
+  base_route: entity.app_project.canonical
+  title: 'Edit'
+
+entity.app_project.version_history:
+  route_name: entity.app_project.version_history
+  base_route: entity.app_project.canonical
+  title: 'Revisions'
+
+entity.app_project.delete_form:
+  route_name:  entity.app_project.delete_form
+  base_route:  entity.app_project.canonical
+  title: Delete
+  weight: 10
+# App memos routing definition
+
+entity.app_memos.canonical:
+  route_name: entity.app_memos.canonical
+  base_route: entity.app_memos.canonical
+  title: 'View'
+
+entity.app_memos.edit_form:
+  route_name: entity.app_memos.edit_form
+  base_route: entity.app_memos.canonical
+  title: 'Edit'
+
+entity.app_memos.version_history:
+  route_name: entity.app_memos.version_history
+  base_route: entity.app_memos.canonical
+  title: 'Revisions'
+
+entity.app_memos.delete_form:
+  route_name:  entity.app_memos.delete_form
+  base_route:  entity.app_memos.canonical
+  title: Delete
+  weight: 10
+# App prime routing definition
+
+entity.app_prime.canonical:
+  route_name: entity.app_prime.canonical
+  base_route: entity.app_prime.canonical
+  title: 'View'
+
+entity.app_prime.edit_form:
+  route_name: entity.app_prime.edit_form
+  base_route: entity.app_prime.canonical
+  title: 'Edit'
+
+entity.app_prime.version_history:
+  route_name: entity.app_prime.version_history
+  base_route: entity.app_prime.canonical
+  title: 'Revisions'
+
+entity.app_prime.delete_form:
+  route_name:  entity.app_prime.delete_form
+  base_route:  entity.app_prime.canonical
+  title: Delete
+  weight: 10
+# App client routing definition
+
+entity.app_client.canonical:
+  route_name: entity.app_client.canonical
+  base_route: entity.app_client.canonical
+  title: 'View'
+
+entity.app_client.edit_form:
+  route_name: entity.app_client.edit_form
+  base_route: entity.app_client.canonical
+  title: 'Edit'
+
+entity.app_client.version_history:
+  route_name: entity.app_client.version_history
+  base_route: entity.app_client.canonical
+  title: 'Revisions'
+
+entity.app_client.delete_form:
+  route_name:  entity.app_client.delete_form
+  base_route:  entity.app_client.canonical
+  title: Delete
+  weight: 10

@@ -1,0 +1,40 @@
+entity.app_project.add_form:
+  route_name: entity.app_project.add_page
+  title: 'Add App project'
+  appears_on:
+    - entity.app_project.collection
+entity.app_project_type.add_form:
+  route_name: entity.app_project_type.add_form
+  title: 'Add App project type'
+  appears_on:
+    - entity.app_project_type.collection
+entity.app_memos.add_form:
+  route_name: entity.app_memos.add_page
+  title: 'Add App memos'
+  appears_on:
+    - entity.app_memos.collection
+entity.app_memos_type.add_form:
+  route_name: entity.app_memos_type.add_form
+  title: 'Add App memos type'
+  appears_on:
+    - entity.app_memos_type.collection
+entity.app_prime.add_form:
+  route_name: entity.app_prime.add_page
+  title: 'Add App prime'
+  appears_on:
+    - entity.app_prime.collection
+entity.app_prime_type.add_form:
+  route_name: entity.app_prime_type.add_form
+  title: 'Add App prime type'
+  appears_on:
+    - entity.app_prime_type.collection
+entity.app_client.add_form:
+  route_name: entity.app_client.add_page
+  title: 'Add App client'
+  appears_on:
+    - entity.app_client.collection
+entity.app_client_type.add_form:
+  route_name: entity.app_client_type.add_form
+  title: 'Add App client type'
+  appears_on:
+    - entity.app_client_type.collection

@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - gestion_tache
+name: 'Type project'
+vid: type_project
+description: 'Contient la liste des types de sites'
+hierarchy: 0
+weight: 0

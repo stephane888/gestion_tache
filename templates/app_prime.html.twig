@@ -1,0 +1,22 @@
+{#
+/**
+ * @file app_prime.html.twig
+ * Default theme implementation to present App prime data.
+ *
+ * This template is used when viewing App prime pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_app_prime()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('app_prime') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

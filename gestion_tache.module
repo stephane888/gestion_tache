@@ -1,6 +1,7 @@
 <?php
 
 /**
+ *
  * @file
  * Primary module hooks for gestion tache module.
  *
@@ -8,3 +9,127 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
+
+/**
+ * Implements hook_theme().
+ */
+function gestion_tache_theme() {
+  $theme = [];
+  $theme['app_project'] = [
+    'render element' => 'elements',
+    'file' => 'app_project.page.inc',
+    'template' => 'app_project'
+  ];
+  $theme['app_project_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => [
+      'content' => NULL
+    ],
+    'file' => 'app_project.page.inc'
+  ];
+  //
+  $theme['app_memos'] = [
+    'render element' => 'elements',
+    'file' => 'app_memos.page.inc',
+    'template' => 'app_memos'
+  ];
+  $theme['app_memos_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => [
+      'content' => NULL
+    ],
+    'file' => 'app_memos.page.inc'
+  ];
+  //
+  $theme['app_prime'] = [
+    'render element' => 'elements',
+    'file' => 'app_prime.page.inc',
+    'template' => 'app_prime'
+  ];
+  $theme['app_prime_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => [
+      'content' => NULL
+    ],
+    'file' => 'app_prime.page.inc'
+  ];
+  //
+  $theme['app_client'] = [
+    'render element' => 'elements',
+    'file' => 'app_client.page.inc',
+    'template' => 'app_client'
+  ];
+  $theme['app_client_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => [
+      'content' => NULL
+    ],
+    'file' => 'app_client.page.inc'
+  ];
+  //
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function gestion_tache_theme_suggestions_app_project(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#app_project'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  
+  $suggestions[] = 'app_project__' . $sanitized_view_mode;
+  $suggestions[] = 'app_project__' . $entity->bundle();
+  $suggestions[] = 'app_project__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'app_project__' . $entity->id();
+  $suggestions[] = 'app_project__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function gestion_tache_theme_suggestions_app_memos(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#app_memos'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  
+  $suggestions[] = 'app_memos__' . $sanitized_view_mode;
+  $suggestions[] = 'app_memos__' . $entity->bundle();
+  $suggestions[] = 'app_memos__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'app_memos__' . $entity->id();
+  $suggestions[] = 'app_memos__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function gestion_tache_theme_suggestions_app_prime(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#app_prime'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  
+  $suggestions[] = 'app_prime__' . $sanitized_view_mode;
+  $suggestions[] = 'app_prime__' . $entity->bundle();
+  $suggestions[] = 'app_prime__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'app_prime__' . $entity->id();
+  $suggestions[] = 'app_prime__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function gestion_tache_theme_suggestions_app_client(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#app_client'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  
+  $suggestions[] = 'app_client__' . $sanitized_view_mode;
+  $suggestions[] = 'app_client__' . $entity->bundle();
+  $suggestions[] = 'app_client__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'app_client__' . $entity->id();
+  $suggestions[] = 'app_client__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}

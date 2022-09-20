@@ -1,1 +1,69 @@
 
+
+# App project menu items definition
+entity.app_project.collection:
+  title: 'App project list'
+  route_name: entity.app_project.collection
+  description: 'List App project entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# App project type menu items definition
+entity.app_project_type.collection:
+  title: 'App project type'
+  route_name: entity.app_project_type.collection
+  description: 'List App project type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+# App memos menu items definition
+entity.app_memos.collection:
+  title: 'App memos list'
+  route_name: entity.app_memos.collection
+  description: 'List App memos entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# App memos type menu items definition
+entity.app_memos_type.collection:
+  title: 'App memos type'
+  route_name: entity.app_memos_type.collection
+  description: 'List App memos type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+# App prime menu items definition
+entity.app_prime.collection:
+  title: 'App prime list'
+  route_name: entity.app_prime.collection
+  description: 'List App prime entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# App prime type menu items definition
+entity.app_prime_type.collection:
+  title: 'App prime type'
+  route_name: entity.app_prime_type.collection
+  description: 'List App prime type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+# App client menu items definition
+entity.app_client.collection:
+  title: 'App client list'
+  route_name: entity.app_client.collection
+  description: 'List App client entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# App client type menu items definition
+entity.app_client_type.collection:
+  title: 'App client type'
+  route_name: entity.app_client_type.collection
+  description: 'List App client type (bundles)'
+  parent: system.admin_structure
+  weight: 99
