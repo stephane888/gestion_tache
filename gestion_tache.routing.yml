@@ -1,3 +1,18 @@
+# version 2x
+# selectionner les type de projet
+#gestion_tache_v2.select.project_type:   
+#  path: "/gestion-project-v2/select/project-type"
+#  methods: [GET]
+#  defaults:
+#    _title: 'Insertion et Mise à jour des données'
+#    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::SelectProjectType'
+#  requirements:
+#    _permission: 'gestion_tache__reserve_content'
+#  options:
+#      _auth: ['basic_auth', 'cookie']
+      
+      
+# version 1x
 gestion_tache.init:
   path: "/gestion-project"
   defaults:

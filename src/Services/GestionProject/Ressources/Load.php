@@ -259,7 +259,7 @@ class Load {
       INNER JOIN {gestion_project_times} as gpt ON gpt.idcontents = gpc.idcontents
       LEFT JOIN {gestion_project_configs} as gpcf ON gpcf.idcontents = gpc.idcontents      
       LEFT JOIN {gestion_project_prime} as gpp ON gpp.idcontents = gpc.idcontents
-      WHERE gpe.uid = '" . $uid . "'  AND ( gpt.status = '0' OR gpt.status = '2' ) 
+      WHERE gpe.uid = '" . $uid . "' 
     ";
     if ($where) {
       $query .= " AND ";

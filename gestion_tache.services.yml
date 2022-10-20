@@ -1,4 +1,9 @@
 services:
+  # version 2x
+  gestion_tache_v2.api:
+    class: Drupal\gestion_tache\Services\GestionProject\GestionProject
+    arguments: []
+  # version 1x
   gestion_tache.api:
     class: Drupal\gestion_tache\Services\GestionProject\GestionProject
     arguments: ['@gestion_tache.search','@gestion_tache.load','@gestion_tache.breackcrumb']

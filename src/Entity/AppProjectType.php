@@ -30,6 +30,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {
+ *     "id",
+ *     "label"
+ *   },
  *   links = {
  *     "canonical" = "/app/project/app_project_type/{app_project_type}",
  *     "add-form" = "/app/project/app_project_type/add",
@@ -40,19 +44,19 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  * )
  */
 class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInterface {
-
+  
   /**
    * The App project type ID.
    *
    * @var string
    */
   protected $id;
-
+  
   /**
    * The App project type label.
    *
    * @var string
    */
   protected $label;
-
+  
 }

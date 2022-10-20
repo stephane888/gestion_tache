@@ -30,6 +30,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {
+ *     "id",
+ *     "label"
+ *   },
  *   links = {
  *     "canonical" = "/admin/structure/app_client_type/{app_client_type}",
  *     "add-form" = "/admin/structure/app_client_type/add",
@@ -40,19 +44,19 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  * )
  */
 class AppClientType extends ConfigEntityBundleBase implements AppClientTypeInterface {
-
+  
   /**
    * The App client type ID.
    *
    * @var string
    */
   protected $id;
-
+  
   /**
    * The App client type label.
    *
    * @var string
    */
   protected $label;
-
+  
 }

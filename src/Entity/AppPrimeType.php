@@ -30,6 +30,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {
+ *     "id",
+ *     "label"
+ *   },
  *   links = {
  *     "canonical" = "/admin/structure/app_prime_type/{app_prime_type}",
  *     "add-form" = "/admin/structure/app_prime_type/add",
@@ -40,19 +44,19 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  * )
  */
 class AppPrimeType extends ConfigEntityBundleBase implements AppPrimeTypeInterface {
-
+  
   /**
    * The App prime type ID.
    *
    * @var string
    */
   protected $id;
-
+  
   /**
    * The App prime type label.
    *
    * @var string
    */
   protected $label;
-
+  
 }

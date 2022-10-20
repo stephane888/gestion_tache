@@ -30,6 +30,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {
+ *     "id",
+ *     "label"
+ *   },
  *   links = {
  *     "canonical" = "/admin/structure/app_memos_type/{app_memos_type}",
  *     "add-form" = "/admin/structure/app_memos_type/add",
@@ -40,19 +44,19 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  * )
  */
 class AppMemosType extends ConfigEntityBundleBase implements AppMemosTypeInterface {
-
+  
   /**
    * The App memos type ID.
    *
    * @var string
    */
   protected $id;
-
+  
   /**
    * The App memos type label.
    *
    * @var string
    */
   protected $label;
-
+  
 }

@@ -51,6 +51,10 @@ delete all app project revisions:
 
 permission_callbacks:
   - \Drupal\gestion_tache\AppProjectPermissions::generatePermissions
+  - \Drupal\gestion_tache\AppMemosPermissions::generatePermissions
+  - \Drupal\gestion_tache\AppPrimePermissions::generatePermissions
+  - \Drupal\gestion_tache\AppClientPermissions::generatePermissions
+  
 add app memos entities:
   title: 'Create new App memos entities'
 
@@ -82,8 +86,9 @@ delete all app memos revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view App memos revisions</em> and <em>delete rights</em> for app memos entities in question or <em>administer app memos entities</em>.'
 
-permission_callbacks:
-  - \Drupal\gestion_tache\AppMemosPermissions::generatePermissions
+
+  
+  
 add app prime entities:
   title: 'Create new App prime entities'
 
@@ -115,8 +120,8 @@ delete all app prime revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view App prime revisions</em> and <em>delete rights</em> for app prime entities in question or <em>administer app prime entities</em>.'
 
-permission_callbacks:
-  - \Drupal\gestion_tache\AppPrimePermissions::generatePermissions
+
+  
 add app client entities:
   title: 'Create new App client entities'
 
@@ -148,5 +153,4 @@ delete all app client revisions:
   title: 'Delete all revisions'
   description: 'Role requires permission to <em>view App client revisions</em> and <em>delete rights</em> for app client entities in question or <em>administer app client entities</em>.'
 
-permission_callbacks:
-  - \Drupal\gestion_tache\AppClientPermissions::generatePermissions
+  
