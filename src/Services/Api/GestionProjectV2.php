@@ -2,16 +2,15 @@
 
 namespace Drupal\gestion_tache\Services\Api;
 
-use Drupal\gestion_tache\Services\GestionProject\Ressources\Search;
-use Drupal\gestion_tache\Services\GestionProject\Ressources\Load;
-use Drupal\gestion_tache\Services\GestionProject\Ressources\BreackCrumb;
-
-class GestionProjectV2 {
-  public $Search;
-  public $Load;
-  public $BreackCrumb;
+class GestionProjectV2 extends BaseApi {
+  public $ManageEntity;
   
-  function __construct() {
+  /**
+   *
+   * @param ManageEntity $SaveEntity
+   */
+  function __construct(ManageEntity $ManageEntity) {
+    $this->ManageEntity = $ManageEntity;
   }
   
 }

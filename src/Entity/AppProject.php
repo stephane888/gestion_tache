@@ -99,14 +99,12 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
    */
   protected function urlRouteParameters($rel) {
     $uri_route_parameters = parent::urlRouteParameters($rel);
-    
     if ($rel === 'revision_revert' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
     elseif ($rel === 'revision_delete' && $this instanceof RevisionableInterface) {
       $uri_route_parameters[$this->getEntityTypeId() . '_revision'] = $this->getRevisionId();
     }
-    
     return $uri_route_parameters;
   }
   
@@ -277,7 +275,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setSettings([
       'allowed_values' => [
         'new' => 'Nouveau',
-        'runing' => 'Encours',
+        'running' => 'Encours',
         'end' => 'Terminée',
         'cancel' => 'Annulée'
       ]

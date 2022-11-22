@@ -32,7 +32,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   },
  *   config_export = {
  *     "id",
- *     "label"
+ *     "label",
+ *     "description",
+ *     "users",
+ *     "user_id",
  *   },
  *   links = {
  *     "canonical" = "/app/project/app_project_type/{app_project_type}",
@@ -58,5 +61,27 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
    * @var string
    */
   protected $label;
+  
+  /**
+   * Petite description
+   *
+   * @var string
+   */
+  protected $description;
+  
+  /**
+   * Contient la liste des utilisateurs limitées qui peuvent acceder à ces
+   * données.
+   *
+   * @var array
+   */
+  protected $users = [];
+  
+  /**
+   * Auteur du type de contenu.
+   *
+   * @var array
+   */
+  protected $user_id = [];
   
 }

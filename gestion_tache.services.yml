@@ -1,7 +1,11 @@
 services:
   # version 2x
   gestion_tache_v2.api:
-    class: Drupal\gestion_tache\Services\GestionProject\GestionProject
+    class: Drupal\gestion_tache\Services\Api\GestionProjectV2
+    arguments: ['@gestion_tache_v2.manage_entity']
+    
+  gestion_tache_v2.manage_entity:
+    class: Drupal\gestion_tache\Services\Api\ManageEntity
     arguments: []
   # version 1x
   gestion_tache.api:

@@ -1,15 +1,58 @@
 # version 2x
 # selectionner les type de projet
-#gestion_tache_v2.select.project_type:   
-#  path: "/gestion-project-v2/select/project-type"
-#  methods: [GET]
-#  defaults:
-#    _title: 'Insertion et Mise à jour des données'
-#    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::SelectProjectType'
-#  requirements:
-#    _permission: 'gestion_tache__reserve_content'
-#  options:
-#      _auth: ['basic_auth', 'cookie']
+gestion_tache_v2.select.project_type:   
+  path: "/gestion-project-v2/select/project-type"
+  methods: [GET]
+  defaults:
+    _title: 'Insertion et Mise à jour des données'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::SelectProjectType'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+gestion_tache_v2.getform:   
+  path: "/gestion-project-v2/getform/{entity_type_id}/{view_mode}/{bundle}"
+  methods: [GET]
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::getForm'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+gestion_tache_v2.saveform:   
+  path: "/gestion-project-v2/save-entity/{entity_type_id}/{bundle}"
+  methods: [POST]
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::saveEntities'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+gestion_tache_v2.load_projet_type:   
+  path: "/gestion-project-v2/load-projet-type"
+  methods: [GET]
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::LoadProjectType'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+gestion_tache_v2.test:   
+  path: "/gestion-project-v2/test"
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::test'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  options:
+      _auth: ['basic_auth', 'cookie']
       
       
 # version 1x

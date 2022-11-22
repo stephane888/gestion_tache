@@ -10,3 +10,12 @@ gestion_tache.app_project_type.*:
       label: 'Label'
     uuid:
       type: string
+    users:
+      type: mapping
+      label: 'Liste des utilisateurs qui peuvent voir ce contenu'
+    description:
+      type: text
+      label: 'description'
+    user_id:
+      type: integer
+      label: 'Auteur of node type'
