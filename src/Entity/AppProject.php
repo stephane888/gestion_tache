@@ -224,8 +224,8 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       ]
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
     
-    $fields['name'] = BaseFieldDefinition::create('string')->setLabel(t('Name'))->setDescription(t('The name of the App project entity.'))->setRevisionable(TRUE)->setSettings([
-      'max_length' => 50,
+    $fields['name'] = BaseFieldDefinition::create('string')->setLabel("Titre")->setDescription(t('The name of the App project entity.'))->setRevisionable(TRUE)->setSettings([
+      'max_length' => 250,
       'text_processing' => 0
     ])->setDefaultValue('')->setDisplayOptions('view', [
       'label' => 'above',
@@ -283,16 +283,19 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     
     $fields['duree'] = BaseFieldDefinition::create('daterange')->setLabel(t('Durée'))->setRevisionable(TRUE)->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setRequired(TRUE);
     //
-    $fields['executants'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Executants'))->setSetting('target_type', 'user')->setSetting('handler', 'default')->setDisplayOptions('form', [
-      'type' => 'entity_reference_autocomplete',
+    $fields['executants'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Executants'))->setDisplayOptions('form', [
+      'type' => 'options_select',
       'weight' => 5,
       'settings' => [
         'match_operator' => 'CONTAINS',
-        'size' => '60',
+        'size' => '10',
         'autocomplete_type' => 'tags',
         'placeholder' => ''
       ]
-    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(-1);
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setSetting('allowed_values_function', [
+      '\Drupal\gestion_tache\GestionTache',
+      'getAvailableUserForProject'
+    ])->setCardinality(-1)->setSetting('target_type', 'user')->setSetting('handler', 'default');
     //
     $fields['primes'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Primes'))->setSetting('target_type', 'app_prime')->setSetting('handler', 'default')->setDisplayOptions('form', [
       'type' => 'entity_reference_autocomplete',
@@ -325,7 +328,10 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'autocomplete_type' => 'tags',
         'placeholder' => ''
       ]
-    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setSetting('allowed_values_function', [
+      '\Drupal\gestion_tache\GestionTache',
+      'getAvailableUserForProject'
+    ]);
     
     $fields['description'] = BaseFieldDefinition::create('text_long')->setLabel(" Description ")->setDisplayOptions('form', [
       'type' => 'text_textarea',

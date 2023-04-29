@@ -3,6 +3,9 @@
 namespace Drupal\gestion_tache\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\user\Entity\User;
 
 /**
  * Defines the App project type entity.
@@ -48,6 +51,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  */
 class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInterface {
   
+  function __construct(array $values, $entity_type) {
+    parent::__construct($values, $entity_type);
+  }
+  
   /**
    * The App project type ID.
    *
@@ -82,6 +89,34 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
    *
    * @var array
    */
-  protected $user_id = [];
+  protected $user_id;
+  
+  public function postCreate(EntityStorageInterface $storage) {
+    parent::postCreate($storage);
+    $this->user_id = \Drupal::currentUser()->id();
+  }
+  
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage);
+    //
+    if (!$update) {
+      $this->user_id = \Drupal::currentUser()->id();
+    }
+    elseif (empty($this->user_id)) {
+      $this->user_id = \Drupal::currentUser()->id();
+    }
+  }
+  
+  /**
+   * Recupere la liste des options.
+   */
+  public function getListOptionsUsers() {
+    $users = [];
+    foreach ($this->users as $uid) {
+      $user = User::load($uid);
+      $users[$uid] = $user->getDisplayName();
+    }
+    return $users;
+  }
   
 }

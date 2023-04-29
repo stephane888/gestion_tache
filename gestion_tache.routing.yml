@@ -44,6 +44,17 @@ gestion_tache_v2.load_projet_type:
   options:
       _auth: ['basic_auth', 'cookie']
       
+gestion_tache_v2.load_projet.id:   
+  path: "/gestion-project-v2/load-entity/{entity_type_id}/{id}"
+  methods: [GET]
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::LoadEntity'
+  requirements:
+    _permission: 'gestion_tache__reserve_content'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
 gestion_tache_v2.test:   
   path: "/gestion-project-v2/test"
   defaults:

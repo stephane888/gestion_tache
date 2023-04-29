@@ -13,7 +13,8 @@ use Drupal\query_ajax\Services\Select;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\gestion_tache\Entity\AppProject;
 use Drupal\gestion_tache\Entity\AppProjectType;
-use Stephane888\Debug\Utility as UtilityError;
+use Stephane888\DrupalUtility\HttpResponse;
+use Stephane888\Debug\ExceptionExtractMessage;
 
 /**
  * Returns responses for gestion tache routes.
@@ -45,24 +46,9 @@ class GestionTacheV2Controller extends ControllerBase {
    * --
    */
   public function SelectProjectType() {
-    return [];
-  }
-  
-  /**
-   * Builds the response.
-   * Recupere les champs pour un entité.
-   */
-  public function getForm(Request $Request, $entity_type_id, $view_mode = 'default', $bundle = null, $entity = null) {
-    /**
-     * Fields storage.
-     *
-     * @var array $fields
-     */
-    $fields = $this->EntityFieldManager->getFieldStorageDefinitions($entity_type_id);
-    //
-    foreach ($array_expression as $value) {
-      ;
-    }
+    return [
+      'df' => 'kij'
+    ];
   }
   
   /**
@@ -73,31 +59,52 @@ class GestionTacheV2Controller extends ControllerBase {
   public function LoadProjectType() {
     try {
       $datas = $this->GestionProject->ManageEntity->loadProjets();
-      return $this->reponse($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
+      return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
     catch (\Exception $e) {
-      return $this->reponse(UtilityError::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
     }
     catch (\Error $e) {
-      return $this->reponse(UtilityError::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
     }
   }
   
   /**
-   * Permet de mettre à jour ou de creer de nouveaux entitées.
+   * Permet de charger une entité, mais il faudra se rassurer qu'une entité est
+   * chargé en respectant les droits.
+   *
+   * @param string $entity_type_id
+   * @param string $id
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   */
+  public function LoadEntity($entity_type_id, $id) {
+    try {
+      $entity = $this->entityTypeManager()->getStorage($entity_type_id)->load($id);
+      return HttpResponse::response($entity->toArray());
+    }
+    catch (\Exception $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+    }
+    catch (\Error $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+    }
+  }
+  
+  /**
+   * Permet de mettre à jour ou de creer de nouvelles entitées de configuration.
    */
   public function saveEntities(Request $Request, $entity_type_id, $bundle) {
     try {
       $values = Json::decode($Request->getContent());
       $entity = $this->GestionProject->ManageEntity->saveEntity($values, $entity_type_id);
       $result = is_object($entity) ? $entity->toArray() : $entity;
-      return $this->reponse($result, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
+      return HttpResponse::response($result, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
     catch (\Exception $e) {
-      return $this->reponse(UtilityError::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
     }
     catch (\Error $e) {
-      return $this->reponse(UtilityError::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
     }
   }
   
@@ -124,30 +131,59 @@ class GestionTacheV2Controller extends ControllerBase {
     $entity = $this->entityTypeManager->getStorage('app_project')->create($values);
     // $dd = $this->entityFormBuilder()->getForm($entity);
     // dump($dd);
-    return $this->reponse([]);
+    return HttpResponse::response([]);
   }
   
   /**
-   *
-   * @param Array|string $configs
-   * @param number $code
-   * @param string $message
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   * Builds the response.
+   * Recupere les champs pour un entité.
    */
-  protected function reponse($configs, int $code = null, $message = null) {
-    if (!is_string($configs))
-      $configs = Json::encode($configs);
-    $reponse = new JsonResponse();
-    if ($code)
-      $reponse->setStatusCode($code, $message);
-    $reponse->setContent($configs);
-    // utilise si on utilise le protocole, http/2
-    // on authorise les navigateurs à afficher "CustomStatusText"
-    $reponse->headers->set('Access-Control-Expose-Headers', "CustomStatusText");
-    // Le protocole http/2.0 ne supporte pas le message sattus, alors on
-    // le transfert via un entete personnalisé "CustomStatusText".
-    $reponse->headers->set('CustomStatusText', $message);
-    return $reponse;
+  public function getForm($entity_type_id, $view_mode = 'default', $bundle = null, $entity = null) {
+    try {
+      /**
+       *
+       * @var \Drupal\Core\Config\Entity\ConfigEntityStorage $EntityStorage
+       */
+      $EntityStorage = $this->entityTypeManager()->getStorage($entity_type_id);
+      // On determine si c'est un entity de configuration ou une entité de
+      // contenu.
+      // pour le moment, on peut differencier l'un de l'autre via la table de
+      // base, seul les entités de contenus ont une table de base.
+      /**
+       *
+       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityT
+       */
+      $entityT = $EntityStorage->getEntityType();
+      if (!$entityT->getBaseTable()) {
+        $entity_type_id = $entityT->getBundleOf();
+        $EntityStorage = $this->entityTypeManager()->getStorage($entity_type_id);
+      }
+      if (empty($EntityStorage))
+        throw new \Exception("Le type d'entité n'exsite pas : " . $entity_type_id);
+      if (!$entity) {
+        if ($bundle && $bundle != $entity_type_id)
+          $entity = $EntityStorage->create([
+            'type' => $bundle
+          ]);
+        else {
+          $bundle = $entity_type_id;
+          $entity = $EntityStorage->create();
+        }
+      }
+      /**
+       *
+       * @var \Drupal\apivuejs\Services\GenerateForm $apivuejs
+       */
+      $apivuejs = \Drupal::service('apivuejs.getform');
+      $res = $apivuejs->getForm($entity_type_id, $bundle, $view_mode, $entity);
+      // dump($res);
+      return HttpResponse::response([
+        $res
+      ]);
+    }
+    catch (\Exception $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), 400, $e->getMessage());
+    }
   }
   
 }

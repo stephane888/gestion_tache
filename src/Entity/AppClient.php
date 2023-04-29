@@ -227,7 +227,7 @@ class AppClient extends EditorialContentEntityBase implements AppClientInterface
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
     
     $fields['name'] = BaseFieldDefinition::create('string')->setLabel(t('Name'))->setDescription(t('The name of the App client entity.'))->setRevisionable(TRUE)->setSettings([
-      'max_length' => 50,
+      'max_length' => 250,
       'text_processing' => 0
     ])->setDefaultValue('')->setDisplayOptions('view', [
       'label' => 'above',
