@@ -15,7 +15,7 @@ gestion_tache__reserve_content:
   restrict access: TRUE
 
 gestion_tache__emploie_content:
-  title: 'Ses contenus sont accessibles pas tous les emploies'
+  title: 'Ses contenus sont accessibles pas tous les emploies et stagieres.'
   description: 'Optional description.'
   restrict access: TRUE
 add app project entities:

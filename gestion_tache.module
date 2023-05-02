@@ -133,3 +133,46 @@ function gestion_tache_theme_suggestions_app_client(array $variables) {
   $suggestions[] = 'app_client__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
 }
+
+/**
+ *
+ * @param \Drupal\mysql\Driver\Database\mysql\Select $query
+ */
+function gestion_tache_query_alter(\Drupal\Core\Database\Query\AlterableInterface $query) {
+  // \Stephane888\Debug\debugLog::kintDebugDrupal($query->__toString(),
+  // 'gestion_tache_query_alter', true);
+
+/**
+ * On filtre les produits dans le panier en fonction du domaine encours.
+ */
+  // if ($query->hasTag('commerce_cart_order_ids')) {
+  // $query->addJoin('INNER', 'commerce_order_item', 'coi',
+  // 'coi.order_id=commerce_order.order_id');
+  // $query->addJoin('INNER', 'commerce_product_variation_field_data', 'prd_va',
+  // 'prd_va.variation_id=coi.purchased_entity');
+  // $query->addJoin('INNER', 'commerce_product__field_domain_access', 'prd_da',
+  // 'prd_da.entity_id=prd_va.product_id');
+  // $query->condition('prd_da.field_domain_access_target_id',
+  // $domain->getActiveId());
+  // }
+}
+
+/**
+ * implement hook_query_entityreference_alter
+ * Filtrer les requetes de recherche via le domaine tant que cela est possible.
+ *
+ * @param \Drupal\Core\Database\Query\AlterableInterface $query
+ */
+function gestion_tache_query_entityreference_alter(\Drupal\mysql\Driver\Database\mysql\Select $query) {
+  // \Stephane888\Debug\debugLog::kintDebugDrupal($query->__toString(),
+  // 'gestion_tache_query_entity_reference_alter', true);
+  // /**
+  // *
+  // * @var \Drupal\node\Plugin\EntityReferenceSelection\NodeSelection
+  // $entity_reference
+  // */
+  // $entity_reference =
+  // $query->getMetaData('entity_reference_selection_handler');
+}
+
+

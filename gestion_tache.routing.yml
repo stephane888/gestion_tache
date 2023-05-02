@@ -1,16 +1,4 @@
 # version 2x
-# selectionner les type de projet
-gestion_tache_v2.select.project_type:   
-  path: "/gestion-project-v2/select/project-type"
-  methods: [GET]
-  defaults:
-    _title: 'Insertion et Mise à jour des données'
-    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::SelectProjectType'
-  requirements:
-    _permission: 'gestion_tache__reserve_content'
-  options:
-      _auth: ['basic_auth', 'cookie']
-      
 gestion_tache_v2.getform:   
   path: "/gestion-project-v2/getform/{entity_type_id}/{view_mode}/{bundle}"
   methods: [GET]
@@ -29,7 +17,7 @@ gestion_tache_v2.saveform:
     _title: 'Get form render'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::saveEntities'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _user_is_logged_in: 'TRUE'
   options:
       _auth: ['basic_auth', 'cookie']
       
@@ -40,7 +28,7 @@ gestion_tache_v2.load_projet_type:
     _title: 'Get form render'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::LoadProjectType'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _user_is_logged_in: 'TRUE'
   options:
       _auth: ['basic_auth', 'cookie']
       
@@ -51,7 +39,18 @@ gestion_tache_v2.load_projet.id:
     _title: 'Get form render'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::LoadEntity'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _user_is_logged_in: 'TRUE'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+      
+gestion_tache_v2.user_configs:   
+  path: "/gestion-project-v2/user-config/{uid}"
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::userConfigs'
+  requirements:
+    _user_is_logged_in: 'TRUE'
   options:
       _auth: ['basic_auth', 'cookie']
       

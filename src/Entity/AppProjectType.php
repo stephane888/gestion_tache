@@ -6,6 +6,9 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\user\Entity\User;
+use Drupal\gestion_tache\GestionTache;
+use Drupal\gestion_tache\ExceptionGestionTache;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines the App project type entity.
@@ -24,6 +27,7 @@ use Drupal\user\Entity\User;
  *     "route_provider" = {
  *       "html" = "Drupal\gestion_tache\AppProjectTypeHtmlRouteProvider",
  *     },
+ *     "access" = "Drupal\gestion_tache\AppProjectTypeAccessControlHandler",
  *   },
  *   config_prefix = "app_project_type",
  *   admin_permission = "administer site configuration",
@@ -39,6 +43,7 @@ use Drupal\user\Entity\User;
  *     "description",
  *     "users",
  *     "user_id",
+ *     "private"
  *   },
  *   links = {
  *     "canonical" = "/app/project/app_project_type/{app_project_type}",
@@ -87,24 +92,75 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
   /**
    * Auteur du type de contenu.
    *
-   * @var array
+   * @var boolean
    */
   protected $user_id;
+  
+  /**
+   * Permet de rendre un projet accessible uniquement à l'utilisateur encours et
+   * à ceux qui sont explicement definit dans $users;
+   * Cella permet à des roles ayant acces à tous les projets publics de ne pas y
+   * avoir access.
+   *
+   * @var array
+   */
+  protected $private = false;
+  
+  /**
+   *
+   * {@inheritdoc}
+   * @see \Drupal\Core\Entity\EntityBase::loadMultiple()
+   */
+  public static function loadMultiple(array $ids = NULL) {
+    // TODO Auto-generated method stub
+    return parent::loadMultiple();
+  }
   
   public function postCreate(EntityStorageInterface $storage) {
     parent::postCreate($storage);
     $this->user_id = \Drupal::currentUser()->id();
   }
   
-  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
-    parent::postSave($storage);
-    //
-    if (!$update) {
-      $this->user_id = \Drupal::currentUser()->id();
+  /**
+   *
+   * {@inheritdoc}
+   * @see \Drupal\Core\Config\Entity\ConfigEntityBundleBase::preSave()
+   */
+  public function preSave(EntityStorageInterface $storage) {
+    // TODO Auto-generated method stub
+    parent::preSave($storage);
+    /**
+     *
+     * @var \Drupal\gestion_tache\Services\Api\AccessEntitiesController $AccessEntitiesController
+     */
+    $AccessEntitiesController = \Drupal::service('gestion_tache_v2.access_entity_controller');
+    $user_id = \Drupal::currentUser()->id();
+    if ($this->isNew()) {
+      if (!$AccessEntitiesController->accessToSaveEntityConfig($this))
+        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour creer cette ressource ", 403);
+      // on met à jour l'id de l'utilisateur.
+      $this->user_id = $user_id;
     }
-    elseif (empty($this->user_id)) {
-      $this->user_id = \Drupal::currentUser()->id();
+    else {
+      if (!$AccessEntitiesController->accessToEditEntityConfig($this))
+        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour modifier cette ressource ", 403);
+      if (empty($this->user_id)) {
+        $this->user_id = \Drupal::currentUser()->id();
+      }
     }
+  }
+  
+  public static function preDelete(EntityStorageInterface $storage, array $entities) {
+    $new_entities = [];
+    /**
+     *
+     * @var \Drupal\gestion_tache\Services\Api\AccessEntitiesController $AccessEntitiesController
+     */
+    $AccessEntitiesController = \Drupal::service('gestion_tache_v2.access_entity_controller');
+    
+    if (!$AccessEntitiesController->accessToDeleteEntityConfig($new_entities, $entities));
+    throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour supprimer cette ressource ", 403);
+    parent::preDelete($storage, $new_entities);
   }
   
   /**
@@ -117,6 +173,22 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
       $users[$uid] = $user->getDisplayName();
     }
     return $users;
+  }
+  
+  /**
+   *
+   * @return integer
+   */
+  public function getUserId() {
+    return $this->user_id;
+  }
+  
+  /**
+   *
+   * @return boolean
+   */
+  public function getPrivate() {
+    return $this->private;
   }
   
 }

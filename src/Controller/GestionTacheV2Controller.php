@@ -3,7 +3,6 @@
 namespace Drupal\gestion_tache\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityFieldManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -11,10 +10,9 @@ use Drupal\gestion_tache\Services\Api\GestionProjectV2;
 use Drupal\query_ajax\Services\InsertUpdate;
 use Drupal\query_ajax\Services\Select;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\gestion_tache\Entity\AppProject;
-use Drupal\gestion_tache\Entity\AppProjectType;
 use Stephane888\DrupalUtility\HttpResponse;
 use Stephane888\Debug\ExceptionExtractMessage;
+use Drupal\gestion_tache\GestionTache;
 
 /**
  * Returns responses for gestion tache routes.
@@ -43,15 +41,6 @@ class GestionTacheV2Controller extends ControllerBase {
   }
   
   /**
-   * --
-   */
-  public function SelectProjectType() {
-    return [
-      'df' => 'kij'
-    ];
-  }
-  
-  /**
    * Charge les projets en functions des droits des utilisateurs.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -62,10 +51,10 @@ class GestionTacheV2Controller extends ControllerBase {
       return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
     catch (\Exception $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
   }
   
@@ -79,8 +68,8 @@ class GestionTacheV2Controller extends ControllerBase {
    */
   public function LoadEntity($entity_type_id, $id) {
     try {
-      $entity = $this->entityTypeManager()->getStorage($entity_type_id)->load($id);
-      return HttpResponse::response($entity->toArray());
+      $datas = $this->GestionProject->ManageEntity->loadProjet($entity_type_id, $id);
+      return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
     catch (\Exception $e) {
       return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
@@ -105,6 +94,20 @@ class GestionTacheV2Controller extends ControllerBase {
     }
     catch (\Error $e) {
       return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+    }
+  }
+  
+  public function userConfigs($uid) {
+    try {
+      if ($uid && \Drupal::currentUser()->id() != $uid)
+        throw new \Exception("Paramettre de l'utilisateur incorect");
+      return HttpResponse::response(GestionTache::userConfigs($uid));
+    }
+    catch (\Exception $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '435', $e->getMessage());
+    }
+    catch (\Error $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '435', $e->getMessage());
     }
   }
   

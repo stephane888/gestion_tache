@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
+use Drupal\gestion_tache\ExceptionGestionTache;
 
 /**
  * Defines the App project entity.
@@ -114,6 +115,21 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
    */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
+    /**
+     *
+     * @var \Drupal\gestion_tache\Services\Api\AccessEntitiesController $AccessEntitiesController
+     */
+    $AccessEntitiesController = \Drupal::service('gestion_tache_v2.access_entity_controller');
+    if ($this->isNew()) {
+      if (!$AccessEntitiesController->accessToSaveEntity($this))
+        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour creer cette ressource ", 403);
+      // on met à jour l'id de l'utilisateur.
+      $this->setOwnerId(\Drupal::currentUser()->id());
+    }
+    else {
+      if (!$AccessEntitiesController->accessToUpdateEntity($this))
+        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour modifier cette ressource ", 403);
+    }
     
     foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
       $translation = $this->getTranslation($langcode);
@@ -197,6 +213,10 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
   public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
     return $this;
+  }
+  
+  public function IsPrivate() {
+    return $this->get('private')->value;
   }
   
   /**

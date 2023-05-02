@@ -19,3 +19,6 @@ gestion_tache.app_project_type.*:
     user_id:
       type: integer
       label: 'Auteur of node type'
+    private:
+      type: boolean
+      label: 'Private'
