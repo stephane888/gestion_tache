@@ -11,6 +11,80 @@
  */
 
 /**
+ * Update value max_length from 50 to 250.
+ *
+ * implement hook_update_8001
+ *
+ * @see https://www.drupal.org/node/2554097
+ * @see https://www.drupal.org/docs/drupal-apis/update-api/introduction-to-update-api-for-drupal-8
+ */
+function __gestion_tache_update_name_max_length($entity_type_id) {
+  // Retrieve existing field data.
+  $database = \Drupal::database();
+  $table = $entity_type_id . '_field_data';
+  $names = $database->select($table, 'et')->fields('et', [
+    'id',
+    'langcode',
+    'name'
+  ])->execute()->fetchAll(\PDO::FETCH_ASSOC);
+  // Remove data from the column.
+  $database->update($table)->fields([
+    'name' => NULL
+  ])->execute();
+  //
+  // si les revisions sont activées.
+  $table_revision = $entity_type_id . "_field_revision";
+  $names_revision = $database->select($table_revision, 'et')->fields('et', [
+    'id',
+    'langcode',
+    'name'
+  ])->execute()->fetchAll(\PDO::FETCH_ASSOC);
+  $database->update($table_revision)->fields([
+    'name' => NULL
+  ])->execute();
+  
+  // Remove old definition field.
+  $updateManager = \Drupal::entityDefinitionUpdateManager();
+  $storagedef = $updateManager->getFieldStorageDefinition('name', $entity_type_id);
+  $updateManager->uninstallFieldStorageDefinition($storagedef);
+  // Load new definition field in code.
+  /**
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManager $fieldManager
+   */
+  $fieldManager = \Drupal::service('entity_field.manager');
+  $fields = $fieldManager->getFieldStorageDefinitions($entity_type_id);
+  $updateManager->installFieldStorageDefinition('name', $entity_type_id, "gestion_tache", $fields['name']);
+  // Restore entity data in the new schema.
+  foreach ($names as $name) {
+    $database->update($table)->fields([
+      'name' => $name['name']
+    ])->condition('id', $name['id'])->condition('langcode', $name['langcode'])->execute();
+  }
+  // restore revision
+  foreach ($names_revision as $name) {
+    $database->update($table_revision)->fields([
+      'name' => $name['name']
+    ])->condition('id', $name['id'])->condition('langcode', $name['langcode'])->execute();
+  }
+}
+
+/**
+ * Update value max_length from 50 to 250.
+ *
+ * implement hook_update_8001
+ *
+ * @see https://www.drupal.org/node/2554097
+ * @see https://www.drupal.org/docs/drupal-apis/update-api/introduction-to-update-api-for-drupal-8
+ */
+function gestion_tache_update_8001() {
+  __gestion_tache_update_name_max_length('app_project');
+  __gestion_tache_update_name_max_length('app_prime');
+  __gestion_tache_update_name_max_length('app_client');
+  __gestion_tache_update_name_max_length('app_memos');
+}
+
+/**
  * Implements hook_theme().
  */
 function gestion_tache_theme() {

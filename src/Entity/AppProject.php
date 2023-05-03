@@ -301,7 +301,18 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       ]
     ]);
     
-    $fields['duree'] = BaseFieldDefinition::create('daterange')->setLabel(t('Durée'))->setRevisionable(TRUE)->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setRequired(TRUE);
+    $fields['duree'] = BaseFieldDefinition::create('daterange')->setLabel(t('Durée'))->setRevisionable(TRUE)->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setDisplayOptions('form', [
+      'type' => 'daterange_default',
+      'weight' => 0,
+      'settings' => [
+        'date_type' => 'date',
+        'time_type' => 'time'
+      ]
+    ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate');
+    // ->setDefaultValue([
+    // 'value' => "2023-05-03",
+    // 'end_value' => "2023-05-03"
+    // ])
     //
     $fields['executants'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Executants'))->setDisplayOptions('form', [
       'type' => 'options_select',

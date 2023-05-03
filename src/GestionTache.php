@@ -4,6 +4,7 @@ namespace Drupal\gestion_tache;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 class GestionTache {
   
@@ -42,6 +43,22 @@ class GestionTache {
    */
   static function addCurrentUidOnfield() {
     //
+  }
+  
+  static function defaultValueForFieldDate() {
+    $date = new DrupalDateTime();
+    $format = $date->format("Y-m-d");
+    // $format = "2023-05-03 10h";
+    // dump($format);
+    // return $format;
+    return [
+      // valeur qui seront sauvegarder en BD.
+      'value' => $date->getTimestamp(),
+      'end_value' => $date->getTimestamp(),
+      // pour le widget : daterange_default
+      'end_date' => $date,
+      'start_date' => $date
+    ];
   }
   
   /**
