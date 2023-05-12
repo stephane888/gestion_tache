@@ -12,28 +12,30 @@ use Drupal\Core\Link;
  * @ingroup gestion_tache
  */
 class AppProjectListBuilder extends EntityListBuilder {
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function buildHeader() {
     $header['id'] = $this->t('App project ID');
     $header['name'] = $this->t('Name');
+    $header['type'] = $this->t('Type');
     return $header + parent::buildHeader();
   }
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
     /* @var \Drupal\gestion_tache\Entity\AppProject $entity */
     $row['id'] = $entity->id();
-    $row['name'] = Link::createFromRoute(
-      $entity->label(),
-      'entity.app_project.edit_form',
-      ['app_project' => $entity->id()]
-    );
+    $row['name'] = Link::createFromRoute($entity->label(), 'entity.app_project.edit_form', [
+      'app_project' => $entity->id()
+    ]);
+    $row['type'] = $entity->bundle();
     return $row + parent::buildRow($entity);
   }
-
+  
 }

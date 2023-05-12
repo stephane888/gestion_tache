@@ -284,7 +284,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     ])->setDisplayOptions('view', [])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setDefaultValue(false);
     //
     $fields['status_execution'] = BaseFieldDefinition::create('list_string')->setLabel(" Status execution ")->setDisplayOptions('form', [
-      'type' => 'options_select',
+      'type' => 'options_buttons',
       'weight' => 5,
       'settings' => array(
         'match_operator' => 'CONTAINS',
@@ -294,12 +294,13 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       )
     ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setSettings([
       'allowed_values' => [
-        'new' => 'Nouveau',
-        'running' => 'Encours',
+        'new' => 'Nouvelle taches',
+        'running' => "En cours d'execution",
         'end' => 'Terminée',
+        'validate' => 'Validée',
         'cancel' => 'Annulée'
       ]
-    ]);
+    ])->setRequired(true)->setDefaultValue('new');
     
     $fields['duree'] = BaseFieldDefinition::create('daterange')->setLabel(t('Durée'))->setRevisionable(TRUE)->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setDisplayOptions('form', [
       'type' => 'daterange_default',
@@ -309,24 +310,30 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'time_type' => 'time'
       ]
     ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate');
+    /**
+     * C'est le temps estimer pour la realisation de la tache, ce temps peut
+     * etre estimer par un administrateur ou un executant ou meme le client.
+     * NB: Ce temps est dirrectement liée au montant de l'execution de la tache.
+     * Sa valeur represente les minutes.
+     * ( la taille par defaut est normal [-2147483648 à 2147483647] ce qui
+     * represente plus de 596523 jours. ).
+     */
+    $fields['duree_execution'] = BaseFieldDefinition::create('integer')->setLabel(" Durée d'execution ")->setRevisionable(TRUE)->setSettings([
+      'min' => 15
+    ])->setDefaultValue(15)->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'string',
+      'weight' => -4
+    ])->setDisplayOptions('form', [
+      'type' => 'number'
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setRequired(TRUE);
+    
     // ->setDefaultValue([
     // 'value' => "2023-05-03",
     // 'end_value' => "2023-05-03"
     // ])
     //
-    $fields['executants'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Executants'))->setDisplayOptions('form', [
-      'type' => 'options_select',
-      'weight' => 5,
-      'settings' => [
-        'match_operator' => 'CONTAINS',
-        'size' => '10',
-        'autocomplete_type' => 'tags',
-        'placeholder' => ''
-      ]
-    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setSetting('allowed_values_function', [
-      '\Drupal\gestion_tache\GestionTache',
-      'getAvailableUserForProject'
-    ])->setCardinality(-1)->setSetting('target_type', 'user')->setSetting('handler', 'default');
+    
     //
     $fields['primes'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Primes'))->setSetting('target_type', 'app_prime')->setSetting('handler', 'default')->setDisplayOptions('form', [
       'type' => 'entity_reference_autocomplete',
@@ -350,19 +357,33 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       ]
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(-1);
     
-    $fields['project_manager'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Chef de projet'))->setSetting('target_type', 'user')->setSetting('handler', 'default')->setDisplayOptions('form', [
-      'type' => 'entity_reference_autocomplete',
+    $fields['project_manager'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Chef de projet'))->setDisplayOptions('form', [
+      'type' => 'options_select',
       'weight' => 5,
       'settings' => [
         'match_operator' => 'CONTAINS',
-        'size' => '60',
+        'size' => '10',
         'autocomplete_type' => 'tags',
         'placeholder' => ''
       ]
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setSetting('allowed_values_function', [
       '\Drupal\gestion_tache\GestionTache',
-      'getAvailableUserForProject'
-    ]);
+      'getAvailableUserForProjectByField'
+    ])->setSetting('target_type', 'user')->setSetting('handler', 'default')->setDefaultValueCallback("\Drupal\gestion_tache\GestionTache::ChiefManagerProject");
+    
+    $fields['executants'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Executants'))->setDisplayOptions('form', [
+      'type' => 'options_buttons',
+      'weight' => 5,
+      'settings' => [
+        'match_operator' => 'CONTAINS',
+        'size' => '10',
+        'autocomplete_type' => 'tags',
+        'placeholder' => ''
+      ]
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setSetting('allowed_values_function', [
+      '\Drupal\gestion_tache\GestionTache',
+      'getAvailableUserForProjectByField'
+    ])->setCardinality(-1)->setSetting('target_type', 'user')->setSetting('handler', 'default');
     
     $fields['description'] = BaseFieldDefinition::create('text_long')->setLabel(" Description ")->setDisplayOptions('form', [
       'type' => 'text_textarea',

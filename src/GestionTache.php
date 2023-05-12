@@ -3,6 +3,7 @@
 namespace Drupal\gestion_tache;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\gestion_tache\Entity\AppEntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 
@@ -47,18 +48,23 @@ class GestionTache {
   
   static function defaultValueForFieldDate() {
     $date = new DrupalDateTime();
-    $format = $date->format("Y-m-d");
+    // $format = $date->format("Y-m-d");
     // $format = "2023-05-03 10h";
     // dump($format);
     // return $format;
     return [
-      // valeur qui seront sauvegarder en BD.
-      'value' => $date->getTimestamp(),
-      'end_value' => $date->getTimestamp(),
+      // valeur qui seront sauvegarder en BD. ( YYYY-MM-DDTHH:mm:ss qui n'est
+      // pas un format normalisé )
+      'value' => $date->format('Y-m-d\TH:i:s'), //
+      'end_value' => $date->format('Y-m-d\TH:i:s'),
       // pour le widget : daterange_default
       'end_date' => $date,
       'start_date' => $date
     ];
+  }
+  
+  static function getAvailableUserForProjectByField(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, $cacheable = true) {
+    return self::getAvailableUserForProject($entity);
   }
   
   /**
@@ -73,7 +79,7 @@ class GestionTache {
    * @param boolean $cacheable
    * @return string[]|\Drupal\Component\Render\MarkupInterface[]
    */
-  static function getAvailableUserForProject(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, $cacheable = true) {
+  static function getAvailableUserForProject(AppEntityInterface $entity) {
     $entity_type_id = $entity->getEntityType()->getBundleEntityType();
     /**
      *
@@ -83,14 +89,37 @@ class GestionTache {
     return $entityType->getListOptionsUsers();
   }
   
+  /**
+   * Retoune les configurations en relation avec un utilisateur.
+   *
+   * @param integer $uid
+   * @return string[]|array[]
+   */
   static function userConfigs($uid) {
     $confs = [];
     $user = \Drupal\user\Entity\User::load($uid);
     if ($user) {
       $confs['roles'] = self::roles();
       $confs['langue'] = $user->language()->getId();
+      $confs['duree_jour'] = 7; // 7 heures de TAF.
     }
     return $confs;
+  }
+  
+  /**
+   * Essaie de determiner le chef de projet.
+   * 1 - s'il ya un seul utilisateur, on l'assigne, s'ils sont plusiuers, on
+   * laisse chacun choisir sa tache.
+   */
+  public static function ChiefManagerProject(AppEntityInterface $entity) {
+    $uid = null;
+    
+    $users = self::getAvailableUserForProject($entity);
+    if ($users) {
+      if (count($users) == 1)
+        return array_key_first($users);
+    }
+    return $uid;
   }
   
   /**
