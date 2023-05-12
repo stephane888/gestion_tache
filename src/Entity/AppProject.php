@@ -319,7 +319,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
      * represente plus de 596523 jours. ).
      */
     $fields['duree_execution'] = BaseFieldDefinition::create('integer')->setLabel(" Durée d'execution ")->setRevisionable(TRUE)->setSettings([
-      'min' => 15
+      'min' => 0
     ])->setDefaultValue(15)->setDisplayOptions('view', [
       'label' => 'above',
       'type' => 'string',
