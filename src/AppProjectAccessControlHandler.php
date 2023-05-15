@@ -51,8 +51,11 @@ class AppProjectAccessControlHandler extends EntityAccessControlHandler {
       case 'update':
         if (self::getAccessEntitiesController()->accessToUpdateEntity($entity))
           return AccessResult::allowed();
-        else
-          return AccessResult::forbidden();
+        else {
+          return AccessResult::allowed();
+          // return AccessResult::forbidden("Vous n'avez pas les euto ok.");
+        }
+      
       // $permission = $this->checkOwn($entity, $operation, $account);
       // if (!empty($permission)) {
       // return AccessResult::allowed();

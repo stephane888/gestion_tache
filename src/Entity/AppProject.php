@@ -310,6 +310,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'time_type' => 'time'
       ]
     ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate');
+    
     /**
      * C'est le temps estimer pour la realisation de la tache, ce temps peut
      * etre estimer par un administrateur ou un executant ou meme le client.
@@ -318,7 +319,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
      * ( la taille par defaut est normal [-2147483648 à 2147483647] ce qui
      * represente plus de 596523 jours. ).
      */
-    $fields['duree_execution'] = BaseFieldDefinition::create('integer')->setLabel(" Durée d'execution ")->setRevisionable(TRUE)->setSettings([
+    $fields['duree_execution'] = BaseFieldDefinition::create('integer')->setLabel(" Durée d'execution (mn) ")->setRevisionable(TRUE)->setSettings([
       'min' => 0
     ])->setDefaultValue(15)->setDisplayOptions('view', [
       'label' => 'above',
