@@ -101,9 +101,68 @@ class GestionTache {
     if ($user) {
       $confs['roles'] = self::roles();
       $confs['langue'] = $user->language()->getId();
-      $confs['duree_jour'] = 7; // 7 heures de TAF.
+      if ($uid == 1) {
+        /**
+         * Debut du journée : 02h.
+         */
+        $confs['pauses'] = [
+          [
+            7,
+            8
+          ],
+          [
+            12.5,
+            14
+          ],
+          [
+            18,
+            19
+          ]
+        ];
+        /**
+         * Debut du journée : 02h.
+         */
+        $confs['day_duration'] = [
+          2,
+          21
+        ];
+        $confs['duration_work_day'] = $confs['day_duration'][1] - $confs['day_duration'][0] - self::sommePause($confs['pauses']);
+      }
+      else {
+        $confs['pauses'] = [
+          [
+            13,
+            14
+          ]
+        ];
+        $confs['day_duration'] = [
+          8,
+          17
+        ];
+        $confs['duration_work_day'] = $confs['day_duration'][1] - $confs['day_duration'][0] - self::sommePause($confs['pauses']);
+      }
+      
+      /**
+       * Lundi à vendredi, doit etre dynamique car doit tenir compte des
+       * feriers.
+       */
+      $confs['work_days'] = [
+        1,
+        2,
+        3,
+        4,
+        5
+      ];
     }
     return $confs;
+  }
+  
+  protected static function sommePause($pauses) {
+    $val = 0;
+    foreach ($pauses as $pause) {
+      $val += $pause[1] - $pause[0];
+    }
+    return $val;
   }
   
   /**

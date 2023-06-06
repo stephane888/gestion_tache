@@ -11,7 +11,15 @@ services:
   gestion_tache_v2.manage_entity:
     class: Drupal\gestion_tache\Services\Api\ManageEntity
     arguments: ['@gestion_tache_v2.access_entity_controller']
-    
+
+  # le module jsonapi a decidé de modifier le format de sortie des dates(https://www.drupal.org/node/2982678), mais cela n'est pas compatible avec d'autres module de drupal.
+  # donc, on revient au format par defaut. (voir la doc : https://www.drupal.org/docs/8/api/serialization-api/changing-the-way-serializer-handles-entities ).
+  gestion_tache_v2.normalizer.entity_reference_field_daterange:
+    class: Drupal\gestion_tache\Normalizer\EntityReferenceFieldDaterangeNormalizer    
+    tags:
+      - { name: normalizer, priority: 1 }
+    arguments: ['@entity.repository']
+  
   
     
   # version 1x

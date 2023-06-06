@@ -301,7 +301,39 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'cancel' => 'Annulée'
       ]
     ])->setRequired(true)->setDefaultValue('new');
-    
+    //
+    $fields['type_tache'] = BaseFieldDefinition::create('list_string')->setLabel(" Type de tache ")->setDisplayOptions('form', [
+      'type' => 'options_buttons',
+      'weight' => 5,
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'size' => '10',
+        'autocomplete_type' => 'tags',
+        'placeholder' => ''
+      )
+    ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setSettings([
+      'allowed_values' => [
+        'tache' => 'Tache',
+        'bug' => "Bug",
+        'miseajour' => 'Mise à jour'
+      ]
+    ])->setRequired(true)->setDefaultValue('tache');
+    //
+    $fields['tache_renumerer'] = BaseFieldDefinition::create('boolean')->setLabel(" Renumerer ? ")->setDisplayOptions('form', [
+      'type' => 'boolean_checkbox',
+      'weight' => 3
+    ])->setDisplayOptions('view', [])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setDefaultValue(false);
+    //
+    $fields['montant'] = BaseFieldDefinition::create('integer')->setLabel(" Montant (frs) ")->setRevisionable(TRUE)->setSettings([
+      'min' => 0
+    ])->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'string',
+      'weight' => -4
+    ])->setDisplayOptions('form', [
+      'type' => 'number'
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
+    //
     $fields['duree'] = BaseFieldDefinition::create('daterange')->setLabel(t('Durée'))->setRevisionable(TRUE)->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setDisplayOptions('form', [
       'type' => 'daterange_default',
       'weight' => 0,
