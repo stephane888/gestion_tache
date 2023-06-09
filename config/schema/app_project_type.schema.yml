@@ -22,3 +22,12 @@ gestion_tache.app_project_type.*:
     private:
       type: boolean
       label: 'Private'
+    date:
+      type: integer
+      label: 'Date de creation'
+    last_update:
+      type: integer
+      label: 'Date de la derniere MAJ'
+    status_project:
+      type: string
+      label: 'Status du projet'

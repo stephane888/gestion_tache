@@ -41,6 +41,25 @@ class GestionTacheV2Controller extends ControllerBase {
   }
   
   /**
+   * Permet de charger les taches de l'utilisateur encours et d'appliquer un
+   * filtrer provenent du front.
+   */
+  function LoadMyTaches(Request $Request) {
+    try {
+      $filters = Json::decode($Request->getContent());
+      $filters = $filters ? $filters : [];
+      $datas = $this->GestionProject->ManageEntity->LoadMyTaches($filters);
+      return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
+    }
+    catch (\Exception $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
+    catch (\Error $e) {
+      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
+  }
+  
+  /**
    * Charge les projets en functions des droits des utilisateurs.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -68,7 +87,7 @@ class GestionTacheV2Controller extends ControllerBase {
    */
   public function LoadEntity($entity_type_id, $id) {
     try {
-      $datas = $this->GestionProject->ManageEntity->loadProjet($entity_type_id, $id);
+      $datas = $this->GestionProject->ManageEntity->loadProjetById($entity_type_id, $id);
       return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
     catch (\Exception $e) {

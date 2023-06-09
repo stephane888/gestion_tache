@@ -1,4 +1,16 @@
 # version 2x
+gestion_tache_v2.load_taches_attentes:   
+  path: "/gestion-project-v2/load-mes-taches"
+  methods: [POST,GET]
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::LoadMyTaches'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+      
 gestion_tache_v2.getform:   
   path: "/gestion-project-v2/getform/{entity_type_id}/{view_mode}/{bundle}"
   methods: [GET]
@@ -72,7 +84,7 @@ gestion_tache.init:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::build'
   requirements:
-    _permission: 'access content'
+    _permission: 'gestion_tache__emploie_content'
 
 
 gestion_tache.search:
@@ -82,7 +94,7 @@ gestion_tache.search:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Search'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -94,7 +106,7 @@ gestion_tache.Load_project:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProject'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -106,7 +118,7 @@ gestion_tache.Load_project_with_childrens:
     _title: 'Recherche'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::LoadProjectWithChildrens'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -119,7 +131,7 @@ gestion_tache.save:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Save'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -133,7 +145,7 @@ gestion_tache.select:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::Select'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -147,7 +159,7 @@ gestion_tache.select.project_type:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::SelectProjectType'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -159,7 +171,7 @@ gestion_tache.select.selectdatas:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectdatas'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -171,7 +183,7 @@ gestion_tache.select.select_tache_enours:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectTacheEnours'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -183,7 +195,7 @@ gestion_tache.select.select_project:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::selectProject'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -197,7 +209,7 @@ gestion_tache.custom_select:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::CustomSelect'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
       
@@ -211,7 +223,7 @@ gestion_tache.users:
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::getUsers'
     uid: null
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']
 
@@ -224,7 +236,7 @@ gestion_tache.user:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::manageUser'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']    
       
@@ -236,7 +248,7 @@ gestion_tache.user_prime:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::managePrime'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']   
       
@@ -249,7 +261,7 @@ gestion_tache.user_taches:
     _title: 'Insertion et Mise à jour des données'
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheController::UserTaches'
   requirements:
-    _permission: 'gestion_tache__reserve_content'
+    _permission: 'gestion_tache__emploie_content'
   options:
       _auth: ['basic_auth', 'cookie']  
 

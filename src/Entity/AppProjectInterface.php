@@ -9,4 +9,18 @@ namespace Drupal\gestion_tache\Entity;
  */
 interface AppProjectInterface extends AppEntityInterface {
   
+  /**
+   * Check status of project
+   *
+   * @return string Name of the App project.
+   */
+  public function getStatusExecution();
+  
+  /**
+   * Check status of project
+   *
+   * @return string Name of the App project.
+   */
+  public function setStatusExecution($status);
+  
 }

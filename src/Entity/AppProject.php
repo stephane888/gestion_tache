@@ -122,13 +122,13 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $AccessEntitiesController = \Drupal::service('gestion_tache_v2.access_entity_controller');
     if ($this->isNew()) {
       if (!$AccessEntitiesController->accessToSaveEntity($this))
-        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour creer cette ressource ", 403);
+        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour creer cette ressource ", 435);
       // on met à jour l'id de l'utilisateur.
       $this->setOwnerId(\Drupal::currentUser()->id());
     }
     else {
       if (!$AccessEntitiesController->accessToUpdateEntity($this))
-        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour modifier cette ressource ", 403);
+        throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour modifier cette ressource ", 435);
     }
     
     foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
@@ -144,6 +144,24 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     // make the app_project owner the revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
+    }
+    
+    /**
+     * Avant de sauvegarder un projet comme terminer, on doit se rassurer que
+     * tous les sous taches sont ok.
+     */
+    $status_projet = $this->getStatusExecution();
+    if ($status_projet == 'end' || $status_projet == 'validate') {
+      $query = \Drupal::entityTypeManager()->getStorage("sub_tache")->getQuery();
+      $query->condition('status', 1);
+      $query->condition('app_project', $this->id());
+      $or = $query->orConditionGroup();
+      $or->condition('status_execution', 'new');
+      $or->condition('status_execution', 'running');
+      $query->condition($or);
+      $ids = $query->execute();
+      if ($ids)
+        throw new ExceptionGestionTache("Vous avez des sous taches non terminées ", 435);
     }
   }
   
@@ -162,6 +180,14 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
   public function setName($name) {
     $this->set('name', $name);
     return $this;
+  }
+  
+  public function getStatusExecution() {
+    return $this->get('status_execution')->value;
+  }
+  
+  public function setStatusExecution($status) {
+    return $this->set('status_execution', $status);
   }
   
   /**
@@ -342,7 +368,6 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'time_type' => 'time'
       ]
     ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate');
-    
     /**
      * C'est le temps estimer pour la realisation de la tache, ce temps peut
      * etre estimer par un administrateur ou un executant ou meme le client.
@@ -360,7 +385,6 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     ])->setDisplayOptions('form', [
       'type' => 'number'
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setRequired(TRUE);
-    
     // ->setDefaultValue([
     // 'value' => "2023-05-03",
     // 'end_value' => "2023-05-03"

@@ -9,6 +9,7 @@ use Drupal\user\Entity\User;
 use Drupal\gestion_tache\GestionTache;
 use Drupal\gestion_tache\ExceptionGestionTache;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Defines the App project type entity.
@@ -43,7 +44,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *     "description",
  *     "users",
  *     "user_id",
- *     "private"
+ *     "private",
+ *     "date",
+ *     "status_project",
+ *     "last_update"
  *   },
  *   links = {
  *     "canonical" = "/app/project/app_project_type/{app_project_type}",
@@ -107,6 +111,27 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
   protected $private = false;
   
   /**
+   * Date de creation
+   *
+   * @var DrupalDateTime
+   */
+  protected $date;
+  
+  /**
+   * Date de creation
+   *
+   * @var DrupalDateTime
+   */
+  protected $last_update;
+  
+  /**
+   * Le status du projet, deux valeurs pour le moment (open, close)
+   *
+   * @var string
+   */
+  protected $status_project;
+  
+  /**
    *
    * {@inheritdoc}
    * @see \Drupal\Core\Entity\EntityBase::loadMultiple()
@@ -140,6 +165,10 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
         throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour creer cette ressource ", 403);
       // on met à jour l'id de l'utilisateur.
       $this->user_id = $user_id;
+      // on definit la date.
+      $date = new DrupalDateTime();
+      $this->date = $date->getTimestamp();
+      $this->last_update = $date->getTimestamp();
     }
     else {
       if (!$AccessEntitiesController->accessToEditEntityConfig($this))
@@ -147,6 +176,12 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
       if (empty($this->user_id)) {
         $this->user_id = \Drupal::currentUser()->id();
       }
+      // on definit la date, s'il est vide.
+      $date = new DrupalDateTime();
+      if (empty($this->date))
+        $this->date = $date->getTimestamp();
+      // maj
+      $this->last_update = $date->getTimestamp();
     }
   }
   

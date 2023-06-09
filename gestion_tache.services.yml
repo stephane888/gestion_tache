@@ -3,6 +3,11 @@ services:
   gestion_tache_v2.api:
     class: Drupal\gestion_tache\Services\Api\GestionProjectV2
     arguments: ['@gestion_tache_v2.manage_entity']
+    
+#  gestion_tache_v2.count_subtaches:
+#    class: Drupal\gestion_tache\EventSubscriber\GestionProjectV2Subscriber
+#    tags:
+#      - { name: event_subscriber }
   
   gestion_tache_v2.access_entity_controller:
     class: Drupal\gestion_tache\Services\Api\AccessEntitiesController

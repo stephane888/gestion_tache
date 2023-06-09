@@ -1,4 +1,7 @@
 <?php
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  *
@@ -9,6 +12,47 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
+
+/**
+ * Implements hook_jsonapi_entity_filter_access().
+ */
+function gestion_tache_jsonapi_entity_filter_access(EntityTypeInterface $entity_type, AccountInterface $account) {
+  // All core entity types and most or all contrib entity types allow users
+  // with the entity type's administrative permission to view all of the
+  // entities, so enable similarly permissive filtering to those users as well.
+  // A contrib module may override this decision by returning
+  // AccessResult::forbidden() from its implementation of this hook.
+  // if ($admin_permission = $entity_type->getAdminPermission()) {
+  // return ([
+  // JSONAPI_FILTER_AMONG_ALL => AccessResult::allowedIfHasPermission($account,
+  // $admin_permission)
+  // ]);
+  // }
+  return ([
+    JSONAPI_FILTER_AMONG_ALL => AccessResult::allowed(),
+    JSONAPI_FILTER_AMONG_PUBLISHED => AccessResult::allowed(),
+    JSONAPI_FILTER_AMONG_OWN => AccessResult::allowed()
+  ]);
+}
+
+/**
+ * implement hook_entity_load
+ */
+// function gestion_tache_entity_load($entities) {
+// foreach ($entities as $entity) {
+// //
+// }
+// // dump($entities);
+// }
+// function gestion_tache_app_project_load($entities) {
+// foreach ($entities as $entity) {
+// /**
+// *
+// * @var Drupal\gestion_tache\Entity\AppProject $entity
+// */
+// // $entity->set('count_kksa888', 'ze');
+// }
+// }
 
 /**
  * Update value max_length from 50 to 250.

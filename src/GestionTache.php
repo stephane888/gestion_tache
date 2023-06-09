@@ -67,6 +67,13 @@ class GestionTache {
     return self::getAvailableUserForProject($entity);
   }
   
+  static function getAvailableUserForProjectByEntityParent(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, $cacheable = true) {
+    $id = $entity->get('app_project')->target_id;
+    $parentEntity = \Drupal::entityTypeManager()->getStorage("app_project")->load($id);
+    if ($parentEntity)
+      return self::getAvailableUserForProject($parentEntity);
+  }
+  
   /**
    * Retourne la liste des utilisateurs en function du projets.
    * Explication:
@@ -81,12 +88,18 @@ class GestionTache {
    */
   static function getAvailableUserForProject(AppEntityInterface $entity) {
     $entity_type_id = $entity->getEntityType()->getBundleEntityType();
+    
     /**
      *
      * @var \Drupal\gestion_tache\Entity\AppProjectType $entityType
      */
-    $entityType = \Drupal::entityTypeManager()->getStorage($entity_type_id)->load($entity->bundle());
-    return $entityType->getListOptionsUsers();
+    if ($entity_type_id) {
+      $entityType = \Drupal::entityTypeManager()->getStorage($entity_type_id)->load($entity->bundle());
+      return $entityType->getListOptionsUsers();
+    }
+    else {
+      return [];
+    }
   }
   
   /**
@@ -142,6 +155,8 @@ class GestionTache {
         $confs['duration_work_day'] = $confs['day_duration'][1] - $confs['day_duration'][0] - self::sommePause($confs['pauses']);
       }
       
+      $confs['duration_pauses'] = self::sommePause($confs['pauses']);
+      
       /**
        * Lundi à vendredi, doit etre dynamique car doit tenir compte des
        * feriers.
@@ -169,6 +184,10 @@ class GestionTache {
    * Essaie de determiner le chef de projet.
    * 1 - s'il ya un seul utilisateur, on l'assigne, s'ils sont plusiuers, on
    * laisse chacun choisir sa tache.
+   *
+   * @deprecated car simple pas necessaire, ( lorsque l'utilisateur clique sur
+   *             le bouton start, il est definit comme executant), mais à
+   *             suivre.
    */
   public static function ChiefManagerProject(AppEntityInterface $entity) {
     $uid = null;
@@ -182,7 +201,7 @@ class GestionTache {
   }
   
   /**
-   * On distengue les roles suivant.
+   * On distingue les roles suivant.
    * 1 : Manager
    * 2 : Employee
    * 3 : Performer

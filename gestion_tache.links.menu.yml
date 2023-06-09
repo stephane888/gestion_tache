@@ -67,3 +67,17 @@ entity.app_client_type.collection:
   description: 'List App client type (bundles)'
   parent: system.admin_structure
   weight: 99
+
+# Sub tache menu items definition
+entity.sub_tache.collection:
+  title: 'Sub tache list'
+  route_name: entity.sub_tache.collection
+  description: 'List Sub tache entities'
+  parent: system.admin_structure
+  weight: 100
+
+sub_tache.admin.structure.settings:
+  title: 'Sub tache settings'
+  description: 'Configure Sub tache entities'
+  route_name: sub_tache.settings
+  parent: system.admin_structure

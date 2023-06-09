@@ -1,0 +1,22 @@
+{#
+/**
+ * @file sub_tache.html.twig
+ * Default theme implementation to present Sub tache data.
+ *
+ * This template is used when viewing Sub tache pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_sub_tache()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('sub_tache') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

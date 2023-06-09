@@ -38,3 +38,8 @@ entity.app_client_type.add_form:
   title: 'Add App client type'
   appears_on:
     - entity.app_client_type.collection
+entity.sub_tache.add_form:
+  route_name: entity.sub_tache.add_form
+  title: 'Add Sub tache'
+  appears_on:
+    - entity.sub_tache.collection

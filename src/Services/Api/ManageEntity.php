@@ -27,11 +27,12 @@ class ManageEntity extends BaseApi {
   }
   
   /**
+   * charge un type de projet.
    *
    * @param string $entity_type_id
    * @param string $id
    */
-  public function loadProjet($entity_type_id, $id) {
+  public function loadProjetById($entity_type_id, $id) {
     $data = [];
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
     $query->condition('id', $id);
@@ -45,6 +46,29 @@ class ManageEntity extends BaseApi {
       $data["statistiques"] = $this->countEntities($entity_type_id, $entity);
     }
     return $data;
+  }
+  
+  protected function loadTypeEntity(array $val, array &$types, $count = true) {
+    $entity_type_id = $val['id'];
+    $types[$entity_type_id] = $val;
+    $types[$entity_type_id]['entities'] = [];
+    $entities = [];
+    /**
+     *
+     * @var \Drupal\Core\Entity\Query\QueryInterface $query
+     */
+    $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    if (!$this->AccessEntitiesController->filterToLoadEntityConfig($query))
+      throw new ExceptionGestionTache(" Vous n'avez pas les droits necessaires pour acceder à cette ressource ", 403);
+    $ids = $query->execute();
+    if ($ids) {
+      $entities = $this->entityTypeManager()->getStorage($entity_type_id)->loadMultiple($ids);
+    }
+    foreach ($entities as $l => $entity) {
+      $types[$entity_type_id]['entities'][$l] = $entity->toArray();
+      if ($count)
+        $types[$entity_type_id]['entities'][$l]["statistiques"] = $this->countEntities($val['entity_id'], $entity);
+    }
   }
   
   /**
@@ -69,25 +93,7 @@ class ManageEntity extends BaseApi {
     ];
     $types = [];
     foreach ($idTypes as $val) {
-      $entity_type_id = $val['id'];
-      $types[$entity_type_id] = $val;
-      $types[$entity_type_id]['entities'] = [];
-      $entities = [];
-      /**
-       *
-       * @var \Drupal\Core\Entity\Query\QueryInterface $query
-       */
-      $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
-      if (!$this->AccessEntitiesController->filterToLoadEntityConfig($query))
-        throw new ExceptionGestionTache(" Vous n'avez pas les droits necessaires pour acceder à cette ressource ", 403);
-      $ids = $query->execute();
-      if ($ids) {
-        $entities = $this->entityTypeManager()->getStorage($entity_type_id)->loadMultiple($ids);
-      }
-      foreach ($entities as $l => $entity) {
-        $types[$entity_type_id]['entities'][$l] = $entity->toArray();
-        $types[$entity_type_id]['entities'][$l]["statistiques"] = $this->countEntities($val['entity_id'], $entity);
-      }
+      $this->loadTypeEntity($val, $types);
     }
     return $types;
   }
@@ -108,12 +114,63 @@ class ManageEntity extends BaseApi {
   }
   
   /**
+   * Les projets concernent l'entité app_project et sub_taches.
+   * Logique :
+   * 1- On charge tous les type de projets donc l'utilisateur a access.
+   * 2- On charge les projets en fonction de ces types.
+   * 3- On filtre le resultat en function des paramettres fournit.
+   * 4-
+   */
+  function LoadMyTaches(array $filters) {
+    $val = [
+      'id' => 'app_project_type',
+      'label' => 'Projets',
+      'description' => 'projets plus',
+      'entity_id' => 'app_project'
+    ];
+    $typesProjects = [];
+    $this->loadTypeEntity($val, $typesProjects, false);
+    foreach ($typesProjects as $k => $value) {
+      if (!empty($value['entities'])) {
+        foreach ($value['entities'] as $id => $entity_bundle) {
+          $typesProjects[$k]['entities'][$id]['entities_content'] = [];
+          $query = $this->entityTypeManager()->getStorage($value['entity_id'])->getQuery();
+          $query->condition('type', $entity_bundle['id']);
+          foreach ($filters as $filter) {
+            $query->condition($filter['field'], $filter['value'], $filter['operator']);
+          }
+          $ids = $query->execute();
+          if ($ids) {
+            $nodes = $this->entityTypeManager()->getStorage($value['entity_id'])->loadMultiple($ids);
+            foreach ($nodes as $node) {
+              $ar = $node->toArray();
+              $subtaches = $this->entityTypeManager()->getStorage("sub_tache")->loadByProperties([
+                'app_project' => $node->id(),
+                'status_execution' => 'new'
+              ]);
+              $ar['sub_taches'] = [];
+              if ($subtaches) {
+                foreach ($subtaches as $tache) {
+                  $ar['sub_taches'][] = $tache->toArray();
+                }
+              }
+              $typesProjects[$k]['entities'][$id]['entities_content'][] = $ar;
+            }
+          }
+        }
+      }
+    }
+    return $typesProjects;
+  }
+  
+  /**
    *
    * Permet de creer ou mettre à jour les entitées.
    *
    * @param array $values
    * @param string $entity_type_id
    * @return \Drupal\Core\Entity\EntityInterface|NULL|\Drupal\Core\Entity\EntityInterface
+   * @deprecated plus utilisé, on utilise le module apivuejs
    */
   public function saveEntity(array $values, string $entity_type_id) {
     $entity = $this->entityTypeManager()->getStorage($entity_type_id)->create($values);

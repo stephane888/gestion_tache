@@ -86,3 +86,29 @@ entity.app_client.delete_form:
   base_route:  entity.app_client.canonical
   title: Delete
   weight: 10
+# Sub tache routing definition
+sub_tache.settings_tab:
+  route_name: sub_tache.settings
+  title: 'Settings'
+  base_route: sub_tache.settings
+
+entity.sub_tache.canonical:
+  route_name: entity.sub_tache.canonical
+  base_route: entity.sub_tache.canonical
+  title: 'View'
+
+entity.sub_tache.edit_form:
+  route_name: entity.sub_tache.edit_form
+  base_route: entity.sub_tache.canonical
+  title: 'Edit'
+
+entity.sub_tache.version_history:
+  route_name: entity.sub_tache.version_history
+  base_route: entity.sub_tache.canonical
+  title: 'Revisions'
+
+entity.sub_tache.delete_form:
+  route_name:  entity.sub_tache.delete_form
+  base_route:  entity.sub_tache.canonical
+  title: Delete
+  weight: 10

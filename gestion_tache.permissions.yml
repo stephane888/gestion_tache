@@ -154,3 +154,34 @@ delete all app client revisions:
   description: 'Role requires permission to <em>view App client revisions</em> and <em>delete rights</em> for app client entities in question or <em>administer app client entities</em>.'
 
   
+add sub tache entities:
+  title: 'Create new Sub tache entities'
+
+administer sub tache entities:
+  title: 'Administer Sub tache entities'
+  description: 'Allow to access the administration form to configure Sub tache entities.'
+  restrict access: true
+
+delete sub tache entities:
+  title: 'Delete Sub tache entities'
+
+edit sub tache entities:
+  title: 'Edit Sub tache entities'
+
+view published sub tache entities:
+  title: 'View published Sub tache entities'
+
+view unpublished sub tache entities:
+  title: 'View unpublished Sub tache entities'
+
+view all sub tache revisions:
+  title: 'View all Sub tache revisions'
+
+revert all sub tache revisions:
+  title: 'Revert all Sub tache revisions'
+  description: 'Role requires permission <em>view Sub tache revisions</em> and <em>edit rights</em> for sub tache entities in question or <em>administer sub tache entities</em>.'
+
+delete all sub tache revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Sub tache revisions</em> and <em>delete rights</em> for sub tache entities in question or <em>administer sub tache entities</em>.'
+
