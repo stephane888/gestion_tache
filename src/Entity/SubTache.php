@@ -267,7 +267,7 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
     
     $fields['name'] = BaseFieldDefinition::create('string')->setLabel(t('Name'))->setDescription(t('The name of the Sub tache entity.'))->setRevisionable(TRUE)->setSettings([
-      'max_length' => 50,
+      'max_length' => 255,
       'text_processing' => 0
     ])->setDefaultValue('')->setDisplayOptions('view', [
       'label' => 'above',
