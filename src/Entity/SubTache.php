@@ -285,7 +285,7 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
       'label' => 'hidden',
       'type' => 'text_default',
       'weight' => 0
-    ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true);
+    ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setRevisionable(TRUE);
     $fields['app_project'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Project'))->setSetting('target_type', 'app_project')->setSetting('handler', 'default')->setDisplayOptions('form', [
       'type' => 'entity_reference_autocomplete',
       'weight' => 5,
