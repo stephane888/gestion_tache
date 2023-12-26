@@ -331,12 +331,6 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $fields['type_tache'] = BaseFieldDefinition::create('list_string')->setLabel(" Type de tache ")->setDisplayOptions('form', [
       'type' => 'options_buttons',
       'weight' => 5,
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'size' => '10',
-        'autocomplete_type' => 'tags',
-        'placeholder' => ''
-      )
     ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setSettings([
       'allowed_values' => [
         'tache' => 'Tache',

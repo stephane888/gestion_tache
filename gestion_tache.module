@@ -63,6 +63,12 @@ function gestion_tache_jsonapi_entity_filter_access(EntityTypeInterface $entity_
  * @see https://www.drupal.org/docs/drupal-apis/update-api/introduction-to-update-api-for-drupal-8
  */
 function __gestion_tache_update_name_max_length($entity_type_id) {
+  /**
+   *
+   * @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $entityStorage
+   */
+  $entityStorage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+  
   // Retrieve existing field data.
   $database = \Drupal::database();
   $table = $entity_type_id . '_field_data';
@@ -77,15 +83,17 @@ function __gestion_tache_update_name_max_length($entity_type_id) {
   ])->execute();
   //
   // si les revisions sont activées.
-  $table_revision = $entity_type_id . "_field_revision";
-  $names_revision = $database->select($table_revision, 'et')->fields('et', [
-    'id',
-    'langcode',
-    'name'
-  ])->execute()->fetchAll(\PDO::FETCH_ASSOC);
-  $database->update($table_revision)->fields([
-    'name' => NULL
-  ])->execute();
+  if ($entityStorage->getRevisionTable()) {
+    $table_revision = $entity_type_id . "_field_revision";
+    $names_revision = $database->select($table_revision, 'et')->fields('et', [
+      'id',
+      'langcode',
+      'name'
+    ])->execute()->fetchAll(\PDO::FETCH_ASSOC);
+    $database->update($table_revision)->fields([
+      'name' => NULL
+    ])->execute();
+  }
   
   // Remove old definition field.
   $updateManager = \Drupal::entityDefinitionUpdateManager();
@@ -106,11 +114,12 @@ function __gestion_tache_update_name_max_length($entity_type_id) {
     ])->condition('id', $name['id'])->condition('langcode', $name['langcode'])->execute();
   }
   // restore revision
-  foreach ($names_revision as $name) {
-    $database->update($table_revision)->fields([
-      'name' => $name['name']
-    ])->condition('id', $name['id'])->condition('langcode', $name['langcode'])->execute();
-  }
+  if ($entityStorage->getRevisionTable())
+    foreach ($names_revision as $name) {
+      $database->update($table_revision)->fields([
+        'name' => $name['name']
+      ])->condition('id', $name['id'])->condition('langcode', $name['langcode'])->execute();
+    }
 }
 
 /**
