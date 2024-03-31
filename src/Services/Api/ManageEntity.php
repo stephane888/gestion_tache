@@ -106,10 +106,23 @@ class ManageEntity extends BaseApi {
    */
   protected function countEntities($entity_type_id, \Drupal\Core\Entity\EntityInterface $entityType) {
     $statistiques = [];
+    // total des taches crrer
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $statistiques['total'] = $query->count()->execute();
+    // Taches validate.
+    $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    $query->condition('status', true);
+    $query->condition('type', $entityType->id());
+    $query->condition('status_execution', 'validate');
+    $statistiques['validate'] = $query->count()->execute();
+    // Taches terminé
+    $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    $query->condition('status', true);
+    $query->condition('type', $entityType->id());
+    $query->condition('status_execution', 'end');
+    $statistiques['end'] = $query->count()->execute();
     return $statistiques;
   }
   

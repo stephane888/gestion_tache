@@ -330,7 +330,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     //
     $fields['type_tache'] = BaseFieldDefinition::create('list_string')->setLabel(" Type de tache ")->setDisplayOptions('form', [
       'type' => 'options_buttons',
-      'weight' => 5,
+      'weight' => 5
     ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setSettings([
       'allowed_values' => [
         'tache' => 'Tache',
@@ -344,7 +344,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'weight' => 3
     ])->setDisplayOptions('view', [])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setDefaultValue(false);
     //
-    $fields['montant'] = BaseFieldDefinition::create('integer')->setLabel(" Montant (frs) ")->setRevisionable(TRUE)->setSettings([
+    $fields['montant'] = BaseFieldDefinition::create('integer')->setLabel(" Montant (Euro) ")->setRevisionable(TRUE)->setSettings([
       'min' => 0
     ])->setDisplayOptions('view', [
       'label' => 'above',

@@ -143,6 +143,9 @@ class AccessEntitiesController extends BaseApi {
    * @param \Drupal\Core\Entity\Query\QueryInterface $query
    */
   public function filterToLoadEntityConfig(\Drupal\Core\Entity\Query\QueryInterface &$query) {
+    // Pour le moment, on va pas charger les projets desactivées. (On verra
+    // apres comment proceder).
+    $query->condition('status', true);
     $status = false;
     if (GestionTache::userIsAdministrator()) {
       $status = true;
