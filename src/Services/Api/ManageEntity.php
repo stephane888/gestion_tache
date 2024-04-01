@@ -43,12 +43,24 @@ class ManageEntity extends BaseApi {
       $id_new = reset($ids);
       $entity = $this->entityTypeManager()->getStorage($entity_type_id)->load($id_new);
       $data = $entity->toArray();
-      $data["statistiques"] = $this->countEntities($entity_type_id, $entity);
+      // dump($data, $entity->getEntityTypeId());
+      // $data["statistiques"] = $this->countEntities($entity_type_id, $entity);
     }
     return $data;
   }
   
-  protected function loadTypeEntity(array $val, array &$types, $count = true) {
+  /**
+   * NB: on limite à 300 en attendant de develloper la pagination en front.
+   * Charge les types d'entité.
+   *
+   * @param array $val
+   * @param array $types
+   * @param boolean $count
+   * @param number $page
+   * @param number $limit
+   * @throws ExceptionGestionTache
+   */
+  protected function loadTypeEntity(array $val, array &$types, $count = true, $page = 0, $limit = 300, $filters = []) {
     $entity_type_id = $val['id'];
     $types[$entity_type_id] = $val;
     $types[$entity_type_id]['entities'] = [];
@@ -58,6 +70,7 @@ class ManageEntity extends BaseApi {
      * @var \Drupal\Core\Entity\Query\QueryInterface $query
      */
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    $query->pager($limit);
     if (!$this->AccessEntitiesController->filterToLoadEntityConfig($query))
       throw new ExceptionGestionTache(" Vous n'avez pas les droits necessaires pour acceder à cette ressource ", 403);
     $ids = $query->execute();
@@ -105,6 +118,8 @@ class ManageEntity extends BaseApi {
    * @param string $entity_type_id
    */
   protected function countEntities($entity_type_id, \Drupal\Core\Entity\EntityInterface $entityType) {
+    // dump(\debug_backtrace());
+    // dd($entity_type_id, $entityType);
     $statistiques = [];
     // total des taches crrer
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
@@ -123,6 +138,51 @@ class ManageEntity extends BaseApi {
     $query->condition('type', $entityType->id());
     $query->condition('status_execution', 'end');
     $statistiques['end'] = $query->count()->execute();
+    // Montant
+    $query = $this->entityTypeManager()->getStorage($entity_type_id)->getAggregateQuery();
+    $query->condition('status', true);
+    $query->condition('type', $entityType->id());
+    $query->condition('status_execution', 'cancel', '<>');
+    $alias = 'montants';
+    $query->aggregate('montant', 'sum', NULL, $alias);
+    $alias = 'investissements';
+    $query->aggregate('investissement', 'sum', NULL, $alias);
+    $statistiques['montant'] = $query->execute();
+    // Perte financiere.
+    $query = $this->entityTypeManager()->getStorage($entity_type_id)->getAggregateQuery();
+    $query->condition('status', true);
+    $query->condition('type', $entityType->id());
+    $query->condition('status_execution', 'cancel', '=');
+    $alias = 'montants';
+    $query->aggregate('montant', 'sum', NULL, $alias);
+    $alias = 'investissements';
+    $query->aggregate('investissement', 'sum', NULL, $alias);
+    $statistiques['pertes'] = $query->execute();
+    // Duree_execution prevu.
+    $query = $this->entityTypeManager()->getStorage($entity_type_id)->getAggregateQuery();
+    $query->condition('status', true);
+    $query->condition('type', $entityType->id());
+    $query->condition('duree_execution', 0, '>');
+    $alias = 'duree_executions';
+    $query->aggregate('duree_execution', 'sum', NULL, $alias);
+    $statistiques['duree_execution'] = $query->execute();
+    // Duree_execution reelle.
+    /**
+     * La durée d'execution reelle ce calcule sur les taches donc le status est
+     * terminés ou validées.
+     * Cette requete est assez complqiue pour pouvoir l'ecrire avec les APIs.
+     */
+    $type = $entityType->id();
+    $query = "select count(duree) as duree from ( 
+    select SUM(UNIX_TIMESTAMP(duree__value)) as durree_begin, SUM(UNIX_TIMESTAMP(duree__end_value)) as duree_end,
+    SUM(UNIX_TIMESTAMP(duree__end_value) - UNIX_TIMESTAMP(duree__value)) as duree
+    from `app_project_field_data` as app_project
+    WHERE status = 1 and (status_execution = 'validate' or status_execution = 'end') and type = '$type'
+    group by id 
+    ) as virtual_table";
+    $result = \Drupal::database()->query($query);
+    $result->execute();
+    $statistiques['duree_execution_reelle'] = $result->fetchAll(\PDO::FETCH_ASSOC);
     return $statistiques;
   }
   

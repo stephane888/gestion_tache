@@ -114,46 +114,17 @@ class GestionTache {
     if ($user) {
       $confs['roles'] = self::roles();
       $confs['langue'] = $user->language()->getId();
-      if ($uid == 1) {
-        /**
-         * Debut du journée : 02h.
-         */
-        $confs['pauses'] = [
-          [
-            7,
-            8
-          ],
-          [
-            12.5,
-            14
-          ],
-          [
-            18,
-            19
-          ]
-        ];
-        /**
-         * Debut du journée : 02h.
-         */
-        $confs['day_duration'] = [
-          2,
-          21
-        ];
-        $confs['duration_work_day'] = $confs['day_duration'][1] - $confs['day_duration'][0] - self::sommePause($confs['pauses']);
-      }
-      else {
-        $confs['pauses'] = [
-          [
-            13,
-            14
-          ]
-        ];
-        $confs['day_duration'] = [
-          8,
-          17
-        ];
-        $confs['duration_work_day'] = $confs['day_duration'][1] - $confs['day_duration'][0] - self::sommePause($confs['pauses']);
-      }
+      $confs['pauses'] = [
+        [
+          13,
+          14
+        ]
+      ];
+      $confs['day_duration'] = [
+        8,
+        17
+      ];
+      $confs['duration_work_day'] = $confs['day_duration'][1] - $confs['day_duration'][0] - self::sommePause($confs['pauses']);
       
       $confs['duration_pauses'] = self::sommePause($confs['pauses']);
       

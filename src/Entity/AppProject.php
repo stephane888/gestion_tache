@@ -353,6 +353,18 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     ])->setDisplayOptions('form', [
       'type' => 'number'
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
+    /**
+     * Represente le montant alloué à un projet.
+     */
+    $fields['investissement'] = BaseFieldDefinition::create('integer')->setLabel(" investissement (Euro) ")->setRevisionable(TRUE)->setSettings([
+      'min' => 0
+    ])->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'string',
+      'weight' => -4
+    ])->setDescription("Represente le montant allouer au projet")->setDisplayOptions('form', [
+      'type' => 'number'
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
     //
     $fields['duree'] = BaseFieldDefinition::create('daterange')->setLabel(t('Durée'))->setRevisionable(TRUE)->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setDisplayOptions('form', [
       'type' => 'daterange_default',
