@@ -123,6 +123,90 @@ function __gestion_tache_update_name_max_length($entity_type_id) {
 }
 
 /**
+ *
+ * @param string $entity_type_id
+ */
+function __gestion_tache_update_field_duree($entity_type_id) {
+  $entityStorage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+  // Retrieve existing field data.
+  /**
+   *
+   * @var \Drupal\Core\Database\Connection $database
+   */
+  $database = \Drupal::database();
+  $table = $entity_type_id . '_field_data';
+  $durees = $database->select($table, 'et')->fields('et', [
+    'id',
+    'vid',
+    'langcode',
+    'duree__value',
+    'duree__end_value',
+    'type'
+  ])->execute()->fetchAll(\PDO::FETCH_ASSOC);
+  // Remove data from the column.
+  $database->update($table)->fields([
+    'duree__value' => NULL,
+    'duree__end_value' => NULL
+  ])->execute();
+  // Remove old definition field.
+  /**
+   *
+   * @var \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $updateManager
+   */
+  $updateManager = \Drupal::entityDefinitionUpdateManager();
+  $storagedef = $updateManager->getFieldStorageDefinition('duree', $entity_type_id);
+  $updateManager->uninstallFieldStorageDefinition($storagedef);
+  // Load new definition field in code.
+  /**
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManager $fieldManager
+   */
+  $fieldManager = \Drupal::service('entity_field.manager');
+  $fields = $fieldManager->getFieldStorageDefinitions($entity_type_id);
+  $updateManager->installFieldStorageDefinition('duree', $entity_type_id, "gestion_tache", $fields['duree']);
+  // Restore entity data in the new schema.
+  foreach ($durees as $duree) {
+    if (!empty($duree['duree__value']) && !empty($duree['duree__end_value']))
+      $database->insert($entity_type_id . '__duree')->fields([
+        'bundle' => $duree['type'],
+        'deleted' => 0,
+        'entity_id' => $duree['id'],
+        'revision_id' => $duree['vid'],
+        'langcode' => $duree['langcode'],
+        'delta' => 0,
+        'duree_value' => $duree['duree__value'],
+        'duree_end_value' => $duree['duree__end_value']
+      ])->execute();
+  }
+  // Restore revision
+  // On considere que les données sont identique dans les revisions.
+  if ($entityStorage->getRevisionTable())
+    foreach ($durees as $duree) {
+      if (!empty($duree['duree__value']) && !empty($duree['duree__end_value']))
+        $database->insert($entity_type_id . '_revision__duree')->fields([
+          'bundle' => $duree['type'],
+          'deleted' => 0,
+          'entity_id' => $duree['id'],
+          'revision_id' => $duree['vid'],
+          'langcode' => $duree['langcode'],
+          'delta' => 0,
+          'duree_value' => $duree['duree__value'],
+          'duree_end_value' => $duree['duree__end_value']
+        ])->execute();
+    }
+}
+
+/**
+ * Transformation du champs duree en champs multiple afin de permettre la mise
+ * en pause d'une tache.
+ *
+ * @see https://www.drupal.org/node/2554097
+ */
+function gestion_tache_update_8002() {
+  __gestion_tache_update_field_duree('app_project');
+}
+
+/**
  * Update value max_length from 50 to 250.
  *
  * implement hook_update_8001
@@ -268,7 +352,6 @@ function gestion_tache_theme_suggestions_app_client(array $variables) {
 function gestion_tache_query_alter(\Drupal\Core\Database\Query\AlterableInterface $query) {
   // \Stephane888\Debug\debugLog::kintDebugDrupal($query->__toString(),
   // 'gestion_tache_query_alter', true);
-
 /**
  * On filtre les produits dans le panier en fonction du domaine encours.
  */

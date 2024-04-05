@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 use Drupal\gestion_tache\ExceptionGestionTache;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Defines the App project entity.
@@ -322,6 +323,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'allowed_values' => [
         'new' => 'Nouvelle taches',
         'running' => "En cours d'execution",
+        'break' => 'Pause',
         'end' => 'Terminée',
         'validate' => 'Validée',
         'cancel' => 'Annulée'
@@ -373,7 +375,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'date_type' => 'date',
         'time_type' => 'time'
       ]
-    ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate');
+    ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate')->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
     /**
      * C'est le temps estimer pour la realisation de la tache, ce temps peut
      * etre estimer par un administrateur ou un executant ou meme le client.
@@ -407,7 +409,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'autocomplete_type' => 'tags',
         'placeholder' => ''
       ]
-    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(-1);
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
     //
     $fields['client'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Client'))->setSetting('target_type', 'app_client')->setSetting('handler', 'default')->setDisplayOptions('form', [
       'type' => 'entity_reference_autocomplete',
@@ -418,7 +420,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'autocomplete_type' => 'tags',
         'placeholder' => ''
       ]
-    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(-1);
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
     
     $fields['project_manager'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Chef de projet'))->setDisplayOptions('form', [
       'type' => 'options_select',
@@ -446,7 +448,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setSetting('allowed_values_function', [
       '\Drupal\gestion_tache\GestionTache',
       'getAvailableUserForProjectByField'
-    ])->setCardinality(-1)->setSetting('target_type', 'user')->setSetting('handler', 'default');
+    ])->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)->setSetting('target_type', 'user')->setSetting('handler', 'default');
     
     $fields['description'] = BaseFieldDefinition::create('text_long')->setLabel(" Description ")->setDisplayOptions('form', [
       'type' => 'text_textarea',

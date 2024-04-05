@@ -173,13 +173,14 @@ class ManageEntity extends BaseApi {
      * Cette requete est assez complqiue pour pouvoir l'ecrire avec les APIs.
      */
     $type = $entityType->id();
-    $query = "select count(duree) as duree from ( 
-    select SUM(UNIX_TIMESTAMP(duree__value)) as durree_begin, SUM(UNIX_TIMESTAMP(duree__end_value)) as duree_end,
-    SUM(UNIX_TIMESTAMP(duree__end_value) - UNIX_TIMESTAMP(duree__value)) as duree
-    from `app_project_field_data` as app_project
-    WHERE status = 1 and (status_execution = 'validate' or status_execution = 'end') and type = '$type'
-    group by id 
-    ) as virtual_table";
+    $query = "
+    select SUM(UNIX_TIMESTAMP(apd.duree_value)) as durree_begin, SUM(UNIX_TIMESTAMP(apd.duree_end_value)) as duree_end,
+    SUM(UNIX_TIMESTAMP(duree_end_value) - UNIX_TIMESTAMP(duree_value)) as duree
+    from `app_project_field_data` as ap
+    INNER JOIN `app_project__duree` apd ON apd.`entity_id`=ap.`id`
+    WHERE ap.status = 1 and (ap.status_execution = 'validate' or ap.status_execution = 'end') and type = '$type'
+    group by ap.id 
+";
     $result = \Drupal::database()->query($query);
     $result->execute();
     $statistiques['duree_execution_reelle'] = $result->fetchAll(\PDO::FETCH_ASSOC);
