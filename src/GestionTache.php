@@ -17,23 +17,38 @@ class GestionTache {
   private static $administrator = 'administrator';
   
   /**
+   * Manager
    *
    * @var string
    */
   private static $manager = 'manager';
   
   /**
+   * Employé
    *
    * @var string
    */
   private static $employee = 'employee';
   
   /**
+   * Executant
    *
    * @var string
    */
   private static $performer = 'performer';
+  
+  /**
+   * Contient les roles d'un ou plusieurs utilisateur.
+   *
+   * @var array
+   */
   private static $roles;
+  
+  /**
+   * Contient d'uid de l'utilisateur courant.
+   *
+   * @var int
+   */
   private static $UserId;
   
   /**
@@ -172,7 +187,7 @@ class GestionTache {
   }
   
   /**
-   * On distingue les roles suivant.
+   * On distingue les roles suivant :
    * 1 : Manager
    * 2 : Employee
    * 3 : Performer
@@ -194,8 +209,8 @@ class GestionTache {
    *
    * @return boolean
    */
-  public static function userIsAdministrator() {
-    if (in_array(self::$administrator, self::roles()))
+  public static function userIsAdministrator($uid = null) {
+    if (in_array(self::$administrator, self::roles($uid)))
       return true;
     else
       false;
@@ -206,8 +221,8 @@ class GestionTache {
    *
    * @return boolean
    */
-  public static function userIsManager() {
-    if (in_array(self::$manager, self::roles()))
+  public static function userIsManager($uid = null) {
+    if (in_array(self::$manager, self::roles($uid)))
       return true;
     else
       false;
@@ -218,8 +233,8 @@ class GestionTache {
    *
    * @return boolean
    */
-  public static function userIsEmployee() {
-    if (in_array(self::$employee, self::roles()))
+  public static function userIsEmployee($uid = null) {
+    if (in_array(self::$employee, self::roles($uid)))
       return true;
     else
       false;
@@ -230,13 +245,18 @@ class GestionTache {
    *
    * @return boolean
    */
-  public static function userIsPerformer() {
-    if (in_array(self::$performer, self::roles()))
+  public static function userIsPerformer($uid = null) {
+    if (in_array(self::$performer, self::roles($uid)))
       return true;
     else
       false;
   }
   
+  /**
+   * Retourne l'id de l'utilisateur courant.
+   *
+   * @return number
+   */
   public static function UserId() {
     if (!self::$UserId) {
       self::$UserId = \Drupal::currentUser()->id();
@@ -247,11 +267,11 @@ class GestionTache {
   /**
    * L'utilisateur est membre de gestion_tache.
    */
-  public static function userIsMemberOfGestionTache() {
-    if (self::userIsAdministrator())
+  public static function userIsMemberOfGestionTache($uid = null) {
+    if (self::userIsAdministrator($uid))
       return true;
     $status = false;
-    foreach (self::roles() as $role) {
+    foreach (self::roles($uid) as $role) {
       if (!empty(self::projetRoles()[$role])) {
         $status = true;
         break;
@@ -261,15 +281,24 @@ class GestionTache {
   }
   
   /**
-   * Les roles de l'utlisateur encours.
+   * Permet de recuperer les roles d'un utilisateur.
    *
    * @return array
    */
-  public static function roles() {
-    if (!self::$roles) {
-      self::$roles = \Drupal::currentUser()->getRoles();
+  public static function roles($uid = null) {
+    // Roles de l'utilisateur courant.
+    if (!$uid) {
+      $uid = self::UserId();
+      if (!self::$roles) {
+        self::$roles[$uid] = \Drupal::currentUser()->getRoles();
+      }
     }
-    return self::$roles;
+    // Role de tout autre utilisateur.
+    elseif (!self::$roles[$uid]) {
+      $user = \Drupal\user\Entity\User::load($uid);
+      self::$roles[$uid] = $user->getRoles();
+    }
+    return self::$roles[$uid];
   }
   
 }

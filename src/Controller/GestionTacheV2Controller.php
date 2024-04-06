@@ -7,12 +7,14 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityFieldManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\gestion_tache\Services\Api\GestionProjectV2;
+use Drupal\gestion_tache\Services\Api\UserInfos;
 use Drupal\query_ajax\Services\InsertUpdate;
 use Drupal\query_ajax\Services\Select;
 use Symfony\Component\HttpFoundation\Request;
 use Stephane888\DrupalUtility\HttpResponse;
 use Stephane888\Debug\ExceptionExtractMessage;
 use Drupal\gestion_tache\GestionTache;
+use Drupal\gestion_tache\ExceptionGestionTache;
 
 /**
  * Returns responses for gestion tache routes.
@@ -20,13 +22,14 @@ use Drupal\gestion_tache\GestionTache;
 class GestionTacheV2Controller extends ControllerBase {
   protected $GestionProject;
   protected $EntityFieldManager;
+  protected $UserInfos;
   
   /**
    *
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('gestion_tache_v2.api'), $container->get('entity_field.manager'));
+    return new static($container->get('gestion_tache_v2.api'), $container->get('entity_field.manager'), $container->get('gestion_tache_v2.user_infos'));
   }
   
   /**
@@ -35,9 +38,10 @@ class GestionTacheV2Controller extends ControllerBase {
    * @param InsertUpdate $InsertUpdate
    * @param Select $Select
    */
-  function __construct(GestionProjectV2 $GestionProject, EntityFieldManager $EntityFieldManager) {
+  function __construct(GestionProjectV2 $GestionProject, EntityFieldManager $EntityFieldManager, UserInfos $UserInfos) {
     $this->GestionProject = $GestionProject;
     $this->EntityFieldManager = $EntityFieldManager;
+    $this->UserInfos = $UserInfos;
   }
   
   /**
@@ -51,11 +55,20 @@ class GestionTacheV2Controller extends ControllerBase {
       $datas = $this->GestionProject->ManageEntity->LoadMyTaches($filters);
       return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
     catch (\Exception $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
   }
   
@@ -69,11 +82,20 @@ class GestionTacheV2Controller extends ControllerBase {
       $datas = $this->GestionProject->ManageEntity->loadProjets();
       return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
     catch (\Exception $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
   }
   
@@ -90,11 +112,20 @@ class GestionTacheV2Controller extends ControllerBase {
       $datas = $this->GestionProject->ManageEntity->loadProjetById($entity_type_id, $id);
       return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
     catch (\Exception $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '400', $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '400', $e->getMessage());
     }
   }
   
@@ -108,25 +139,76 @@ class GestionTacheV2Controller extends ControllerBase {
       $result = is_object($entity) ? $entity->toArray() : $entity;
       return HttpResponse::response($result, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
     catch (\Exception $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '400', $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '400', $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '400', $e->getMessage());
     }
   }
   
+  /**
+   * Recupere les informations de configurations.
+   *
+   * @param int $uid
+   * @throws \Exception
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   */
   public function userConfigs($uid) {
     try {
       if ($uid && \Drupal::currentUser()->id() != $uid)
         throw new \Exception("Paramettre de l'utilisateur incorect");
       return HttpResponse::response(GestionTache::userConfigs($uid));
     }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
     catch (\Exception $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '435', $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(ExceptionExtractMessage::errorAll($e), '435', $e->getMessage());
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
+    }
+  }
+  
+  /**
+   * Recupere les informations utile pour l'utilisateur l'utilisateur
+   *
+   * @param int $uid
+   */
+  public function userInfos($uid) {
+    try {
+      return HttpResponse::response($this->UserInfos->getUserInfos($uid));
+    }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
+    catch (\Exception $e) {
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
+    }
+    catch (\Error $e) {
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
     }
   }
   
@@ -202,6 +284,15 @@ class GestionTacheV2Controller extends ControllerBase {
       return HttpResponse::response([
         $res
       ]);
+    }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
     catch (\Exception $e) {
       return HttpResponse::response(ExceptionExtractMessage::errorAll($e), 400, $e->getMessage());

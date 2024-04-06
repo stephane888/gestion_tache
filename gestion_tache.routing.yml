@@ -66,6 +66,16 @@ gestion_tache_v2.user_configs:
   options:
       _auth: ['basic_auth', 'cookie']
       
+gestion_tache_v2.user_infos:   
+  path: "/gestion-project-v2/user-infos/{uid}"
+  defaults:
+    _title: 'Get form render'
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::userInfos'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
 gestion_tache_v2.test:   
   path: "/gestion-project-v2/test"
   defaults:
@@ -76,7 +86,8 @@ gestion_tache_v2.test:
   options:
       _auth: ['basic_auth', 'cookie']
       
-      
+
+ ##### Cette version serra supprimer sur la branche 3x.       
 # version 1x
 gestion_tache.init:
   path: "/gestion-project"

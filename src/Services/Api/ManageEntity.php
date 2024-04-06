@@ -2,7 +2,6 @@
 
 namespace Drupal\gestion_tache\Services\Api;
 
-use Drupal\gestion_tache\GestionTache;
 use Drupal\gestion_tache\ExceptionGestionTache;
 
 /**
