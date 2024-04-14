@@ -132,6 +132,20 @@ class AppProjectType extends ConfigEntityBundleBase implements AppProjectTypeInt
   protected $status_project;
   
   /**
+   * Le montant du projet, on a deux cas fixe et dynamique.
+   *
+   * @var integer
+   */
+  protected $montant = 0;
+  
+  /**
+   * Le montant du projet, on a deux cas fixe et dynamique.
+   *
+   * @var boolean
+   */
+  protected $montant_fixe = false;
+  
+  /**
    *
    * {@inheritdoc}
    * @see \Drupal\Core\Entity\EntityBase::loadMultiple()

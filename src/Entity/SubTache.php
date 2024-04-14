@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
+use Drupal\gestion_tache\ExceptionGestionTache;
 
 /**
  * Defines the Sub tache entity.
@@ -126,6 +127,21 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }
+    
+    // On ne doit pas pouvoir mettre à running un soustache donc le parent n'est
+    // pas deja à running.
+    $status_execution = $this->getStatusExecution();
+    if ($status_execution == 'running') {
+      /**
+       *
+       * @var \Drupal\gestion_tache\Entity\AppProject $projet
+       */
+      $projet = \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
+      $status_projet = $projet->getStatusExecution();
+      if ($status_projet != 'running') {
+        ExceptionGestionTache::exception("Vous devez au prealable demarrer la tache parente");
+      }
+    }
   }
   
   /**
@@ -137,11 +153,13 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
     parent::postSave($storage, $update);
     // TODO Auto-generated method stub
     /**
-     * Lorsqu'on enregistre une sub_tache, on doit mettre à jour le status du
-     * projet si la sous tache a un 'status_execution' = new|running
+     * Lorsqu'on enregistre une sub_tache, on doit :
+     * - Mettre le projet a 'break' si la sous tache a un status de 'new',
+     * 'break' et que le projet a un status autre que 'new', 'break', 'running'.
+     * - Aucune modification du projet dans les autres actions.
      */
     $status_execution = $this->getStatusExecution();
-    if ($status_execution == 'new' || $status_execution == 'running') {
+    if ($status_execution == 'new' || $status_execution == 'break') {
       /**
        *
        * @var \Drupal\gestion_tache\Entity\AppProject $projet
@@ -149,11 +167,37 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
       $projet = \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
       if ($projet) {
         $status_projet = $projet->getStatusExecution();
-        if ($status_projet != 'new' && $status_projet != 'running') {
-          $projet->setStatusExecution('new');
+        if ($status_projet == 'end' || $status_projet == 'validate') {
+          $projet->setStatusExecution('break');
           $projet->save();
         }
       }
+    }
+    /**
+     * On ne doit pas pouvoir demarrer une sous tache si le parent n'est pas
+     * demarrer.
+     */
+    elseif ($status_execution == 'running') {
+    
+    /**
+     *
+     * @var \Drupal\gestion_tache\Entity\AppProject $projet
+     */
+      // $projet =
+      // \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
+      // if ($projet) {
+      // $status_projet = $projet->getStatusExecution();
+      // if ($status_projet != 'running') {
+      // // Il faut egalement mettre à jour l'heure de debut.
+      // $durees = $projet->get('duree')->getValue();
+      // if ($durees) {
+      // $last_index = count($durees) - 1;
+      // if(!empty($durees[$last_index]['value'])){
+      
+      // }
+      // }
+      // $projet->setStatusExecution('running');
+      // $projet->save();
     }
   }
   

@@ -103,7 +103,6 @@ class GestionTache {
    */
   static function getAvailableUserForProject(AppEntityInterface $entity) {
     $entity_type_id = $entity->getEntityType()->getBundleEntityType();
-    
     /**
      *
      * @var \Drupal\gestion_tache\Entity\AppProjectType $entityType
