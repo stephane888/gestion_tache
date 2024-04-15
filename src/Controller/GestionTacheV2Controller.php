@@ -186,6 +186,28 @@ class GestionTacheV2Controller extends ControllerBase {
     }
   }
   
+  public function usersRapports(Request $Request) {
+    try {
+      $filters = Json::decode($Request->getContent());
+      return HttpResponse::response($this->UserInfos->getUsersRapports($filters));
+    }
+    catch (ExceptionGestionTache $e) {
+      $db = [];
+      if (GestionTache::userIsAdministrator())
+        $db = [
+          'var_to_debug' => $e->getErrors(),
+          'erros' => ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
+    }
+    catch (\Exception $e) {
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
+    }
+    catch (\Error $e) {
+      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
+    }
+  }
+  
   /**
    * Recupere les informations utile pour l'utilisateur l'utilisateur
    *

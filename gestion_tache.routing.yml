@@ -69,8 +69,18 @@ gestion_tache_v2.user_configs:
 gestion_tache_v2.user_infos:   
   path: "/gestion-project-v2/user-infos/{uid}"
   defaults:
-    _title: 'Get form render'
+    _title: 'Get user infos '
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::userInfos'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+  options:
+      _auth: ['basic_auth', 'cookie']
+      
+gestion_tache_v2.users_rapport:   
+  path: "/gestion-project-v2/users-rapports"
+  defaults:
+    _title: 'Get users rapports '
+    _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::usersRapports'
   requirements:
     _user_is_logged_in: 'TRUE'
   options:

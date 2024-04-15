@@ -17,6 +17,12 @@ class BaseApi extends ControllerBase {
    * @var string
    */
   private $message = null;
+  /**
+   * Contient toutes les requetes
+   *
+   * @var array
+   */
+  protected static $querys = [];
   
   /**
    * code
@@ -39,6 +45,19 @@ class BaseApi extends ControllerBase {
   
   public function getAjaxCode() {
     return $this->code;
+  }
+  
+  /**
+   *
+   * @param string $key
+   * @param string $query
+   */
+  public static function setSql(string $key, string $query) {
+    self::$querys[$key][] = $query;
+  }
+  
+  public static function getSqls() {
+    return self::$querys;
   }
   
 }

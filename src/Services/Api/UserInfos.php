@@ -28,7 +28,23 @@ class UserInfos extends BaseApi {
   }
   
   /**
-   * On doit verifier les droits d'acces afin de ne pas permettre la divugation
+   * On doit verifier les droits d'acces afin de ne pas permettre la divulgation
+   * d'information sensible.
+   */
+  public function getUsersRapports(array $filters, $page = 0, $number = 5000) {
+    $uid = null;
+    if (!GestionTache::userIsManager() && !GestionTache::userIsAdministrator()) {
+      $uid = GestionTache::UserId();
+    }
+    $confs = [];
+    $confs['timers_works'] = $this->getTimesByUser($uid, $filters, $page, $number);
+    $confs['sqls'] = self::getSqls();
+    $confs['filters'] = $filters;
+    return $confs;
+  }
+  
+  /**
+   * On doit verifier les droits d'acces afin de ne pas permettre la divulgation
    * d'information sensible.
    */
   public function getUserInfos($uid) {
@@ -48,20 +64,34 @@ class UserInfos extends BaseApi {
    * @param int $uid
    * @return array
    */
-  protected function getTimesByUser($uid) {
-    $currentDate = date("Y-m-d");
+  protected function getTimesByUser($uid = null, array $filters = [], $page = 0, $number = 500) {
     $query = "
     select id, name,`type`, sum(duree) as duree from (
     select ap.id, apd.delta, ap.name, ap.`type`, 
     SUM(UNIX_TIMESTAMP(duree_end_value) - UNIX_TIMESTAMP(duree_value)) as duree
-        from `app_project_field_data` as ap
-        INNER JOIN `app_project__duree` apd ON apd.`entity_id`=ap.`id`
-        WHERE ap.status = 1 and ( ap.status_execution = 'validate' or ap.status_execution = 'end' or ap.status_execution = 'break' ) and
-        ap.user_id = $uid and apd.duree_value LIKE  '$currentDate%'
-        group by apd.delta, ap.id
-    ) as vbg
+        from {app_project_field_data} as ap
+        INNER JOIN {app_project__duree} apd ON apd.`entity_id`=ap.`id`
+        WHERE ap.status = 1 and ( ap.status_execution = 'validate' or ap.status_execution = 'end' or ap.status_execution = 'break' )";
+    if ($uid)
+      $query .= " and ap.user_id = $uid ";
+    if (!$filters) {
+      $currentDay = date("Y-m-d");
+      $query .= " and apd.duree_value LIKE  '$currentDay%' ";
+    }
+    else {
+      foreach ($filters as $filter) {
+        $query .= " and ";
+        $query .= $filter['field_name'] . " ";
+        $query .= $filter['operator'] . " ";
+        $query .= $filter['value'] . " ";
+      }
+    }
+    
+    $query .= " group by apd.delta, ap.id ) as vbg
     group BY  id
+    LIMIT $page,$number
     ";
+    self::setSql('getTimesByUser', $query);
     $result = \Drupal::database()->query($query);
     $result->execute();
     $datas = $result->fetchAll(\PDO::FETCH_ASSOC);
