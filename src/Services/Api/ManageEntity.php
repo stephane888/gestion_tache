@@ -3,6 +3,7 @@
 namespace Drupal\gestion_tache\Services\Api;
 
 use Drupal\gestion_tache\ExceptionGestionTache;
+use Drupal\gestion_tache\GestionTache;
 
 /**
  * --
@@ -51,6 +52,7 @@ class ManageEntity extends BaseApi {
   /**
    * NB: on limite à 300 en attendant de develloper la pagination en front.
    * Charge les types d'entité.
+   * Possede un control d'acces.
    *
    * @param array $val
    * @param array $types
@@ -69,6 +71,9 @@ class ManageEntity extends BaseApi {
      * @var \Drupal\Core\Entity\Query\QueryInterface $query
      */
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    foreach ($filters as $filter) {
+      $query->condition($filter['field'], $filter['value'], $filter['operator']);
+    }
     $query->pager($limit);
     if (!$this->AccessEntitiesController->filterToLoadEntityConfig($query))
       throw new ExceptionGestionTache(" Vous n'avez pas les droits necessaires pour acceder à cette ressource ", 403);
@@ -194,7 +199,9 @@ class ManageEntity extends BaseApi {
    * 3- On filtre le resultat en function des paramettres fournit.
    * 4-
    */
-  function LoadMyTaches(array $filters) {
+  function LoadMyTaches(array $filters, $uid = null) {
+    if (!$uid)
+      $uid = GestionTache::UserId();
     $val = [
       'id' => 'app_project_type',
       'label' => 'Projets',
@@ -202,7 +209,21 @@ class ManageEntity extends BaseApi {
       'entity_id' => 'app_project'
     ];
     $typesProjects = [];
-    $this->loadTypeEntity($val, $typesProjects, false);
+    $filter_types = [
+      [
+        'field' => 'status',
+        'operator' => '=',
+        'value' => true
+      ],
+      [
+        'field' => 'users.*',
+        'operator' => 'IN',
+        'value' => [
+          $uid
+        ]
+      ]
+    ];
+    $this->loadTypeEntity($val, $typesProjects, false, 0, 300, $filter_types);
     foreach ($typesProjects as $k => $value) {
       if (!empty($value['entities'])) {
         foreach ($value['entities'] as $id => $entity_bundle) {
