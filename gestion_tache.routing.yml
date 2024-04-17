@@ -1,6 +1,6 @@
 # version 2x
 gestion_tache_v2.load_taches_attentes:   
-  path: "/gestion-project-v2/load-mes-taches"
+  path: "/gestion-project-v2/load-mes-taches/{uid}"
   methods: [POST,GET]
   defaults:
     _title: 'Get form render'
@@ -77,7 +77,7 @@ gestion_tache_v2.user_infos:
       _auth: ['basic_auth', 'cookie']
       
 gestion_tache_v2.users_rapport:   
-  path: "/gestion-project-v2/users-rapports"
+  path: "/gestion-project-v2/users-rapports/{uid}"
   defaults:
     _title: 'Get users rapports '
     _controller: '\Drupal\gestion_tache\Controller\GestionTacheV2Controller::usersRapports'

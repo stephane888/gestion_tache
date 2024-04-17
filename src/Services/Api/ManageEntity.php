@@ -4,6 +4,7 @@ namespace Drupal\gestion_tache\Services\Api;
 
 use Drupal\gestion_tache\ExceptionGestionTache;
 use Drupal\gestion_tache\GestionTache;
+use Query\Repositories\Utility as QueryUtility;
 
 /**
  * --
@@ -199,8 +200,8 @@ class ManageEntity extends BaseApi {
    * 3- On filtre le resultat en function des paramettres fournit.
    * 4-
    */
-  function LoadMyTaches(array $filters, $uid = null) {
-    if (!$uid)
+  function LoadMyTaches(array $filters, $uid) {
+    if (!(GestionTache::userIsManager() || GestionTache::userIsAdministrator()))
       $uid = GestionTache::UserId();
     $val = [
       'id' => 'app_project_type',
@@ -230,9 +231,7 @@ class ManageEntity extends BaseApi {
           $typesProjects[$k]['entities'][$id]['entities_content'] = [];
           $query = $this->entityTypeManager()->getStorage($value['entity_id'])->getQuery();
           $query->condition('type', $entity_bundle['id']);
-          foreach ($filters as $filter) {
-            $query->condition($filter['field'], $filter['value'], $filter['operator']);
-          }
+          QueryUtility::buildFilterSqlForDrupal($filters, $query);
           $ids = $query->execute();
           if ($ids) {
             $nodes = $this->entityTypeManager()->getStorage($value['entity_id'])->loadMultiple($ids);

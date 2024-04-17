@@ -5,6 +5,7 @@ namespace Drupal\gestion_tache\Services\Api;
 use Drupal\gestion_tache\GestionTache;
 use Drupal\gestion_tache\ExceptionGestionTache;
 use Drupal\Core\Entity\EntityTypeManager;
+use Query\Repositories\Utility as QueryUtility;
 
 /**
  * Permet de recuprer les informations sur un ou plusieurs utilisateur.
@@ -31,15 +32,16 @@ class UserInfos extends BaseApi {
    * On doit verifier les droits d'acces afin de ne pas permettre la divulgation
    * d'information sensible.
    */
-  public function getUsersRapports(array $filters, $page = 0, $number = 5000) {
-    $uid = null;
-    if (!GestionTache::userIsManager() && !GestionTache::userIsAdministrator()) {
-      $uid = GestionTache::UserId();
+  public function getUsersRapports(array $filters, $current_user_id, $page = 0, $number = 5000) {
+    // Si l'utilisateur n'est pas admin or manager
+    if (!(GestionTache::userIsManager() && GestionTache::userIsAdministrator())) {
+      // Si le compte donc l'utilisateur essaie de voir est admin ou manager
+      if (GestionTache::userIsManager($current_user_id) || GestionTache::userIsAdministrator($current_user_id)) {
+        ExceptionGestionTache::exception(" Vous n'avez pas les acces necessaires pour effectuer cette tache ");
+      }
     }
     $confs = [];
-    $confs['timers_works'] = $this->getTimesByUser($uid, $filters, $page, $number);
-    $confs['sqls'] = self::getSqls();
-    $confs['filters'] = $filters;
+    $confs['timers_works'] = $this->getTimesByUser($current_user_id, $filters, $page, $number);
     return $confs;
   }
   
@@ -55,6 +57,7 @@ class UserInfos extends BaseApi {
     }
     $confs = [];
     $confs['timers_work_day'] = $this->getTimesByUser($uid);
+    $confs['sqls'] = self::getSqls();
     return $confs;
   }
   
@@ -64,34 +67,34 @@ class UserInfos extends BaseApi {
    * @param int $uid
    * @return array
    */
-  protected function getTimesByUser($uid = null, array $filters = [], $page = 0, $number = 500) {
+  protected function getTimesByUser($uid, array $filters = [], $page = 0, $number = 500) {
     $query = "
     select id, name,`type`, sum(duree) as duree from (
-    select ap.id, apd.delta, ap.name, ap.`type`, 
-    SUM(UNIX_TIMESTAMP(duree_end_value) - UNIX_TIMESTAMP(duree_value)) as duree
+    select DISTINCT ap.id, apd.delta, ap.name, ap.`type`, 
+    SUM(UNIX_TIMESTAMP(apd.duree_end_value) - UNIX_TIMESTAMP(apd.duree_value)) as duree
         from {app_project_field_data} as ap
         INNER JOIN {app_project__duree} apd ON apd.`entity_id`=ap.`id`
-        WHERE ap.status = 1 and ( ap.status_execution = 'validate' or ap.status_execution = 'end' or ap.status_execution = 'break' )";
-    if ($uid)
-      $query .= " and ap.user_id = $uid ";
+        LEFT JOIN {app_project__executants} ape ON ( ape.`entity_id`=ap.`id` and ape.executants_target_id = $uid )
+        ";
+    $Where = " WHERE ap.status = 1 and ( ap.status_execution = 'validate' or ap.status_execution = 'end' or ap.status_execution = 'break' ) ";
+    
+    // si le filtre n'est pas definit on l'execute pour l'utilisateur courant et
+    // la journée en cours.
     if (!$filters) {
       $currentDay = date("Y-m-d");
-      $query .= " and apd.duree_value LIKE  '$currentDay%' ";
+      $Where .= " and ( ap.project_manager = $uid or ape.executants_target_id  = $uid )";
+      $Where .= " and apd.duree_value LIKE  '$currentDay%' ";
     }
     else {
-      foreach ($filters as $filter) {
-        $query .= " and ";
-        $query .= $filter['field_name'] . " ";
-        $query .= $filter['operator'] . " ";
-        $query .= $filter['value'] . " ";
-      }
+      QueryUtility::buildFilterSql($filters, $Where);
     }
-    
+    $query .= $Where;
     $query .= " group by apd.delta, ap.id ) as vbg
     group BY  id
     LIMIT $page,$number
     ";
     self::setSql('getTimesByUser', $query);
+    // return [];
     $result = \Drupal::database()->query($query);
     $result->execute();
     $datas = $result->fetchAll(\PDO::FETCH_ASSOC);

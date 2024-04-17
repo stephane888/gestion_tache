@@ -48,11 +48,11 @@ class GestionTacheV2Controller extends ControllerBase {
    * Permet de charger les taches de l'utilisateur encours et d'appliquer un
    * filtrer provenent du front.
    */
-  function LoadMyTaches(Request $Request) {
+  function LoadMyTaches(Request $Request, $uid) {
     try {
       $filters = Json::decode($Request->getContent());
       $filters = $filters ? $filters : [];
-      $datas = $this->GestionProject->ManageEntity->LoadMyTaches($filters);
+      $datas = $this->GestionProject->ManageEntity->LoadMyTaches($filters, $uid);
       return HttpResponse::response($datas, $this->GestionProject->ManageEntity->getAjaxCode(), $this->GestionProject->ManageEntity->getAjaxMessage());
     }
     catch (ExceptionGestionTache $e) {
@@ -186,25 +186,41 @@ class GestionTacheV2Controller extends ControllerBase {
     }
   }
   
-  public function usersRapports(Request $Request) {
+  public function usersRapports(Request $Request, $uid) {
+    $db = [];
     try {
       $filters = Json::decode($Request->getContent());
-      return HttpResponse::response($this->UserInfos->getUsersRapports($filters));
+      $confs = $this->UserInfos->getUsersRapports($filters, $uid);
+      $confs['sqls'] = $this->UserInfos::getSqls();
+      $confs['filters'] = $filters;
+      return HttpResponse::response($confs);
     }
     catch (ExceptionGestionTache $e) {
-      $db = [];
-      if (GestionTache::userIsAdministrator())
+      if (GestionTache::userIsAdministrator() || GestionTache::userIsManager())
         $db = [
           'var_to_debug' => $e->getErrors(),
-          'erros' => ExceptionExtractMessage::errorAll($e)
+          'erros' => ExceptionExtractMessage::errorAll($e),
+          'sqls' => $this->UserInfos::getSqls()
         ];
       return HttpResponse::response($db, !empty($e->getCode()) ? $e->getCode() : 432, $e->getMessage());
     }
     catch (\Exception $e) {
-      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
+      if (GestionTache::userIsAdministrator() || GestionTache::userIsManager())
+        $db = [
+          'sqls' => $this->UserInfos::getSqls(),
+          'filters' => $filters,
+          ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, '435', $e->getMessage());
     }
     catch (\Error $e) {
-      return HttpResponse::response(GestionTache::userIsAdministrator() ? ExceptionExtractMessage::errorAll($e) : [], '435', $e->getMessage());
+      if (GestionTache::userIsAdministrator() || GestionTache::userIsManager())
+        $db = [
+          'sqls' => $this->UserInfos::getSqls(),
+          'filters' => $filters,
+          ExceptionExtractMessage::errorAll($e)
+        ];
+      return HttpResponse::response($db, '435', $e->getMessage());
     }
   }
   
