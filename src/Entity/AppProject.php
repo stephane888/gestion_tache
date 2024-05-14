@@ -337,7 +337,11 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'allowed_values' => [
         'tache' => 'Tache',
         'bug' => "Bug",
-        'miseajour' => 'Mise à jour'
+        'miseajour' => 'Mise à jour',
+        'suivi' => 'suivi',
+        'memo'=>'memo',
+        'tuto'=>'Tuto',
+        'config'=>'Config'
       ]
     ])->setRequired(true)->setDefaultValue('tache');
     //
