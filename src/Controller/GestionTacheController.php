@@ -18,7 +18,7 @@ class GestionTacheController extends ControllerBase {
   protected $GestionProject;
   protected $InsertUpdate;
   protected $Select;
-  
+
   /**
    *
    * {@inheritdoc}
@@ -28,7 +28,7 @@ class GestionTacheController extends ControllerBase {
     // $container->get('prestashop_rest_api.build_product_to_drupal'));
     return new static($container->get('gestion_tache.api'), $container->get('query_ajax.insert_update'), $container->get('query_ajax.select'));
   }
-  
+
   /**
    *
    * @param GestionProject $GestionProject
@@ -40,7 +40,7 @@ class GestionTacheController extends ControllerBase {
     $this->InsertUpdate = $InsertUpdate;
     $this->Select = $Select;
   }
-  
+
   /**
    * Permet d'ajouter et modifier les données.
    * Les tables qui peuvent contenir les données doivent etre dans
@@ -57,7 +57,7 @@ class GestionTacheController extends ControllerBase {
     $configs = $this->InsertUpdate->buildInserts($inserts);
     return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
   }
-  
+
   /**
    *
    * @param Request $Request
@@ -66,7 +66,7 @@ class GestionTacheController extends ControllerBase {
   function Select(Request $Request) {
     return $this->reponse($this->Select->select());
   }
-  
+
   /**
    *
    * @param string $query_param
@@ -78,14 +78,14 @@ class GestionTacheController extends ControllerBase {
       case 'get-crumb':
         $results = $this->GestionProject->BreackCrumb->getDatas();
         break;
-      
+
       default:
         ;
         break;
     }
     return $this->reponse($results);
   }
-  
+
   /**
    *
    * @param int $uid
@@ -107,6 +107,7 @@ class GestionTacheController extends ControllerBase {
     else {
       $query = \Drupal::entityQuery('user');
       $query->condition('status', 1);
+      $query->accessCheck();
       $uids = $query->execute();
       $users = \Drupal\user\Entity\User::loadMultiple($uids);
       $datas = [];
@@ -116,26 +117,26 @@ class GestionTacheController extends ControllerBase {
       return $this->reponse($datas);
     }
   }
-  
+
   /**
    * -
    */
   function SelectProjectType() {
     return $this->reponse($this->GestionProject->Load->SelectProjectType());
   }
-  
+
   function selectdatas() {
     return $this->reponse($this->GestionProject->Load->selectdatas());
   }
-  
+
   function selectTacheEnours() {
     return $this->reponse($this->GestionProject->Load->selectTacheEnours());
   }
-  
+
   function selectProject() {
     return $this->reponse($this->GestionProject->Load->selectProject());
   }
-  
+
   /**
    * Builds the response.
    */
@@ -151,22 +152,22 @@ class GestionTacheController extends ControllerBase {
     $configs['#attached']['library'][] = 'gestion_tache/app_gestion_tache';
     return $configs;
   }
-  
+
   public function Search() {
     $configs = $this->GestionProject->Search->search();
     return $this->reponse($configs);
   }
-  
+
   public function LoadProject($id) {
     $configs = $this->GestionProject->Load->LoadProject($id);
     return $this->reponse($configs);
   }
-  
+
   public function LoadProjectWithChildrens($id) {
     $configs = $this->GestionProject->Load->LoadProjectGroupCards($id);
     return $this->reponse($configs);
   }
-  
+
   /**
    * --
    */
@@ -207,7 +208,7 @@ class GestionTacheController extends ControllerBase {
       return $this->reponse($configs, $this->InsertUpdate->AjaxStatus->getCode(), $this->InsertUpdate->AjaxStatus->getMessage());
     }
   }
-  
+
   /**
    * -La sauvegarde/maj/delete se fait sur save update.
    */
@@ -252,15 +253,15 @@ class GestionTacheController extends ControllerBase {
     // $this->InsertUpdate->AjaxStatus->getMessage());
     // }
   }
-  
+
   public function UserTaches($uid) {
     return $this->reponse($this->GestionProject->Load->LoadTaches($uid));
   }
-  
+
   public function LoadDatasByCustomRequest() {
     return $this->reponse($this->GestionProject->Load->LoadDatasByCustomRequest());
   }
-  
+
   /**
    *
    * @param array|mixed $configs
@@ -284,7 +285,7 @@ class GestionTacheController extends ControllerBase {
       return $reponse;
     }
   }
-  
+
   /**
    * Verifie que l'utilisateur à le droit d'acceder au contenu.
    */
@@ -295,5 +296,5 @@ class GestionTacheController extends ControllerBase {
       $permission = $requiement['_permission'];
     return \Drupal::currentUser()->hasPermission($permission);
   }
-  
+
 }

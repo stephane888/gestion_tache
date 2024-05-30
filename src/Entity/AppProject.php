@@ -80,10 +80,10 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * )
  */
 class AppProject extends EditorialContentEntityBase implements AppProjectInterface {
-  
+
   use EntityChangedTrait;
   use EntityPublishedTrait;
-  
+
   /**
    *
    * {@inheritdoc}
@@ -94,7 +94,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'user_id' => \Drupal::currentUser()->id()
     ];
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -109,7 +109,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     }
     return $uri_route_parameters;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -131,22 +131,22 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       if (!$AccessEntitiesController->accessToUpdateEntity($this))
         throw new ExceptionGestionTache("Vous n'avez pas les droits necessaires pour modifier cette ressource ", 435);
     }
-    
+
     foreach (array_keys($this->getTranslationLanguages()) as $langcode) {
       $translation = $this->getTranslation($langcode);
-      
+
       // If no owner has been set explicitly, make the anonymous user the owner.
       if (!$translation->getOwner()) {
         $translation->setOwnerId(0);
       }
     }
-    
+
     // If no revision author has been set explicitly,
     // make the app_project owner the revision author.
     if (!$this->getRevisionUser()) {
       $this->setRevisionUserId($this->getOwnerId());
     }
-    
+
     /**
      * Avant de sauvegarder un projet comme terminer, on doit se rassurer que
      * tous les sous taches sont ok.
@@ -154,6 +154,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $status_projet = $this->getStatusExecution();
     if ($status_projet == 'end' || $status_projet == 'validate') {
       $query = \Drupal::entityTypeManager()->getStorage("sub_tache")->getQuery();
+      $query->accessCheck();
       $query->condition('status', 1);
       $query->condition('app_project', $this->id());
       $or = $query->orConditionGroup();
@@ -165,7 +166,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         throw new ExceptionGestionTache("Vous avez des sous taches non terminées ", 435);
     }
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -173,7 +174,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
   public function getName() {
     return $this->get('name')->value;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -182,15 +183,15 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $this->set('name', $name);
     return $this;
   }
-  
+
   public function getStatusExecution() {
     return $this->get('status_execution')->value;
   }
-  
+
   public function setStatusExecution($status) {
     return $this->set('status_execution', $status);
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -198,7 +199,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -207,7 +208,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $this->set('created', $timestamp);
     return $this;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -215,7 +216,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
   public function getOwner() {
     return $this->get('user_id')->entity;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -223,7 +224,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
   public function getOwnerId() {
     return $this->get('user_id')->target_id;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -232,7 +233,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $this->set('user_id', $uid);
     return $this;
   }
-  
+
   /**
    *
    * {@inheritdoc}
@@ -241,21 +242,21 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     $this->set('user_id', $account->id());
     return $this;
   }
-  
+
   public function IsPrivate() {
     return $this->get('private')->value;
   }
-  
+
   /**
    *
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
-    
+
     // Add the published field.
     $fields += static::publishedBaseFieldDefinitions($entity_type);
-    
+
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Authored by'))->setDescription(t('The user ID of author of the App project entity.'))->setRevisionable(TRUE)->setSetting('target_type', 'user')->setSetting('handler', 'default')->setTranslatable(TRUE)->setDisplayOptions('view', [
       'label' => 'hidden',
       'type' => 'author',
@@ -270,7 +271,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'placeholder' => ''
       ]
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
-    
+
     $fields['name'] = BaseFieldDefinition::create('string')->setLabel("Titre")->setDescription(t('The name of the App project entity.'))->setRevisionable(TRUE)->setSettings([
       'max_length' => 250,
       'text_processing' => 0
@@ -282,7 +283,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'type' => 'string_textfield',
       'weight' => -4
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setRequired(TRUE)->setTranslatable(true);
-    
+
     //
     $fields['type_project'] = BaseFieldDefinition::create('entity_reference')->setLabel(" Type de project ")->setDisplayOptions('form', [
       'type' => 'select2_entity_reference',
@@ -339,9 +340,9 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'bug' => "Bug",
         'miseajour' => 'Mise à jour',
         'suivi' => 'suivi',
-        'memo'=>'memo',
-        'tuto'=>'Tuto',
-        'config'=>'Config'
+        'memo' => 'memo',
+        'tuto' => 'Tuto',
+        'config' => 'Config'
       ]
     ])->setRequired(true)->setDefaultValue('tache');
     //
@@ -402,7 +403,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     // 'end_value' => "2023-05-03"
     // ])
     //
-    
+
     //
     $fields['primes'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Primes'))->setSetting('target_type', 'app_prime')->setSetting('handler', 'default')->setDisplayOptions('form', [
       'type' => 'entity_reference_autocomplete',
@@ -425,7 +426,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
         'placeholder' => ''
       ]
     ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE)->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
-    
+
     $fields['project_manager'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Chef de projet'))->setDisplayOptions('form', [
       'type' => 'options_select',
       'weight' => 5,
@@ -439,7 +440,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       '\Drupal\gestion_tache\GestionTache',
       'getAvailableUserForProjectByField'
     ])->setSetting('target_type', 'user')->setSetting('handler', 'default')->setDefaultValueCallback("\Drupal\gestion_tache\GestionTache::ChiefManagerProject");
-    
+
     $fields['executants'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Executants'))->setDisplayOptions('form', [
       'type' => 'options_buttons',
       'weight' => 5,
@@ -453,7 +454,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       '\Drupal\gestion_tache\GestionTache',
       'getAvailableUserForProjectByField'
     ])->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)->setSetting('target_type', 'user')->setSetting('handler', 'default');
-    
+
     $fields['description'] = BaseFieldDefinition::create('text_long')->setLabel(" Description ")->setDisplayOptions('form', [
       'type' => 'text_textarea',
       'weight' => 0
@@ -462,7 +463,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'type' => 'text_default',
       'weight' => 0
     ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true);
-    
+
     $fields['description_cancel'] = BaseFieldDefinition::create('text_long')->setLabel(" Raison de la suppression ")->setDisplayOptions('form', [
       'type' => 'text_textarea',
       'weight' => 0
@@ -471,20 +472,20 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
       'type' => 'text_default',
       'weight' => 0
     ])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true);
-    
+
     //
     $fields['status']->setDescription(t('A boolean indicating whether the App project is published.'))->setDisplayOptions('form', [
       'type' => 'boolean_checkbox',
       'weight' => -3
     ]);
-    
+
     $fields['created'] = BaseFieldDefinition::create('created')->setLabel(t('Created'))->setDescription(t('The time that the entity was created.'));
-    
+
     $fields['changed'] = BaseFieldDefinition::create('changed')->setLabel(t('Changed'))->setDescription(t('The time that the entity was last edited.'));
-    
+
     $fields['revision_translation_affected'] = BaseFieldDefinition::create('boolean')->setLabel(t('Revision translation affected'))->setDescription(t('Indicates if the last edit of a translation belongs to current revision.'))->setReadOnly(TRUE)->setRevisionable(TRUE)->setTranslatable(TRUE);
-    
+
     return $fields;
   }
-  
+
 }

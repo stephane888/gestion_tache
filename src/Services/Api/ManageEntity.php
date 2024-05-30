@@ -10,23 +10,23 @@ use Query\Repositories\Utility as QueryUtility;
  * --
  *
  * @author stephane
- *        
+ *
  */
 class ManageEntity extends BaseApi {
-  
+
   /**
    *
    * @var \Drupal\gestion_tache\Services\Api\AccessEntitiesController
    */
   protected $AccessEntitiesController;
-  
+
   /**
    * --
    */
   function __construct(AccessEntitiesController $AccessEntitiesController) {
     $this->AccessEntitiesController = $AccessEntitiesController;
   }
-  
+
   /**
    * charge un type de projet.
    *
@@ -49,7 +49,7 @@ class ManageEntity extends BaseApi {
     }
     return $data;
   }
-  
+
   /**
    * NB: on limite à 300 en attendant de develloper la pagination en front.
    * Charge les types d'entité.
@@ -88,7 +88,7 @@ class ManageEntity extends BaseApi {
         $types[$entity_type_id]['entities'][$l]["statistiques"] = $this->countEntities($val['entity_id'], $entity);
     }
   }
-  
+
   /**
    * Charge les types de projets en function du droits de l'utilisateur.
    * On distingue 3 cas:
@@ -115,7 +115,7 @@ class ManageEntity extends BaseApi {
     }
     return $types;
   }
-  
+
   /**
    * Permet de decompte les entites (total, effectuee bref en function des
    * status).
@@ -128,23 +128,27 @@ class ManageEntity extends BaseApi {
     $statistiques = [];
     // total des taches crrer
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    $query->accessCheck();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $statistiques['total'] = $query->count()->execute();
     // Taches validate.
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    $query->accessCheck();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $query->condition('status_execution', 'validate');
     $statistiques['validate'] = $query->count()->execute();
     // Taches terminé
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getQuery();
+    $query->accessCheck();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $query->condition('status_execution', 'end');
     $statistiques['end'] = $query->count()->execute();
     // Montant
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getAggregateQuery();
+    $query->accessCheck();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $query->condition('status_execution', 'cancel', '<>');
@@ -155,6 +159,7 @@ class ManageEntity extends BaseApi {
     $statistiques['montant'] = $query->execute();
     // Perte financiere.
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getAggregateQuery();
+    $query->accessCheck();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $query->condition('status_execution', 'cancel', '=');
@@ -165,6 +170,7 @@ class ManageEntity extends BaseApi {
     $statistiques['pertes'] = $query->execute();
     // Duree_execution prevu.
     $query = $this->entityTypeManager()->getStorage($entity_type_id)->getAggregateQuery();
+    $query->accessCheck();
     $query->condition('status', true);
     $query->condition('type', $entityType->id());
     $query->condition('duree_execution', 0, '>');
@@ -184,14 +190,14 @@ class ManageEntity extends BaseApi {
     from `app_project_field_data` as ap
     INNER JOIN `app_project__duree` apd ON apd.`entity_id`=ap.`id`
     WHERE ap.status = 1 and (ap.status_execution = 'validate' or ap.status_execution = 'end') and type = '$type'
-    group by ap.id 
+    group by ap.id
 ";
     $result = \Drupal::database()->query($query);
     $result->execute();
     $statistiques['duree_execution_reelle'] = $result->fetchAll(\PDO::FETCH_ASSOC);
     return $statistiques;
   }
-  
+
   /**
    * Les projets concernent l'entité app_project et sub_taches.
    * Logique :
@@ -255,7 +261,7 @@ class ManageEntity extends BaseApi {
     }
     return $typesProjects;
   }
-  
+
   /**
    *
    * Permet de creer ou mettre à jour les entitées.
@@ -288,5 +294,5 @@ class ManageEntity extends BaseApi {
     $this->setAjaxMessage($entity->label() . " a été crée ");
     return $entity;
   }
-  
+
 }
