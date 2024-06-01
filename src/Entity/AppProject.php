@@ -435,7 +435,7 @@ class AppProject extends EditorialContentEntityBase implements AppProjectInterfa
     // 'placeholder' => ''
     // ]
     // ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view',
-    // TRUE)->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+    // TRUE)->setCardinality(1);
     
     $fields['project_manager'] = BaseFieldDefinition::create('entity_reference')->setLabel(t('Chef de projet'))->setDisplayOptions('form', [
       'type' => 'options_select',
