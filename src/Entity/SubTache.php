@@ -169,8 +169,10 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
         $status_projet = $projet->getStatusExecution();
         if ($status_projet == 'end' || $status_projet == 'validate') {
           $projet->setStatusExecution('break');
-          $projet->save();
         }
+        // a chaque fois qu'on cree une sous tache on met à jour la tache
+        // parente.
+        $projet->save();
       }
     }
     /**
