@@ -396,6 +396,28 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
       'type' => 'boolean_checkbox',
       'weight' => 3
     ])->setDisplayOptions('view', [])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setDefaultValue(false);
+    
+    $fields['montant'] = BaseFieldDefinition::create('integer')->setLabel(" Montant (Euro) ")->setRevisionable(TRUE)->setSettings([
+      'min' => 0
+    ])->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'string',
+      'weight' => -4
+    ])->setDisplayOptions('form', [
+      'type' => 'number'
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
+    /**
+     * Represente le montant alloué à un projet.
+     */
+    $fields['investissement'] = BaseFieldDefinition::create('integer')->setLabel(" investissement (Euro) ")->setRevisionable(TRUE)->setSettings([
+      'min' => 0
+    ])->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'string',
+      'weight' => -4
+    ])->setDescription("Represente le montant allouer au projet")->setDisplayOptions('form', [
+      'type' => 'number'
+    ])->setDisplayConfigurable('form', TRUE)->setDisplayConfigurable('view', TRUE);
     //
     $fields['status']->setDescription(t('A boolean indicating whether the Sub tache is published.'))->setDisplayOptions('form', [
       'type' => 'boolean_checkbox',
