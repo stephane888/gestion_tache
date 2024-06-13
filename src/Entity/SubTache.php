@@ -399,7 +399,7 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
       'weight' => 3
     ])->setDisplayOptions('view', [])->setDisplayConfigurable('view', TRUE)->setDisplayConfigurable('form', true)->setDefaultValue(false);
     
-    $fields['montant'] = BaseFieldDefinition::create('integer')->setLabel(" Montant (Euro) ")->setRevisionable(TRUE)->setSettings([
+    $fields['montant'] = BaseFieldDefinition::create('integer')->setLabel(" Montant (cfa) ")->setRevisionable(TRUE)->setSettings([
       'min' => 0
     ])->setDisplayOptions('view', [
       'label' => 'above',
@@ -411,7 +411,7 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
     /**
      * Represente le montant alloué à un projet.
      */
-    $fields['investissement'] = BaseFieldDefinition::create('integer')->setLabel(" investissement (Euro) ")->setRevisionable(TRUE)->setSettings([
+    $fields['investissement'] = BaseFieldDefinition::create('integer')->setLabel(" investissement (cfa) ")->setRevisionable(TRUE)->setSettings([
       'min' => 0
     ])->setDisplayOptions('view', [
       'label' => 'above',
