@@ -130,18 +130,20 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
     
     // On ne doit pas pouvoir mettre à running un soustache donc le parent n'est
     // pas deja à running.
-    $status_execution = $this->getStatusExecution();
-    if ($status_execution == 'running') {
-      /**
-       *
-       * @var \Drupal\gestion_tache\Entity\AppProject $projet
-       */
-      $projet = \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
-      $status_projet = $projet->getStatusExecution();
-      if ($status_projet != 'running') {
-        ExceptionGestionTache::exception("Vous devez au prealable demarrer la tache parente");
-      }
-    }
+    // $status_execution = $this->getStatusExecution();
+    // if ($status_execution == 'running') {
+    // /**
+    // *
+    // * @var \Drupal\gestion_tache\Entity\AppProject $projet
+    // */
+    // $projet =
+    // \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
+    // $status_projet = $projet->getStatusExecution();
+    // if ($status_projet != 'running') {
+    // ExceptionGestionTache::exception("Vous devez au prealable demarrer la
+    // tache parente");
+    // }
+    // }
   }
   
   /**
@@ -170,36 +172,29 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
         if ($status_projet == 'end' || $status_projet == 'validate') {
           $projet->setStatusExecution('break');
         }
+        $timestamp = \Drupal::time()->getCurrentTime();
         // a chaque fois qu'on cree une sous tache on met à jour la tache
         // parente.
+        $projet->setChangedTime($timestamp);
         $projet->save();
       }
     }
     /**
-     * On ne doit pas pouvoir demarrer une sous tache si le parent n'est pas
-     * demarrer.
+     * On demarre la tache parente si cest pas le cas.
      */
     elseif ($status_execution == 'running') {
-    
-    /**
-     *
-     * @var \Drupal\gestion_tache\Entity\AppProject $projet
-     */
-      // $projet =
-      // \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
-      // if ($projet) {
-      // $status_projet = $projet->getStatusExecution();
-      // if ($status_projet != 'running') {
-      // // Il faut egalement mettre à jour l'heure de debut.
-      // $durees = $projet->get('duree')->getValue();
-      // if ($durees) {
-      // $last_index = count($durees) - 1;
-      // if(!empty($durees[$last_index]['value'])){
-      
-      // }
-      // }
-      // $projet->setStatusExecution('running');
-      // $projet->save();
+      /**
+       *
+       * @var \Drupal\gestion_tache\Entity\AppProject $projet
+       */
+      $projet = \Drupal::entityTypeManager()->getStorage('app_project')->load($this->getAppProject());
+      if ($projet) {
+        $status_projet = $projet->getStatusExecution();
+        if ($status_projet !== 'running') {
+          $projet->setStatusExecution('running');
+          $projet->save();
+        }
+      }
     }
   }
   
