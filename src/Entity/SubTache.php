@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityPublishedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 use Drupal\gestion_tache\ExceptionGestionTache;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Defines the Sub tache entity.
@@ -386,7 +387,7 @@ class SubTache extends EditorialContentEntityBase implements AppProjectInterface
         'date_type' => 'date',
         'time_type' => 'time'
       ]
-    ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate');
+    ])->setRequired(TRUE)->setDefaultValueCallback('\Drupal\gestion_tache\GestionTache::defaultValueForFieldDate')->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
     
     //
     $fields['private'] = BaseFieldDefinition::create('boolean')->setLabel(" privé ? ")->setDisplayOptions('form', [

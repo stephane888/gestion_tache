@@ -127,7 +127,10 @@ function __gestion_tache_update_name_max_length($entity_type_id) {
  * @param string $entity_type_id
  */
 function __gestion_tache_update_field_duree($entity_type_id) {
+  $is_revisiannable = false;
   $entityStorage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
+  if ($entityStorage->getRevisionTable())
+    $is_revisiannable = TRUE;
   // Retrieve existing field data.
   /**
    *
@@ -135,14 +138,17 @@ function __gestion_tache_update_field_duree($entity_type_id) {
    */
   $database = \Drupal::database();
   $table = $entity_type_id . '_field_data';
-  $durees = $database->select($table, 'et')->fields('et', [
+  $columns = [
     'id',
     'vid',
     'langcode',
     'duree__value',
-    'duree__end_value',
-    'type'
-  ])->execute()->fetchAll(\PDO::FETCH_ASSOC);
+    'duree__end_value'
+  ];
+  if ($entity_type_id == 'app_project') {
+    $columns[] = 'type';
+  }
+  $durees = $database->select($table, 'et')->fields('et', $columns)->execute()->fetchAll(\PDO::FETCH_ASSOC);
   // Remove data from the column.
   $database->update($table)->fields([
     'duree__value' => NULL,
@@ -166,9 +172,8 @@ function __gestion_tache_update_field_duree($entity_type_id) {
   $updateManager->installFieldStorageDefinition('duree', $entity_type_id, "gestion_tache", $fields['duree']);
   // Restore entity data in the new schema.
   foreach ($durees as $duree) {
-    if (!empty($duree['duree__value']) && !empty($duree['duree__end_value']))
-      $database->insert($entity_type_id . '__duree')->fields([
-        'bundle' => $duree['type'],
+    if (!empty($duree['duree__value']) && !empty($duree['duree__end_value'])) {
+      $columns_datas = [
         'deleted' => 0,
         'entity_id' => $duree['id'],
         'revision_id' => $duree['vid'],
@@ -176,24 +181,30 @@ function __gestion_tache_update_field_duree($entity_type_id) {
         'delta' => 0,
         'duree_value' => $duree['duree__value'],
         'duree_end_value' => $duree['duree__end_value']
-      ])->execute();
-  }
-  // Restore revision
-  // On considere que les données sont identique dans les revisions.
-  if ($entityStorage->getRevisionTable())
-    foreach ($durees as $duree) {
-      if (!empty($duree['duree__value']) && !empty($duree['duree__end_value']))
-        $database->insert($entity_type_id . '_revision__duree')->fields([
-          'bundle' => $duree['type'],
-          'deleted' => 0,
-          'entity_id' => $duree['id'],
-          'revision_id' => $duree['vid'],
-          'langcode' => $duree['langcode'],
-          'delta' => 0,
-          'duree_value' => $duree['duree__value'],
-          'duree_end_value' => $duree['duree__end_value']
-        ])->execute();
+      ];
+      if ($entity_type_id == 'app_project') {
+        $columns_datas['bundle'] = $duree['type'];
+      }
+      $database->insert($entity_type_id . '__duree')->fields($columns_datas)->execute();
+      // On met à jour les revisions en considerant que se sont les memes
+      // données.
+      if ($is_revisiannable)
+        $database->insert($entity_type_id . '_revision__duree')->fields($columns_datas)->execute();
     }
+  }
+}
+
+/**
+ * Transformation du champs duree (sub_tache) en champs multiple afin de
+ * permettre la mise en pause d'une tache.
+ *
+ * implement hook_update_8001
+ *
+ * @see https://www.drupal.org/node/2554097
+ * @see https://www.drupal.org/docs/drupal-apis/update-api/introduction-to-update-api-for-drupal-8
+ */
+function gestion_tache_update_8003() {
+  __gestion_tache_update_field_duree('sub_tache');
 }
 
 /**
