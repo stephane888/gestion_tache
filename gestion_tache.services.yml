@@ -28,6 +28,13 @@ services:
     tags:
       - { name: normalizer, priority: 1 }
     arguments: ['@entity.repository']
+ 
+ # ecouter d'evenement   
+  gestion_tache_v2.jsonapi_build_subscriber:
+    class: Drupal\gestion_tache\EventSubscriber\GestionProjectV2Subscriber    
+    tags:
+      - { name: event_subscriber }
+
   
   
  ##### Cette version serra supprimer sur la branche 3x.  
