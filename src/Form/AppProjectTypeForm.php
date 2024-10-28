@@ -9,13 +9,14 @@ use Drupal\Core\Form\FormStateInterface;
  * Class AppProjectTypeForm.
  */
 class AppProjectTypeForm extends EntityForm {
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
-
+    
     $app_project_type = $this->entity;
     $form['label'] = [
       '#type' => 'textfield',
@@ -23,43 +24,63 @@ class AppProjectTypeForm extends EntityForm {
       '#maxlength' => 255,
       '#default_value' => $app_project_type->label(),
       '#description' => $this->t("Label for the App project type."),
-      '#required' => TRUE,
+      '#required' => TRUE
     ];
-
+    
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $app_project_type->id(),
       '#machine_name' => [
-        'exists' => '\Drupal\gestion_tache\Entity\AppProjectType::load',
+        'exists' => '\Drupal\gestion_tache\Entity\AppProjectType::load'
       ],
-      '#disabled' => !$app_project_type->isNew(),
+      '#disabled' => !$app_project_type->isNew()
     ];
-
+    $form['status'] = [
+      '#type' => 'checkbox',
+      '#title' => 'status',
+      '#default_value' => $app_project_type->get('status')
+    ];
+    $form['private'] = [
+      '#type' => 'checkbox',
+      '#title' => 'private',
+      '#default_value' => $app_project_type->get('private')
+    ];
+    $form['status_project'] = [
+      '#type' => 'select',
+      '#title' => 'status_project',
+      '#options' => [
+        '' => 'Aucun',
+        'open' => 'open',
+        'close' => 'close'
+      ],
+      '#default_value' => $app_project_type->get('status_project')
+    ];
     /* You will need additional form elements for your custom properties. */
-
+    
     return $form;
   }
-
+  
   /**
+   *
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     $app_project_type = $this->entity;
     $status = $app_project_type->save();
-
+    
     switch ($status) {
       case SAVED_NEW:
         $this->messenger()->addMessage($this->t('Created the %label App project type.', [
-          '%label' => $app_project_type->label(),
+          '%label' => $app_project_type->label()
         ]));
         break;
-
+      
       default:
         $this->messenger()->addMessage($this->t('Saved the %label App project type.', [
-          '%label' => $app_project_type->label(),
+          '%label' => $app_project_type->label()
         ]));
     }
     $form_state->setRedirectUrl($app_project_type->toUrl('collection'));
   }
-
+  
 }
